@@ -1,0 +1,38 @@
+.grafico-riscos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.grafico-riscos__linha {
+  display: grid;
+  grid-template-columns: 90px 1fr 28px;
+  align-items: center;
+  gap: 10px;
+}
+
+.grafico-riscos__rotulo {
+  font-size: 0.82rem;
+  color: var(--cor-texto-suave);
+}
+
+.grafico-riscos__trilho {
+  background: var(--cor-fundo);
+  border-radius: 999px;
+  height: 18px;
+  overflow: hidden;
+}
+
+.grafico-riscos__barra {
+  height: 100%;
+  border-radius: 999px;
+  min-width: 4px;
+  transition: width 0.25s ease;
+}
+
+.grafico-riscos__total {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+  text-align: right;
+}

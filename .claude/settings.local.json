@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Write-Output \"OneDrive env: $env:OneDrive\"; Write-Output \"OneDriveCommercial: $env:OneDriveCommercial\"; \\(Get-ItemProperty -Path 'HKCU:\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Explorer\\\\User Shell Folders' -Name Desktop -ErrorAction SilentlyContinue\\).Desktop)",
+      "Bash(npm -v)",
+      "PowerShell(node -v)",
+      "PowerShell(npm -v)",
+      "Bash(mkdir -p \"C:\\\\Users\\\\guilherme.califoni_g\\\\Desktop\\\\Motiva-Field\\\\.claude\")",
+      "Bash(powershell -Command \"Get-ChildItem -Path 'C:\\\\Users\\\\guilherme.califoni_g\\\\Desktop' -Filter 'CLAUDE.md' -Recurse -Depth 2 -ErrorAction SilentlyContinue | Select-Object FullName\")",
+      "PowerShell(Set-Location \"C:\\\\Users\\\\guilherme.califoni_g\\\\Desktop\\\\Motiva-Field\\\\web\"; Get-ChildItem -Recurse -Directory node_modules -ErrorAction SilentlyContinue | Where-Object { $_.Name -eq \"react\" -or $_.Name -eq \"react-dom\" } | Select-Object FullName)",
+      "PowerShell($p='C:\\\\Users\\\\guilherme.califoni_g\\\\Desktop\\\\Motiva-Field\\\\CLAUDE.md'; Write-Output \"root exists: $\\(Test-Path -LiteralPath $p\\)\"; $d='C:\\\\Users\\\\guilherme.califoni_g\\\\Desktop\\\\CLAUDE.md'; Write-Output \"desktop exists: $\\(Test-Path -LiteralPath $d\\)\"; Get-ChildItem -Path 'C:\\\\Users\\\\guilherme.califoni_g\\\\Desktop' -Filter 'CLAUDE.md' -Recurse -Depth 4 -Force -File -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName + ' | ' + $_.LastWriteTime })",
+      "PowerShell(Get-ChildItem -Path 'C:\\\\Users\\\\guilherme.califoni_g\\\\Desktop\\\\Motiva-Field' -Recurse -File -Force -ErrorAction SilentlyContinue | Where-Object { $_.FullName -notmatch 'node_modules' } | Select-Object -ExpandProperty FullName)",
+      "PowerShell(Set-Location \"C:\\\\Users\\\\guilherme.califoni_g\\\\Desktop\\\\Motiva-Field\\\\web\"; npm audit --json | ConvertFrom-Json | ForEach-Object { $_.vulnerabilities.PSObject.Properties | ForEach-Object { \"$\\($_.Name\\) | sev=$\\($_.Value.severity\\) | via=$\\($_.Value.via -join ','\\)\" } })",
+      "PowerShell(Set-Location \"C:\\\\Users\\\\guilherme.califoni_g\\\\Desktop\\\\Motiva-Field\"; Write-Output \"user.name=$\\(git config --global user.name\\)\"; Write-Output \"user.email=$\\(git config --global user.email\\)\"; Write-Output \"defaultBranch=$\\(git config --global init.defaultBranch\\)\")"
+    ]
+  }
+}

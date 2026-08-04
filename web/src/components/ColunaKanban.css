@@ -1,0 +1,52 @@
+.coluna-kanban {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.coluna-kanban__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.coluna-kanban__cabecalho h3 {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--cor-primaria);
+}
+
+.coluna-kanban__contador {
+  background: var(--cor-primaria);
+  color: #ffffff;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  min-width: 22px;
+  text-align: center;
+  padding: 2px 7px;
+}
+
+.coluna-kanban__cards {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.coluna-kanban__vazio {
+  margin: 0;
+  font-size: 0.76rem;
+  color: var(--cor-texto-suave);
+  text-align: center;
+  padding: 12px 0;
+}

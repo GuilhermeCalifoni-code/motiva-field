@@ -1,0 +1,31 @@
+.navegacao-lateral {
+  flex: 0 0 216px;
+  background: var(--cor-primaria);
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navegacao-lateral__link {
+  display: block;
+  padding: 11px 14px;
+  border-radius: var(--raio);
+  color: #d9c9f2;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-left: 3px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.navegacao-lateral__link:hover {
+  background: var(--cor-primaria-clara);
+  color: #ffffff;
+}
+
+.navegacao-lateral__link--ativo {
+  background: var(--cor-primaria-escura);
+  color: var(--cor-destaque);
+  border-left-color: var(--cor-destaque);
+}

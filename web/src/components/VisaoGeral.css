@@ -1,0 +1,37 @@
+.visao-geral {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.visao-geral__kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+}
+
+.visao-geral__colunas {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+@media (max-width: 1080px) {
+  .visao-geral__colunas {
+    grid-template-columns: 1fr;
+  }
+}
+
+.visao-geral__bloco {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: 16px;
+}
+
+.visao-geral__bloco h2 {
+  margin: 0 0 14px;
+  font-size: 0.95rem;
+  color: var(--cor-primaria);
+}

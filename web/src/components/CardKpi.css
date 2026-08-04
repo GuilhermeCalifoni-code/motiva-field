@@ -1,0 +1,28 @@
+.card-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: 16px;
+  min-width: 0;
+}
+
+.card-kpi__valor {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+  line-height: 1.1;
+}
+
+.card-kpi__rotulo {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.card-kpi__detalhe {
+  font-size: 0.72rem;
+  color: var(--cor-texto-suave);
+}

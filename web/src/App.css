@@ -1,0 +1,42 @@
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app__cabecalho {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 24px;
+  background: var(--cor-primaria);
+  color: #ffffff;
+  border-bottom: 3px solid var(--cor-destaque);
+}
+
+.app__marca {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.app__subtitulo {
+  font-size: 0.85rem;
+  color: #d9c9f2;
+}
+
+.app__corpo {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.app__conteudo {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 18px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}

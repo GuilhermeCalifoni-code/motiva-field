@@ -1,0 +1,33 @@
+.grafico-altura svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.grafico-altura__eixo {
+  stroke: var(--cor-borda);
+  stroke-width: 1;
+}
+
+.grafico-altura__linha {
+  fill: none;
+  stroke: var(--cor-primaria);
+  stroke-width: 2;
+}
+
+.grafico-altura__ponto {
+  fill: var(--cor-destaque);
+  stroke: var(--cor-primaria);
+  stroke-width: 1.5;
+}
+
+.grafico-altura__valor {
+  font-size: 10px;
+  fill: var(--cor-texto);
+  font-weight: 600;
+}
+
+.grafico-altura__data {
+  font-size: 9px;
+  fill: var(--cor-texto-suave);
+}

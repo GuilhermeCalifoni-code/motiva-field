@@ -1,0 +1,20 @@
+.secao-mapa {
+  display: flex;
+  flex: 1;
+  min-height: 420px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  overflow: hidden;
+  background: var(--cor-superficie);
+}
+
+.secao-mapa__mapa {
+  flex: 0 0 70%;
+  min-width: 0;
+  border-right: 1px solid var(--cor-borda);
+}
+
+.secao-mapa__lista {
+  flex: 0 0 30%;
+  min-width: 0;
+}

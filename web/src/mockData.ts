@@ -1,0 +1,430 @@
+// Dado falso e único desta frente. Nenhum componente deve inventar dado inline.
+// Quando o banco chegar, este arquivo é trocado por queries — nada mais muda.
+
+export type Sentido = "Capital" | "Interior";
+export type Margem = "direita" | "esquerda";
+export type NivelRisco = "tranquilo" | "atencao" | "critico";
+
+export interface Passagem {
+  data: string; // ISO 8601
+  alturaCm: number;
+}
+
+export interface PontoVegetacao {
+  id: string;
+  rodovia: string;
+  km: number;
+  sentido: Sentido;
+  margem: Margem;
+  latitude: number;
+  longitude: number;
+  alturaAtualCm: number;
+  nivelRisco: NivelRisco;
+  invadePista: boolean;
+  cobrePlaca: boolean;
+  historico: Passagem[];
+}
+
+// Escala de risco do produto: verde tranquilo, laranja atenção, amarelo/ouro crítico.
+export const RISCO_LABEL: Record<NivelRisco, string> = {
+  tranquilo: "Tranquilo",
+  atencao: "Atenção",
+  critico: "Crítico",
+};
+
+export const RISCO_COR: Record<NivelRisco, string> = {
+  tranquilo: "#22c55e",
+  atencao: "#f97316",
+  critico: "#f2b705",
+};
+
+// Usado para ordenar a lista por risco decrescente (crítico primeiro).
+export const RISCO_ORDEM: Record<NivelRisco, number> = {
+  critico: 3,
+  atencao: 2,
+  tranquilo: 1,
+};
+
+function paraDiasEpoch(dataIso: string): number {
+  const [ano, mes, dia] = dataIso.split("-").map(Number);
+  return Date.UTC(ano, mes - 1, dia) / (1000 * 60 * 60 * 24);
+}
+
+// Crescimento médio, em cm por mês, entre a primeira e a última passagem.
+export function crescimentoMensalCm(historico: Passagem[]): number {
+  const primeira = historico[0];
+  const ultima = historico[historico.length - 1];
+  const dias = paraDiasEpoch(ultima.data) - paraDiasEpoch(primeira.data);
+  const meses = dias / 30.44;
+  return (ultima.alturaCm - primeira.alturaCm) / meses;
+}
+
+// Crescimento médio do trecho inteiro, em cm por mês.
+export function crescimentoMedioTrechoCm(pontos: PontoVegetacao[]): number {
+  const soma = pontos.reduce((total, ponto) => total + crescimentoMensalCm(ponto.historico), 0);
+  return soma / pontos.length;
+}
+
+export function contarPorRisco(pontos: PontoVegetacao[], nivelRisco: NivelRisco): number {
+  return pontos.filter((ponto) => ponto.nivelRisco === nivelRisco).length;
+}
+
+// Centro geográfico do trecho — usado para consultar o clima da região.
+export function centroDoTrecho(pontos: PontoVegetacao[]): { latitude: number; longitude: number } {
+  const soma = pontos.reduce(
+    (total, ponto) => ({
+      latitude: total.latitude + ponto.latitude,
+      longitude: total.longitude + ponto.longitude,
+    }),
+    { latitude: 0, longitude: 0 },
+  );
+  return {
+    latitude: soma.latitude / pontos.length,
+    longitude: soma.longitude / pontos.length,
+  };
+}
+
+export const pontosVegetacao: PontoVegetacao[] = [
+  {
+    id: "sp270-pv-01",
+    rodovia: "SP-270",
+    km: 98.2,
+    sentido: "Capital",
+    margem: "direita",
+    latitude: -23.4692,
+    longitude: -47.9581,
+    alturaAtualCm: 32,
+    nivelRisco: "atencao",
+    invadePista: false,
+    cobrePlaca: false,
+    historico: [
+      { data: "2026-04-10", alturaCm: 12 },
+      { data: "2026-05-08", alturaCm: 17 },
+      { data: "2026-06-05", alturaCm: 22 },
+      { data: "2026-07-03", alturaCm: 27 },
+      { data: "2026-07-31", alturaCm: 32 },
+    ],
+  },
+  {
+    id: "sp270-pv-02",
+    rodovia: "SP-270",
+    km: 98.45,
+    sentido: "Capital",
+    margem: "esquerda",
+    latitude: -23.4695,
+    longitude: -47.9553,
+    alturaAtualCm: 61,
+    nivelRisco: "critico",
+    invadePista: true,
+    cobrePlaca: false,
+    historico: [
+      { data: "2026-04-10", alturaCm: 25 },
+      { data: "2026-05-08", alturaCm: 34 },
+      { data: "2026-06-05", alturaCm: 43 },
+      { data: "2026-07-03", alturaCm: 52 },
+      { data: "2026-07-31", alturaCm: 61 },
+    ],
+  },
+  {
+    id: "sp270-pv-03",
+    rodovia: "SP-270",
+    km: 98.7,
+    sentido: "Interior",
+    margem: "direita",
+    latitude: -23.4699,
+    longitude: -47.9525,
+    alturaAtualCm: 14,
+    nivelRisco: "tranquilo",
+    invadePista: false,
+    cobrePlaca: false,
+    historico: [
+      { data: "2026-04-10", alturaCm: 6 },
+      { data: "2026-05-08", alturaCm: 8 },
+      { data: "2026-06-05", alturaCm: 10 },
+      { data: "2026-07-03", alturaCm: 12 },
+      { data: "2026-07-31", alturaCm: 14 },
+    ],
+  },
+  {
+    id: "sp270-pv-04",
+    rodovia: "SP-270",
+    km: 98.95,
+    sentido: "Interior",
+    margem: "esquerda",
+    latitude: -23.4703,
+    longitude: -47.9497,
+    alturaAtualCm: 50,
+    nivelRisco: "critico",
+    invadePista: false,
+    cobrePlaca: true,
+    historico: [
+      { data: "2026-04-10", alturaCm: 22 },
+      { data: "2026-05-08", alturaCm: 29 },
+      { data: "2026-06-05", alturaCm: 36 },
+      { data: "2026-07-03", alturaCm: 43 },
+      { data: "2026-07-31", alturaCm: 50 },
+    ],
+  },
+  {
+    id: "sp270-pv-05",
+    rodovia: "SP-270",
+    km: 99.3,
+    sentido: "Capital",
+    margem: "direita",
+    latitude: -23.4708,
+    longitude: -47.946,
+    alturaAtualCm: 70,
+    nivelRisco: "critico",
+    invadePista: true,
+    cobrePlaca: true,
+    historico: [
+      { data: "2026-04-10", alturaCm: 30 },
+      { data: "2026-05-08", alturaCm: 40 },
+      { data: "2026-06-05", alturaCm: 50 },
+      { data: "2026-07-03", alturaCm: 60 },
+      { data: "2026-07-31", alturaCm: 70 },
+    ],
+  },
+  {
+    id: "sp270-pv-06",
+    rodovia: "SP-270",
+    km: 99.6,
+    sentido: "Capital",
+    margem: "esquerda",
+    latitude: -23.4712,
+    longitude: -47.9432,
+    alturaAtualCm: 21,
+    nivelRisco: "tranquilo",
+    invadePista: false,
+    cobrePlaca: false,
+    historico: [
+      { data: "2026-04-10", alturaCm: 9 },
+      { data: "2026-05-08", alturaCm: 12 },
+      { data: "2026-06-05", alturaCm: 15 },
+      { data: "2026-07-03", alturaCm: 18 },
+      { data: "2026-07-31", alturaCm: 21 },
+    ],
+  },
+  {
+    id: "sp270-pv-07",
+    rodovia: "SP-270",
+    km: 99.9,
+    sentido: "Interior",
+    margem: "direita",
+    latitude: -23.4716,
+    longitude: -47.9404,
+    alturaAtualCm: 42,
+    nivelRisco: "atencao",
+    invadePista: false,
+    cobrePlaca: false,
+    historico: [
+      { data: "2026-04-10", alturaCm: 19 },
+      { data: "2026-05-08", alturaCm: 25 },
+      { data: "2026-06-05", alturaCm: 31 },
+      { data: "2026-07-03", alturaCm: 37 },
+      { data: "2026-07-31", alturaCm: 42 },
+    ],
+  },
+  {
+    id: "sp270-pv-08",
+    rodovia: "SP-270",
+    km: 100.15,
+    sentido: "Interior",
+    margem: "esquerda",
+    latitude: -23.4719,
+    longitude: -47.938,
+    alturaAtualCm: 29,
+    nivelRisco: "atencao",
+    invadePista: false,
+    cobrePlaca: false,
+    historico: [
+      { data: "2026-04-10", alturaCm: 13 },
+      { data: "2026-05-08", alturaCm: 17 },
+      { data: "2026-06-05", alturaCm: 21 },
+      { data: "2026-07-03", alturaCm: 25 },
+      { data: "2026-07-31", alturaCm: 29 },
+    ],
+  },
+];
+
+// --- Operadores e ordens de serviço ---------------------------------------
+
+export interface Operador {
+  id: string;
+  nome: string;
+}
+
+export const operadores: Operador[] = [
+  { id: "op-01", nome: "Rafael Nogueira" },
+  { id: "op-02", nome: "Camila Duarte" },
+  { id: "op-03", nome: "Anderson Prado" },
+  { id: "op-04", nome: "Juliana Freitas" },
+];
+
+export type StatusOS = "pendente" | "em_deslocamento" | "no_local" | "concluida";
+export type Prioridade = "baixa" | "media" | "alta";
+
+// Ordem das colunas do kanban — também define o avanço de status.
+export const FLUXO_STATUS: StatusOS[] = ["pendente", "em_deslocamento", "no_local", "concluida"];
+
+export const STATUS_LABEL: Record<StatusOS, string> = {
+  pendente: "Pendente",
+  em_deslocamento: "Em deslocamento",
+  no_local: "No local",
+  concluida: "Concluída",
+};
+
+export const PRIORIDADE_LABEL: Record<Prioridade, string> = {
+  baixa: "Baixa",
+  media: "Média",
+  alta: "Alta",
+};
+
+export const PRIORIDADE_COR: Record<Prioridade, string> = {
+  baixa: "#22c55e",
+  media: "#f97316",
+  alta: "#e11d48",
+};
+
+// Ponto crítico gera OS de prioridade alta — regra do time de operação.
+export const PRIORIDADE_POR_RISCO: Record<NivelRisco, Prioridade> = {
+  critico: "alta",
+  atencao: "media",
+  tranquilo: "baixa",
+};
+
+export interface TransicaoStatus {
+  status: StatusOS;
+  em: string; // ISO 8601 com fuso
+}
+
+export interface OrdemServico {
+  id: string;
+  pontoId: string;
+  operadorId: string;
+  prioridade: Prioridade;
+  status: StatusOS;
+  criadaEm: string; // ISO 8601 com fuso
+  // Transições ocorridas depois da criação, em ordem cronológica.
+  transicoes: TransicaoStatus[];
+}
+
+export const ordensServicoIniciais: OrdemServico[] = [
+  {
+    id: "os-01",
+    pontoId: "sp270-pv-05",
+    operadorId: "op-01",
+    prioridade: "alta",
+    status: "pendente",
+    criadaEm: "2026-08-02T07:40:00-03:00",
+    transicoes: [],
+  },
+  {
+    id: "os-02",
+    pontoId: "sp270-pv-02",
+    operadorId: "op-02",
+    prioridade: "alta",
+    status: "pendente",
+    criadaEm: "2026-08-01T14:10:00-03:00",
+    transicoes: [],
+  },
+  {
+    id: "os-03",
+    pontoId: "sp270-pv-04",
+    operadorId: "op-03",
+    prioridade: "alta",
+    status: "em_deslocamento",
+    criadaEm: "2026-08-03T06:20:00-03:00",
+    transicoes: [{ status: "em_deslocamento", em: "2026-08-03T08:05:00-03:00" }],
+  },
+  {
+    id: "os-04",
+    pontoId: "sp270-pv-07",
+    operadorId: "op-04",
+    prioridade: "media",
+    status: "no_local",
+    criadaEm: "2026-08-02T09:00:00-03:00",
+    transicoes: [
+      { status: "em_deslocamento", em: "2026-08-03T07:15:00-03:00" },
+      { status: "no_local", em: "2026-08-03T08:40:00-03:00" },
+    ],
+  },
+  {
+    id: "os-05",
+    pontoId: "sp270-pv-01",
+    operadorId: "op-01",
+    prioridade: "media",
+    status: "concluida",
+    criadaEm: "2026-07-20T08:00:00-03:00",
+    transicoes: [
+      { status: "em_deslocamento", em: "2026-07-21T07:10:00-03:00" },
+      { status: "no_local", em: "2026-07-21T08:25:00-03:00" },
+      { status: "concluida", em: "2026-07-21T11:50:00-03:00" },
+    ],
+  },
+  {
+    id: "os-06",
+    pontoId: "sp270-pv-08",
+    operadorId: "op-02",
+    prioridade: "baixa",
+    status: "concluida",
+    criadaEm: "2026-07-10T10:30:00-03:00",
+    transicoes: [
+      { status: "em_deslocamento", em: "2026-07-13T09:05:00-03:00" },
+      { status: "no_local", em: "2026-07-13T10:40:00-03:00" },
+      { status: "concluida", em: "2026-07-13T15:20:00-03:00" },
+    ],
+  },
+];
+
+export function ordemEstaAberta(ordem: OrdemServico): boolean {
+  return ordem.status !== "concluida";
+}
+
+// Momento em que a OS foi concluída, ou null se ainda estiver aberta.
+export function concluidaEm(ordem: OrdemServico): string | null {
+  const transicao = ordem.transicoes.find((item) => item.status === "concluida");
+  return transicao ? transicao.em : null;
+}
+
+export function concluidasNosUltimosDias(ordens: OrdemServico[], dias: number, agora: number): number {
+  const limite = agora - dias * 24 * 60 * 60 * 1000;
+  return ordens.filter((ordem) => {
+    const fim = concluidaEm(ordem);
+    return fim !== null && new Date(fim).getTime() >= limite;
+  }).length;
+}
+
+// Tempo entre a criação e a conclusão — ou até agora, se ainda estiver aberta.
+export function tempoEmAberto(ordem: OrdemServico, agora: number): string {
+  const fim = concluidaEm(ordem);
+  const fimMs = fim ? new Date(fim).getTime() : agora;
+  const totalMinutos = Math.max(0, Math.round((fimMs - new Date(ordem.criadaEm).getTime()) / 60000));
+  const dias = Math.floor(totalMinutos / (60 * 24));
+  const horas = Math.floor((totalMinutos % (60 * 24)) / 60);
+  const minutos = totalMinutos % 60;
+
+  if (dias > 0) return `${dias}d ${horas}h`;
+  if (horas > 0) return `${horas}h ${minutos}min`;
+  return `${minutos}min`;
+}
+
+// Operador com menos OS em aberto — usado quando a OS nasce do painel de
+// detalhe do mapa, onde não há tela para escolher responsável.
+export function operadorMenosCarregado(ordens: OrdemServico[], equipe: Operador[]): string {
+  const carga = new Map<string, number>(equipe.map((operador) => [operador.id, 0]));
+  for (const ordem of ordens) {
+    if (!ordemEstaAberta(ordem)) continue;
+    const atual = carga.get(ordem.operadorId);
+    if (atual !== undefined) carga.set(ordem.operadorId, atual + 1);
+  }
+  return equipe.reduce((melhor, operador) =>
+    (carga.get(operador.id) ?? 0) < (carga.get(melhor.id) ?? 0) ? operador : melhor,
+  ).id;
+}
+
+export function formatarDataHora(dataIso: string): string {
+  const data = new Date(dataIso);
+  const doisDigitos = (valor: number) => String(valor).padStart(2, "0");
+  return `${doisDigitos(data.getDate())}/${doisDigitos(data.getMonth() + 1)} ${doisDigitos(data.getHours())}:${doisDigitos(data.getMinutes())}`;
+}

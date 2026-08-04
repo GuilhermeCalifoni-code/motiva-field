@@ -1,0 +1,12 @@
+.selo-alerta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #fdecec;
+  color: #b3261e;
+  border: 1px solid #f4c5c2;
+}

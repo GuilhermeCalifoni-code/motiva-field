@@ -1,0 +1,35 @@
+.tabela-crescimento {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.tabela-crescimento th {
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cor-texto-suave);
+  font-weight: 600;
+  padding: 0 10px 8px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.tabela-crescimento td {
+  padding: 10px;
+  border-bottom: 1px solid var(--cor-borda);
+  color: var(--cor-texto);
+}
+
+.tabela-crescimento tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabela-crescimento__km {
+  font-weight: 700;
+  color: var(--cor-primaria);
+}
+
+.tabela-crescimento__destaque {
+  font-weight: 600;
+}

@@ -1,0 +1,50 @@
+.item-ponto {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: 12px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.item-ponto:hover {
+  border-color: var(--cor-primaria-clara);
+}
+
+.item-ponto--selecionado {
+  border-color: var(--cor-destaque);
+  box-shadow: 0 0 0 2px var(--cor-destaque);
+}
+
+.item-ponto__topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.item-ponto__km {
+  font-weight: 700;
+  color: var(--cor-primaria);
+}
+
+.item-ponto__local {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+  margin-bottom: 8px;
+}
+
+.item-ponto__metricas {
+  display: flex;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+.item-ponto__metricas strong {
+  color: var(--cor-texto);
+}

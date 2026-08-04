@@ -1,6 +1,7 @@
-import { crescimentoMensalCm, type PontoVegetacao } from "../mockData";
+import { projecao, type PontoVegetacao } from "../mockData";
 import SeloRisco from "./SeloRisco";
 import SeloAlerta from "./SeloAlerta";
+import SeloPrazo from "./SeloPrazo";
 import GraficoAltura from "./GraficoAltura";
 import "./PainelDetalhe.css";
 
@@ -11,7 +12,7 @@ interface PainelDetalheProps {
 }
 
 export default function PainelDetalhe({ ponto, onFechar, onGerarOrdem }: PainelDetalheProps) {
-  const crescimento = crescimentoMensalCm(ponto.historico);
+  const previsao = projecao(ponto);
 
   return (
     <div className="painel-detalhe__fundo" onClick={onFechar}>
@@ -38,14 +39,18 @@ export default function PainelDetalhe({ ponto, onFechar, onGerarOrdem }: PainelD
             <span className="painel-detalhe__metrica-rotulo">altura atual</span>
           </div>
           <div>
-            <span className="painel-detalhe__metrica-valor">+{crescimento.toFixed(1)} cm</span>
-            <span className="painel-detalhe__metrica-rotulo">crescimento / mês</span>
+            <span className="painel-detalhe__metrica-valor">+{previsao.taxaCmPorMes.toFixed(1)} cm</span>
+            <span className="painel-detalhe__metrica-rotulo">projeção / mês</span>
+          </div>
+          <div>
+            <SeloPrazo projecao={previsao} comData />
+            <span className="painel-detalhe__metrica-rotulo">prazo estimado</span>
           </div>
         </div>
 
         <div className="painel-detalhe__grafico">
           <h3>Altura nas últimas {ponto.historico.length} passagens</h3>
-          <GraficoAltura historico={ponto.historico} />
+          <GraficoAltura historico={ponto.historico} projecao={previsao} />
         </div>
 
         <button type="button" className="painel-detalhe__acao" onClick={onGerarOrdem}>

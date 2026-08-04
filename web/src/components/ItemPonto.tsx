@@ -1,5 +1,6 @@
-import { crescimentoMensalCm, type PontoVegetacao } from "../mockData";
+import { crescimentoMensalCm, projecao, type PontoVegetacao } from "../mockData";
 import SeloRisco from "./SeloRisco";
+import SeloPrazo from "./SeloPrazo";
 import "./ItemPonto.css";
 
 interface ItemPontoProps {
@@ -10,6 +11,7 @@ interface ItemPontoProps {
 
 export default function ItemPonto({ ponto, selecionado, onSelecionar }: ItemPontoProps) {
   const crescimento = crescimentoMensalCm(ponto.historico);
+  const previsao = projecao(ponto);
 
   return (
     <button
@@ -31,6 +33,9 @@ export default function ItemPonto({ ponto, selecionado, onSelecionar }: ItemPont
         <span>
           <strong>+{crescimento.toFixed(1)} cm</strong> / mês
         </span>
+      </div>
+      <div className="item-ponto__prazo">
+        <SeloPrazo projecao={previsao} comData />
       </div>
     </button>
   );

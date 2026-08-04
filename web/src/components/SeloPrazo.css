@@ -1,0 +1,21 @@
+.selo-prazo {
+  display: inline-flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.selo-prazo__dias {
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.selo-prazo__data {
+  font-size: 0.68rem;
+  opacity: 0.8;
+}
+
+/* Vencido e urgente merecem peso extra: são os que param a operação. */
+.selo-prazo--vencido .selo-prazo__dias,
+.selo-prazo--urgente .selo-prazo__dias {
+  font-weight: 700;
+}

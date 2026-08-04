@@ -60,3 +60,16 @@
 .card-clima__chuva strong {
   color: var(--cor-texto);
 }
+
+/* Aviso discreto: um selo, não um alarme. */
+.card-clima__acelera {
+  align-self: flex-start;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--cor-primaria);
+  background: #f4ecff;
+  border: 1px solid #ddcaf5;
+}

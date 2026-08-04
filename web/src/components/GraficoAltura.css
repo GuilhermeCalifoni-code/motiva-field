@@ -9,6 +9,28 @@
   stroke-width: 1;
 }
 
+.grafico-altura__limite {
+  stroke: #c9b8e0;
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+}
+
+.grafico-altura__limite-rotulo {
+  font-size: 8px;
+  fill: var(--cor-texto-suave);
+}
+
+.grafico-altura__projecao {
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+  fill: none;
+}
+
+.grafico-altura__alvo-rotulo {
+  font-size: 9px;
+  font-weight: 700;
+}
+
 .grafico-altura__linha {
   fill: none;
   stroke: var(--cor-primaria);
@@ -30,4 +52,10 @@
 .grafico-altura__data {
   font-size: 9px;
   fill: var(--cor-texto-suave);
+}
+
+.grafico-altura__nota {
+  margin: 6px 0 0;
+  font-size: 0.7rem;
+  color: var(--cor-texto-suave);
 }

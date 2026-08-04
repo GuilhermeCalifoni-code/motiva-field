@@ -10,6 +10,7 @@ export interface Clima {
   temperaturaC: number;
   condicao: string;
   chuva24hMm: number;
+  chuvaPrevista24hMm: number;
 }
 
 interface RespostaOpenMeteo {
@@ -61,24 +62,39 @@ function descreverCondicao(codigo: number | undefined): string {
   return CONDICAO_POR_CODIGO[codigo] ?? "Condição indisponível";
 }
 
-// Soma a precipitação das 24 horas que antecedem o horário atual.
-function somarChuva24h(hourly: RespostaOpenMeteo["hourly"], horaAtual: string | undefined): number {
-  const horarios = hourly?.time;
-  const precipitacoes = hourly?.precipitation;
-  if (!horarios || !precipitacoes || !horaAtual) return 0;
-
-  let indiceAtual = -1;
+// Índice da hora cheia correspondente ao horário atual, ou -1.
+function indiceDaHoraAtual(horarios: string[], horaAtual: string): number {
+  let indice = -1;
   for (let i = 0; i < horarios.length; i += 1) {
-    if (horarios[i] <= horaAtual) indiceAtual = i;
+    if (horarios[i] <= horaAtual) indice = i;
   }
-  if (indiceAtual < 0) return 0;
+  return indice;
+}
 
-  const inicio = Math.max(0, indiceAtual - 23);
+function somarIntervalo(precipitacoes: number[], inicio: number, fim: number): number {
   let total = 0;
-  for (let i = inicio; i <= indiceAtual; i += 1) {
+  for (let i = Math.max(0, inicio); i <= Math.min(precipitacoes.length - 1, fim); i += 1) {
     total += precipitacoes[i] ?? 0;
   }
   return Math.round(total * 10) / 10;
+}
+
+// Chuva acumulada nas 24h anteriores e prevista para as 24h seguintes.
+function chuvaEmVolta(
+  hourly: RespostaOpenMeteo["hourly"],
+  horaAtual: string | undefined,
+): { passada: number; prevista: number } {
+  const horarios = hourly?.time;
+  const precipitacoes = hourly?.precipitation;
+  if (!horarios || !precipitacoes || !horaAtual) return { passada: 0, prevista: 0 };
+
+  const atual = indiceDaHoraAtual(horarios, horaAtual);
+  if (atual < 0) return { passada: 0, prevista: 0 };
+
+  return {
+    passada: somarIntervalo(precipitacoes, atual - 23, atual),
+    prevista: somarIntervalo(precipitacoes, atual + 1, atual + 24),
+  };
 }
 
 export async function buscarClima(
@@ -92,7 +108,7 @@ export async function buscarClima(
     current: "temperature_2m,weather_code",
     hourly: "precipitation",
     past_days: "1",
-    forecast_days: "1",
+    forecast_days: "2",
     timezone: "America/Sao_Paulo",
   });
 
@@ -107,9 +123,12 @@ export async function buscarClima(
     throw new Error("Resposta da Open-Meteo sem temperatura");
   }
 
+  const chuva = chuvaEmVolta(dados.hourly, dados.current?.time);
+
   return {
     temperaturaC: temperatura,
     condicao: descreverCondicao(dados.current?.weather_code),
-    chuva24hMm: somarChuva24h(dados.hourly, dados.current?.time),
+    chuva24hMm: chuva.passada,
+    chuvaPrevista24hMm: chuva.prevista,
   };
 }

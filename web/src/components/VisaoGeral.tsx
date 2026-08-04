@@ -1,10 +1,13 @@
 import {
+  PRAZO_ATENCAO_DIAS,
   RISCO_COR,
+  URGENCIA_COR,
   centroDoTrecho,
   concluidasNosUltimosDias,
   contarPorRisco,
   crescimentoMedioTrechoCm,
   ordemEstaAberta,
+  viramCriticosEm,
   type OrdemServico,
   type PontoVegetacao,
 } from "../mockData";
@@ -26,6 +29,7 @@ export default function VisaoGeral({ pontos, ordens }: VisaoGeralProps) {
   const abertas = ordens.filter(ordemEstaAberta).length;
   const concluidas30d = concluidasNosUltimosDias(ordens, 30, agora);
   const crescimentoMedio = crescimentoMedioTrechoCm(pontos);
+  const viramCriticos = viramCriticosEm(pontos, PRAZO_ATENCAO_DIAS, agora);
   const centro = centroDoTrecho(pontos);
 
   return (
@@ -42,6 +46,12 @@ export default function VisaoGeral({ pontos, ordens }: VisaoGeralProps) {
           valor={String(emAtencao)}
           detalhe="monitorar de perto"
           cor={RISCO_COR.atencao}
+        />
+        <CardKpi
+          rotulo={`Viram críticos em ${PRAZO_ATENCAO_DIAS} dias`}
+          valor={String(viramCriticos)}
+          detalhe="pela projeção do histórico"
+          cor={viramCriticos > 0 ? URGENCIA_COR.atencao : undefined}
         />
         <CardKpi rotulo="OS abertas" valor={String(abertas)} detalhe="em qualquer estágio" />
         <CardKpi

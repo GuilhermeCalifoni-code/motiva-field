@@ -1,0 +1,98 @@
+{
+  "type": "FeatureCollection",
+  "name": "sp270-trecho-km98-100",
+  "_comentario": "Tracado APROXIMADO do eixo da SP-270 entre os km 98 e 100, criado para demonstracao do painel Motiva Field. Nao e levantamento topografico nem geometria oficial da concessionaria: a linha foi derivada das coordenadas dos pontos de vegetacao do mockData.ts e do tracado da via no OpenStreetMap da regiao, com curvatura suavizada. Serve para ancorar os marcadores no eixo e colorir trechos por risco. Substituir pelo eixo real quando a tabela rodovias.eixo (PostGIS) existir.",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "rodovia": "SP-270",
+        "nome": "Rodovia Raposo Tavares",
+        "km_inicio": 98,
+        "km_fim": 100,
+        "aproximado": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -47.9602,
+            -23.46893
+          ],
+          [
+            -47.95885,
+            -23.469085
+          ],
+          [
+            -47.9575,
+            -23.469201
+          ],
+          [
+            -47.95615,
+            -23.469297
+          ],
+          [
+            -47.9548,
+            -23.469398
+          ],
+          [
+            -47.95345,
+            -23.469529
+          ],
+          [
+            -47.9521,
+            -23.469708
+          ],
+          [
+            -47.95075,
+            -23.469941
+          ],
+          [
+            -47.9494,
+            -23.47022
+          ],
+          [
+            -47.94805,
+            -23.470525
+          ],
+          [
+            -47.9467,
+            -23.47083
+          ],
+          [
+            -47.94535,
+            -23.471109
+          ],
+          [
+            -47.944,
+            -23.471342
+          ],
+          [
+            -47.94265,
+            -23.471521
+          ],
+          [
+            -47.9413,
+            -23.471652
+          ],
+          [
+            -47.93995,
+            -23.471753
+          ],
+          [
+            -47.9386,
+            -23.471849
+          ],
+          [
+            -47.93725,
+            -23.471965
+          ],
+          [
+            -47.9359,
+            -23.47212
+          ]
+        ]
+      }
+    }
+  ]
+}

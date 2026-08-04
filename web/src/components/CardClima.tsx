@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { chuvaAceleraCrescimento } from "../mockData";
 import { buscarClima, type Clima } from "../services/clima";
 import "./CardClima.css";
 
@@ -52,9 +53,13 @@ export default function CardClima({ latitude, longitude }: CardClimaProps) {
           <span className="card-clima__temperatura">{Math.round(estado.clima.temperaturaC)}°C</span>
           <span className="card-clima__condicao">{estado.clima.condicao}</span>
           <span className="card-clima__chuva">
-            <strong>{estado.clima.chuva24hMm.toFixed(1).replace(".", ",")} mm</strong> de chuva nas
-            últimas 24h
+            <strong>{estado.clima.chuva24hMm.toFixed(1).replace(".", ",")} mm</strong> nas últimas
+            24h · <strong>{estado.clima.chuvaPrevista24hMm.toFixed(1).replace(".", ",")} mm</strong>{" "}
+            previstos
           </span>
+          {chuvaAceleraCrescimento(estado.clima.chuva24hMm, estado.clima.chuvaPrevista24hMm) && (
+            <span className="card-clima__acelera">Chuva no trecho — crescimento tende a acelerar</span>
+          )}
         </div>
       )}
     </div>

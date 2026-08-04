@@ -45,6 +45,22 @@ export const RISCO_ORDEM: Record<NivelRisco, number> = {
   tranquilo: 1,
 };
 
+// Altura, em cm, a partir da qual o ponto entra em cada nível. Bate com o
+// nivelRisco já gravado em cada ponto abaixo.
+export const LIMITE_ALTURA_CM: Record<NivelRisco, number> = {
+  tranquilo: 0,
+  atencao: 25,
+  critico: 45,
+};
+
+export const ALTURA_CRITICA_CM = LIMITE_ALTURA_CM.critico;
+
+export function nivelPorAltura(alturaCm: number): NivelRisco {
+  if (alturaCm >= LIMITE_ALTURA_CM.critico) return "critico";
+  if (alturaCm >= LIMITE_ALTURA_CM.atencao) return "atencao";
+  return "tranquilo";
+}
+
 function paraDiasEpoch(dataIso: string): number {
   const [ano, mes, dia] = dataIso.split("-").map(Number);
   return Date.UTC(ano, mes - 1, dia) / (1000 * 60 * 60 * 24);
@@ -67,6 +83,180 @@ export function crescimentoMedioTrechoCm(pontos: PontoVegetacao[]): number {
 
 export function contarPorRisco(pontos: PontoVegetacao[], nivelRisco: NivelRisco): number {
   return pontos.filter((ponto) => ponto.nivelRisco === nivelRisco).length;
+}
+
+// --- Projeção de crescimento ----------------------------------------------
+//
+// A regressão e a projeção vivem só aqui. Componente nenhum recalcula isso.
+
+export const MS_POR_DIA = 1000 * 60 * 60 * 24;
+const DIAS_POR_MES = 30.44;
+
+// Escala de tempo usada pela projeção e pelo eixo X do gráfico de altura.
+export function diaEpochDe(dataIso: string): number {
+  return paraDiasEpoch(dataIso);
+}
+
+export function diaEpochHoje(agora: number = Date.now()): number {
+  return agora / MS_POR_DIA;
+}
+
+export interface Projecao {
+  // Taxa vinda da regressão linear sobre todas as passagens, não só do
+  // primeiro contra o último ponto.
+  taxaCmPorMes: number;
+  // Altura projetada para hoje pela reta de regressão.
+  alturaHojeCm: number;
+  // Dia em que a reta cruza o limite crítico, em "YYYY-MM-DD".
+  // null quando o ponto já é crítico ou quando não está crescendo.
+  dataCritica: string | null;
+  // 0 se o ponto já é crítico; null se não há crescimento que leve ao limite.
+  diasRestantes: number | null;
+}
+
+interface Reta {
+  inclinacaoCmPorDia: number;
+  interceptoCm: number;
+}
+
+// Mínimos quadrados sobre (dia, altura) das passagens.
+function regredir(historico: Passagem[]): Reta {
+  const amostras = historico.map((passagem) => ({
+    x: paraDiasEpoch(passagem.data),
+    y: passagem.alturaCm,
+  }));
+
+  const mediaX = amostras.reduce((total, a) => total + a.x, 0) / amostras.length;
+  const mediaY = amostras.reduce((total, a) => total + a.y, 0) / amostras.length;
+
+  let numerador = 0;
+  let denominador = 0;
+  for (const amostra of amostras) {
+    numerador += (amostra.x - mediaX) * (amostra.y - mediaY);
+    denominador += (amostra.x - mediaX) ** 2;
+  }
+
+  const inclinacaoCmPorDia = denominador === 0 ? 0 : numerador / denominador;
+  return {
+    inclinacaoCmPorDia,
+    interceptoCm: mediaY - inclinacaoCmPorDia * mediaX,
+  };
+}
+
+function diaEpochParaIso(dia: number): string {
+  return new Date(Math.round(dia) * MS_POR_DIA).toISOString().slice(0, 10);
+}
+
+export function projecao(ponto: PontoVegetacao, agora: number = Date.now()): Projecao {
+  const reta = regredir(ponto.historico);
+  const taxaCmPorMes = reta.inclinacaoCmPorDia * DIAS_POR_MES;
+  const diaHoje = agora / MS_POR_DIA;
+  const alturaHojeCm = reta.interceptoCm + reta.inclinacaoCmPorDia * diaHoje;
+
+  if (ponto.alturaAtualCm >= ALTURA_CRITICA_CM) {
+    return { taxaCmPorMes, alturaHojeCm, dataCritica: null, diasRestantes: 0 };
+  }
+
+  if (reta.inclinacaoCmPorDia <= 0) {
+    return { taxaCmPorMes, alturaHojeCm, dataCritica: null, diasRestantes: null };
+  }
+
+  const diaCritico = (ALTURA_CRITICA_CM - reta.interceptoCm) / reta.inclinacaoCmPorDia;
+  return {
+    taxaCmPorMes,
+    alturaHojeCm,
+    dataCritica: diaEpochParaIso(diaCritico),
+    diasRestantes: Math.max(0, Math.ceil(diaCritico - diaHoje)),
+  };
+}
+
+export type UrgenciaPrazo = "vencido" | "urgente" | "atencao" | "neutro";
+
+export const PRAZO_URGENTE_DIAS = 7;
+export const PRAZO_ATENCAO_DIAS = 15;
+
+export function urgenciaPrazo(dados: Projecao): UrgenciaPrazo {
+  if (dados.diasRestantes === null) return "neutro";
+  if (dados.diasRestantes === 0) return "vencido";
+  if (dados.diasRestantes < PRAZO_URGENTE_DIAS) return "urgente";
+  if (dados.diasRestantes < PRAZO_ATENCAO_DIAS) return "atencao";
+  return "neutro";
+}
+
+export const URGENCIA_COR: Record<UrgenciaPrazo, string> = {
+  vencido: "#dc2626",
+  urgente: "#dc2626",
+  atencao: "#f97316",
+  neutro: "#675e78",
+};
+
+// Prazos longos podem cair em outro ano — sem o sufixo, "08/10" seria lido
+// como daqui a dois meses.
+function diaMesDeIso(dataIso: string, anoReferencia: number): string {
+  const [ano, mes, dia] = dataIso.split("-");
+  return Number(ano) === anoReferencia ? `${dia}/${mes}` : `${dia}/${mes}/${ano.slice(2)}`;
+}
+
+// Data do cruzamento, curta: "12/08" ou "08/10/27".
+export function dataPrazoCurta(dados: Projecao, agora: number = Date.now()): string | null {
+  if (!dados.dataCritica) return null;
+  return diaMesDeIso(dados.dataCritica, new Date(agora).getFullYear());
+}
+
+// "crítico em ~9 dias", "já crítico", "sem crescimento".
+export function rotuloPrazo(dados: Projecao): string {
+  if (dados.diasRestantes === null) return "sem crescimento";
+  if (dados.diasRestantes === 0) return "já crítico";
+  return `crítico em ~${dados.diasRestantes} dias`;
+}
+
+// "roçar até 12/08".
+export function rotuloDataPrazo(dados: Projecao, agora: number = Date.now()): string | null {
+  const data = dataPrazoCurta(dados, agora);
+  return data === null ? null : `roçar até ${data}`;
+}
+
+// Pontos que ainda não são críticos mas cruzam o limite dentro da janela.
+export function viramCriticosEm(
+  pontos: PontoVegetacao[],
+  dias: number,
+  agora: number = Date.now(),
+): number {
+  return pontos.filter((ponto) => {
+    const dados = projecao(ponto, agora);
+    return dados.diasRestantes !== null && dados.diasRestantes > 0 && dados.diasRestantes <= dias;
+  }).length;
+}
+
+export type OrdenacaoPontos = "risco" | "prazo";
+
+export const ORDENACAO_LABEL: Record<OrdenacaoPontos, string> = {
+  risco: "Risco",
+  prazo: "Prazo",
+};
+
+export function ordenarPontos(
+  pontos: PontoVegetacao[],
+  criterio: OrdenacaoPontos,
+  agora: number = Date.now(),
+): PontoVegetacao[] {
+  if (criterio === "prazo") {
+    // Sem crescimento vai para o fim da fila.
+    const chave = (ponto: PontoVegetacao) => projecao(ponto, agora).diasRestantes ?? Infinity;
+    return [...pontos].sort((a, b) => chave(a) - chave(b) || b.alturaAtualCm - a.alturaAtualCm);
+  }
+  return [...pontos].sort(
+    (a, b) => RISCO_ORDEM[b.nivelRisco] - RISCO_ORDEM[a.nivelRisco] || b.alturaAtualCm - a.alturaAtualCm,
+  );
+}
+
+// --- Efeito da chuva -------------------------------------------------------
+
+// Acima disso, em mm por 24h, a equipe considera que o crescimento acelera.
+export const CHUVA_ACELERA_MM = 1;
+
+export function chuvaAceleraCrescimento(chuva24hMm: number, chuvaPrevista24hMm: number): boolean {
+  return chuva24hMm >= CHUVA_ACELERA_MM || chuvaPrevista24hMm >= CHUVA_ACELERA_MM;
 }
 
 // Centro geográfico do trecho — usado para consultar o clima da região.

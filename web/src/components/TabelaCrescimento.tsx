@@ -1,5 +1,6 @@
-import { crescimentoMensalCm, type PontoVegetacao } from "../mockData";
+import { crescimentoMensalCm, projecao, type PontoVegetacao } from "../mockData";
 import SeloRisco from "./SeloRisco";
+import SeloPrazo from "./SeloPrazo";
 import "./TabelaCrescimento.css";
 
 interface TabelaCrescimentoProps {
@@ -21,6 +22,7 @@ export default function TabelaCrescimento({ pontos, limite }: TabelaCrescimentoP
           <th>Margem</th>
           <th>Altura</th>
           <th>Crescimento</th>
+          <th>Prazo</th>
           <th>Risco</th>
         </tr>
       </thead>
@@ -33,6 +35,9 @@ export default function TabelaCrescimento({ pontos, limite }: TabelaCrescimentoP
             <td>{ponto.alturaAtualCm} cm</td>
             <td className="tabela-crescimento__destaque">
               +{crescimentoMensalCm(ponto.historico).toFixed(1)} cm/mês
+            </td>
+            <td>
+              <SeloPrazo projecao={projecao(ponto)} comData />
             </td>
             <td>
               <SeloRisco nivelRisco={ponto.nivelRisco} />

@@ -58,7 +58,8 @@
 
 .painel-detalhe__metricas {
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 18px 24px;
   padding: 16px;
   background: var(--cor-fundo);
   border-radius: var(--raio);

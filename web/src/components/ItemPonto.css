@@ -48,3 +48,9 @@
 .item-ponto__metricas strong {
   color: var(--cor-texto);
 }
+
+.item-ponto__prazo {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--cor-borda);
+}

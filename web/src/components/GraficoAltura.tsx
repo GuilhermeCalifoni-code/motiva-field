@@ -1,12 +1,12 @@
 import {
   ALTURA_CRITICA_CM,
-  URGENCIA_COR,
   dataPrazoCurta,
   diaEpochDe,
   urgenciaPrazo,
   type Passagem,
   type Projecao,
 } from "../mockData";
+import { COR_URGENCIA } from "../theme/tokens";
 import "./GraficoAltura.css";
 
 interface GraficoAlturaProps {
@@ -65,7 +65,7 @@ export default function GraficoAltura({ historico, projecao }: GraficoAlturaProp
       ((ALTURA_CRITICA_CM - alturaUltima) * (diaFim - diaUltima)) /
         Math.max(1, (diaCritico ?? diaFim) - diaUltima);
 
-  const corProjecao = URGENCIA_COR[urgenciaPrazo(projecao)];
+  const corProjecao = COR_URGENCIA[urgenciaPrazo(projecao)];
   const yLimite = y(ALTURA_CRITICA_CM);
 
   return (

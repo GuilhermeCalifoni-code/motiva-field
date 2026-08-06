@@ -1,82 +1,82 @@
 .card-ordem {
-  background: var(--cor-superficie);
-  border: 1px solid var(--cor-borda);
-  border-radius: var(--raio);
-  padding: 12px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-md);
+  padding: var(--espaco-4);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--espaco-2);
 }
 
 .card-ordem__topo {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: var(--espaco-2);
 }
 
 .card-ordem__ponto {
   font-weight: 700;
-  color: var(--cor-primaria);
-  font-size: 0.92rem;
+  color: var(--marca-roxo);
+  font-size: var(--texto-md);
 }
 
 .card-ordem__prioridade {
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 0.68rem;
+  padding: 2px var(--espaco-2);
+  border-radius: var(--raio-pill);
+  font-size: var(--texto-xs);
   font-weight: 700;
-  color: #ffffff;
+  color: var(--texto-sobre-escuro);
   white-space: nowrap;
 }
 
 .card-ordem__sentido {
-  margin: -4px 0 0;
-  font-size: 0.78rem;
-  color: var(--cor-texto-suave);
+  margin: calc(var(--espaco-1) * -1) 0 0;
+  font-size: var(--texto-xs);
+  color: var(--texto-suave);
 }
 
 .card-ordem__campos {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--espaco-1);
 }
 
 .card-ordem__campos > div {
   display: flex;
   justify-content: space-between;
-  gap: 8px;
+  gap: var(--espaco-2);
 }
 
 .card-ordem__campos dt {
-  font-size: 0.72rem;
-  color: var(--cor-texto-suave);
+  font-size: var(--texto-xs);
+  color: var(--texto-apagado);
 }
 
 .card-ordem__campos dd {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: var(--texto-xs);
   font-weight: 600;
-  color: var(--cor-texto);
+  color: var(--texto);
   text-align: right;
 }
 
 .card-ordem__avancar {
-  margin-top: 2px;
+  margin-top: var(--espaco-1);
   background: transparent;
-  border: 1px solid var(--cor-borda);
-  border-radius: var(--raio);
-  padding: 7px;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-sm);
+  padding: var(--espaco-2);
   font-family: inherit;
-  font-size: 0.74rem;
+  font-size: var(--texto-xs);
   font-weight: 600;
-  color: var(--cor-primaria);
+  color: var(--marca-roxo);
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .card-ordem__avancar:hover {
-  background: var(--cor-fundo);
-  border-color: var(--cor-primaria-clara);
+  background: var(--fundo);
+  border-color: var(--borda-forte);
 }

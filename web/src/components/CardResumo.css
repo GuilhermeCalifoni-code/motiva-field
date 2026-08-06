@@ -1,0 +1,46 @@
+.card-resumo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  padding: var(--espaco-5);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-card);
+  min-width: 0;
+}
+
+.card-resumo__topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espaco-2);
+}
+
+.card-resumo__numero {
+  display: flex;
+  align-items: baseline;
+  gap: var(--espaco-2);
+  min-width: 0;
+}
+
+.card-resumo__valor {
+  font-size: var(--num-g);
+  font-weight: var(--peso-num);
+  line-height: var(--altura-num);
+  font-variant-numeric: tabular-nums;
+  color: var(--texto);
+  white-space: nowrap;
+}
+
+.card-resumo__unidade {
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
+}
+
+.card-resumo__detalhe {
+  margin: 0;
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
+  line-height: 1.5;
+}

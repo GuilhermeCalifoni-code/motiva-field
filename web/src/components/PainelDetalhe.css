@@ -1,106 +1,118 @@
 .painel-detalhe__fundo {
   position: fixed;
   inset: 0;
-  background: rgba(28, 4, 53, 0.35);
+  background: var(--sobreposicao);
   display: flex;
   justify-content: flex-end;
   z-index: 1000;
 }
 
 .painel-detalhe {
-  width: min(420px, 100%);
+  width: min(440px, 100%);
   height: 100%;
-  background: var(--cor-superficie);
-  box-shadow: var(--sombra);
-  padding: 24px;
+  background: var(--superficie);
+  box-shadow: var(--sombra-elevada);
+  padding: var(--espaco-6);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--espaco-5);
 }
 
 .painel-detalhe__cabecalho {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: var(--espaco-3);
 }
 
 .painel-detalhe__cabecalho h2 {
-  margin: 0 0 4px;
-  color: var(--cor-primaria);
+  margin: 0 0 var(--espaco-1);
+  font-size: var(--num-m);
+  font-weight: var(--peso-num);
+  color: var(--marca-roxo);
 }
 
 .painel-detalhe__cabecalho p {
   margin: 0;
-  font-size: 0.85rem;
-  color: var(--cor-texto-suave);
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
 }
 
 .painel-detalhe__fechar {
   background: none;
   border: none;
-  font-size: 1.6rem;
+  font-size: 26px;
   line-height: 1;
-  color: var(--cor-texto-suave);
+  color: var(--texto-suave);
   cursor: pointer;
-  padding: 0 4px;
+  padding: 0 var(--espaco-1);
 }
 
 .painel-detalhe__fechar:hover {
-  color: var(--cor-primaria);
+  color: var(--marca-roxo);
 }
 
 .painel-detalhe__selos {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--espaco-2);
 }
 
 .painel-detalhe__metricas {
   display: flex;
   flex-wrap: wrap;
-  gap: 18px 24px;
-  padding: 16px;
-  background: var(--cor-fundo);
-  border-radius: var(--raio);
+  gap: var(--espaco-4) var(--espaco-5);
+  padding: var(--espaco-4);
+  background: var(--fundo);
+  border-radius: var(--raio-md);
 }
 
 .painel-detalhe__metricas > div {
   display: flex;
   flex-direction: column;
+  gap: var(--espaco-1);
 }
 
 .painel-detalhe__metrica-valor {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--cor-primaria);
+  font-size: var(--num-m);
+  font-weight: var(--peso-num);
+  line-height: var(--altura-num);
+  font-variant-numeric: tabular-nums;
+  color: var(--texto);
 }
 
 .painel-detalhe__metrica-rotulo {
-  font-size: 0.75rem;
-  color: var(--cor-texto-suave);
+  font-size: var(--rotulo-tam);
+  font-weight: var(--rotulo-peso);
+  letter-spacing: var(--rotulo-espacamento);
+  text-transform: uppercase;
+  color: var(--texto-apagado);
 }
 
 .painel-detalhe__grafico h3 {
-  font-size: 0.85rem;
-  color: var(--cor-texto-suave);
-  margin: 0 0 8px;
-  font-weight: 600;
+  font-size: var(--rotulo-tam);
+  font-weight: var(--rotulo-peso);
+  letter-spacing: var(--rotulo-espacamento);
+  text-transform: uppercase;
+  color: var(--texto-apagado);
+  margin: 0 0 var(--espaco-3);
 }
 
 .painel-detalhe__acao {
   margin-top: auto;
-  background: var(--cor-destaque);
-  color: var(--cor-primaria-escura);
+  background: var(--marca-ouro);
+  color: var(--marca-roxo-escuro);
   border: none;
-  border-radius: var(--raio);
-  padding: 14px;
-  font-size: 0.95rem;
+  border-radius: var(--raio-sm);
+  padding: var(--espaco-4);
+  font-family: inherit;
+  font-size: var(--texto-md);
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s ease;
 }
 
 .painel-detalhe__acao:hover {
-  background: var(--cor-destaque-escura);
+  background: var(--marca-ouro-escuro);
 }

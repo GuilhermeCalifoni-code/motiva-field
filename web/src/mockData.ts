@@ -32,11 +32,7 @@ export const RISCO_LABEL: Record<NivelRisco, string> = {
   critico: "Crítico",
 };
 
-export const RISCO_COR: Record<NivelRisco, string> = {
-  tranquilo: "#22c55e",
-  atencao: "#f97316",
-  critico: "#f2b705",
-};
+// As cores vivem em theme/tokens — aqui só mora o dado de domínio.
 
 // Usado para ordenar a lista por risco decrescente (crítico primeiro).
 export const RISCO_ORDEM: Record<NivelRisco, number> = {
@@ -183,13 +179,6 @@ export function urgenciaPrazo(dados: Projecao): UrgenciaPrazo {
   return "neutro";
 }
 
-export const URGENCIA_COR: Record<UrgenciaPrazo, string> = {
-  vencido: "#dc2626",
-  urgente: "#dc2626",
-  atencao: "#f97316",
-  neutro: "#675e78",
-};
-
 // Prazos longos podem cair em outro ano — sem o sufixo, "08/10" seria lido
 // como daqui a dois meses.
 function diaMesDeIso(dataIso: string, anoReferencia: number): string {
@@ -226,6 +215,32 @@ export function viramCriticosEm(
     const dados = projecao(ponto, agora);
     return dados.diasRestantes !== null && dados.diasRestantes > 0 && dados.diasRestantes <= dias;
   }).length;
+}
+
+// Próximo ponto a cruzar o limite crítico. Ignora os que já são críticos:
+// esses não têm prazo, têm atraso, e aparecem no bloco de acao imediata.
+export function proximaRocada(
+  pontos: PontoVegetacao[],
+  agora: number = Date.now(),
+): { ponto: PontoVegetacao; previsao: Projecao } | null {
+  let melhor: { ponto: PontoVegetacao; previsao: Projecao } | null = null;
+  for (const ponto of pontos) {
+    const previsao = projecao(ponto, agora);
+    if (previsao.diasRestantes === null || previsao.diasRestantes === 0) continue;
+    if (melhor === null || previsao.diasRestantes < (melhor.previsao.diasRestantes ?? Infinity)) {
+      melhor = { ponto, previsao };
+    }
+  }
+  return melhor;
+}
+
+// Total que exige ação: os já críticos mais os que cruzam o limite na janela.
+export function pontosQueExigemAcao(
+  pontos: PontoVegetacao[],
+  dias: number,
+  agora: number = Date.now(),
+): number {
+  return contarPorRisco(pontos, "critico") + viramCriticosEm(pontos, dias, agora);
 }
 
 export type OrdenacaoPontos = "risco" | "prazo";
@@ -470,12 +485,6 @@ export const PRIORIDADE_LABEL: Record<Prioridade, string> = {
   alta: "Alta",
 };
 
-export const PRIORIDADE_COR: Record<Prioridade, string> = {
-  baixa: "#22c55e",
-  media: "#f97316",
-  alta: "#e11d48",
-};
-
 // Ponto crítico gera OS de prioridade alta — regra do time de operação.
 export const PRIORIDADE_POR_RISCO: Record<NivelRisco, Prioridade> = {
   critico: "alta",
@@ -569,6 +578,10 @@ export const ordensServicoIniciais: OrdemServico[] = [
 
 export function ordemEstaAberta(ordem: OrdemServico): boolean {
   return ordem.status !== "concluida";
+}
+
+export function contarPorStatus(ordens: OrdemServico[], status: StatusOS): number {
+  return ordens.filter((ordem) => ordem.status === status).length;
 }
 
 // Momento em que a OS foi concluída, ou null se ainda estiver aberta.

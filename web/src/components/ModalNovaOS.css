@@ -1,113 +1,114 @@
 .modal-nova-os__fundo {
   position: fixed;
   inset: 0;
-  background: rgba(28, 4, 53, 0.4);
+  background: var(--sobreposicao);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1100;
-  padding: 20px;
+  padding: var(--espaco-5);
 }
 
 .modal-nova-os {
-  width: min(420px, 100%);
-  background: var(--cor-superficie);
-  border-radius: var(--raio);
-  box-shadow: var(--sombra);
-  padding: 22px;
+  width: min(440px, 100%);
+  background: var(--superficie);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-elevada);
+  padding: var(--espaco-6);
 }
 
 .modal-nova-os__cabecalho {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  gap: var(--espaco-3);
+  margin-bottom: var(--espaco-5);
 }
 
 .modal-nova-os__cabecalho h2 {
   margin: 0;
-  font-size: 1.05rem;
-  color: var(--cor-primaria);
+  font-size: var(--texto-lg);
+  color: var(--texto);
 }
 
 .modal-nova-os__cabecalho button {
   background: none;
   border: none;
-  font-size: 1.6rem;
+  font-size: 26px;
   line-height: 1;
-  color: var(--cor-texto-suave);
+  color: var(--texto-suave);
   cursor: pointer;
-  padding: 0 4px;
+  padding: 0 var(--espaco-1);
 }
 
 .modal-nova-os__cabecalho button:hover {
-  color: var(--cor-primaria);
+  color: var(--marca-roxo);
 }
 
 .modal-nova-os__form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--espaco-4);
 }
 
 .modal-nova-os__form label {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--cor-texto-suave);
+  gap: var(--espaco-2);
+  font-size: var(--rotulo-tam);
+  font-weight: var(--rotulo-peso);
+  letter-spacing: var(--rotulo-espacamento);
+  text-transform: uppercase;
+  color: var(--texto-apagado);
 }
 
 .modal-nova-os__form select {
   font-family: inherit;
-  font-size: 0.88rem;
-  color: var(--cor-texto);
-  padding: 9px 10px;
-  border: 1px solid var(--cor-borda);
-  border-radius: var(--raio);
-  background: var(--cor-superficie);
-}
-
-.modal-nova-os__form select:focus {
-  outline: 2px solid var(--cor-primaria-clara);
-  outline-offset: 1px;
+  font-size: var(--texto-md);
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--texto);
+  padding: var(--espaco-3);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-sm);
+  background: var(--superficie);
 }
 
 .modal-nova-os__acoes {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 4px;
+  gap: var(--espaco-3);
+  margin-top: var(--espaco-1);
 }
 
 .modal-nova-os__cancelar,
 .modal-nova-os__confirmar {
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: var(--texto-md);
   font-weight: 700;
-  border-radius: var(--raio);
-  padding: 10px 16px;
+  border-radius: var(--raio-sm);
+  padding: var(--espaco-3) var(--espaco-5);
   cursor: pointer;
 }
 
 .modal-nova-os__cancelar {
   background: transparent;
-  border: 1px solid var(--cor-borda);
-  color: var(--cor-texto-suave);
+  border: 1px solid var(--borda);
+  color: var(--texto-suave);
 }
 
 .modal-nova-os__cancelar:hover {
-  border-color: var(--cor-primaria-clara);
-  color: var(--cor-primaria);
+  border-color: var(--borda-forte);
+  color: var(--marca-roxo);
 }
 
 .modal-nova-os__confirmar {
-  background: var(--cor-destaque);
+  background: var(--marca-ouro);
   border: none;
-  color: var(--cor-primaria-escura);
+  color: var(--marca-roxo-escuro);
 }
 
 .modal-nova-os__confirmar:hover {
-  background: var(--cor-destaque-escura);
+  background: var(--marca-ouro-escuro);
 }

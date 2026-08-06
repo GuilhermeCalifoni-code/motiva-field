@@ -1,12 +1,12 @@
 .selo-alerta {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 0.75rem;
+  gap: var(--espaco-2);
+  padding: var(--espaco-1) var(--espaco-3);
+  border-radius: var(--raio-pill);
+  font-size: var(--texto-xs);
   font-weight: 600;
-  background: #fdecec;
-  color: #b3261e;
-  border: 1px solid #f4c5c2;
+  background: var(--acao-perigo-suave);
+  color: var(--acao-perigo-forte);
+  border: 1px solid var(--acao-perigo-borda);
 }

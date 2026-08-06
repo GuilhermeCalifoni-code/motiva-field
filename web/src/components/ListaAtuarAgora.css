@@ -1,0 +1,83 @@
+.lista-atuar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+}
+
+.lista-atuar__item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--espaco-3);
+  width: 100%;
+  padding: var(--espaco-3) var(--espaco-4);
+  border: 1px solid var(--borda);
+  border-left: 3px solid var(--borda-forte);
+  border-radius: var(--raio-md);
+  background: var(--superficie);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.lista-atuar__item:hover {
+  background: var(--superficie-alt);
+  border-color: var(--borda-forte);
+}
+
+/* A cor da barra lateral é o único sinal cromático da fila. */
+.lista-atuar__item--vencido,
+.lista-atuar__item--urgente {
+  border-left-color: var(--acao-perigo);
+}
+
+.lista-atuar__item--atencao {
+  border-left-color: var(--acao-atencao);
+}
+
+.lista-atuar__posicao {
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--texto-apagado);
+  min-width: 14px;
+}
+
+.lista-atuar__corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.lista-atuar__km {
+  font-size: var(--texto-md);
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.lista-atuar__local {
+  font-size: var(--texto-xs);
+  color: var(--texto-suave);
+}
+
+.lista-atuar__prazo {
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--texto-suave);
+}
+
+.lista-atuar__item--vencido .lista-atuar__prazo,
+.lista-atuar__item--urgente .lista-atuar__prazo {
+  color: var(--acao-perigo);
+}
+
+.lista-atuar__item--atencao .lista-atuar__prazo {
+  color: var(--acao-atencao);
+}

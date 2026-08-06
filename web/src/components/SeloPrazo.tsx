@@ -1,10 +1,5 @@
-import {
-  URGENCIA_COR,
-  rotuloDataPrazo,
-  rotuloPrazo,
-  urgenciaPrazo,
-  type Projecao,
-} from "../mockData";
+import { rotuloDataPrazo, rotuloPrazo, urgenciaPrazo, type Projecao } from "../mockData";
+import { COR_URGENCIA } from "../theme/tokens";
 import "./SeloPrazo.css";
 
 interface SeloPrazoProps {
@@ -18,7 +13,7 @@ export default function SeloPrazo({ projecao, comData = false }: SeloPrazoProps)
   const data = rotuloDataPrazo(projecao);
 
   return (
-    <span className={`selo-prazo selo-prazo--${urgencia}`} style={{ color: URGENCIA_COR[urgencia] }}>
+    <span className={`selo-prazo selo-prazo--${urgencia}`} style={{ color: COR_URGENCIA[urgencia] }}>
       <span className="selo-prazo__dias">{rotuloPrazo(projecao)}</span>
       {comData && data && <span className="selo-prazo__data">{data}</span>}
     </span>

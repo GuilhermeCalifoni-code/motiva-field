@@ -1,5 +1,6 @@
 import { Polyline } from "react-leaflet";
 import type { PontoVegetacao } from "../mockData";
+import { COR_MARCA } from "../theme/tokens";
 import { eixoTrecho, segmentosPorRisco } from "../services/eixo";
 
 interface EixoRodoviaProps {
@@ -16,7 +17,7 @@ export default function EixoRodovia({ pontos }: EixoRodoviaProps) {
     <>
       <Polyline
         positions={tracado}
-        pathOptions={{ color: "#2e0854", weight: 9, opacity: 0.85, lineCap: "round", lineJoin: "round" }}
+        pathOptions={{ color: COR_MARCA.roxo, weight: 9, opacity: 0.85, lineCap: "round", lineJoin: "round" }}
       />
       {segmentos.map((segmento, indice) => (
         <Polyline

@@ -1,38 +1,39 @@
 .grafico-riscos {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--espaco-3);
 }
 
 .grafico-riscos__linha {
   display: grid;
-  grid-template-columns: 90px 1fr 28px;
+  grid-template-columns: 92px 1fr 32px;
   align-items: center;
-  gap: 10px;
+  gap: var(--espaco-3);
 }
 
 .grafico-riscos__rotulo {
-  font-size: 0.82rem;
-  color: var(--cor-texto-suave);
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
 }
 
 .grafico-riscos__trilho {
-  background: var(--cor-fundo);
-  border-radius: 999px;
-  height: 18px;
+  background: var(--fundo);
+  border-radius: var(--raio-pill);
+  height: 20px;
   overflow: hidden;
 }
 
 .grafico-riscos__barra {
   height: 100%;
-  border-radius: 999px;
+  border-radius: var(--raio-pill);
   min-width: 4px;
   transition: width 0.25s ease;
 }
 
 .grafico-riscos__total {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--cor-primaria);
+  font-size: var(--texto-lg);
+  font-weight: var(--peso-num);
+  font-variant-numeric: tabular-nums;
+  color: var(--texto);
   text-align: right;
 }

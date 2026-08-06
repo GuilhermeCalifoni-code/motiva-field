@@ -1,0 +1,38 @@
+.indicador-ao-vivo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  white-space: nowrap;
+}
+
+.indicador-ao-vivo__ponto {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--raio-pill);
+  background: var(--risco-tranquilo);
+  animation: indicador-pulso 2.4s ease-in-out infinite;
+}
+
+.indicador-ao-vivo__texto {
+  font-size: var(--texto-xs);
+  letter-spacing: var(--rotulo-espacamento);
+  text-transform: uppercase;
+  font-weight: var(--rotulo-peso);
+  color: var(--texto-apagado);
+}
+
+@keyframes indicador-pulso {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indicador-ao-vivo__ponto {
+    animation: none;
+  }
+}

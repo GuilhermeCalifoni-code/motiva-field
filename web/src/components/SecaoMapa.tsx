@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import type { PontoVegetacao } from "../mockData";
 import MapaVegetacao from "./MapaVegetacao";
 import ListaPontos from "./ListaPontos";
@@ -11,7 +12,20 @@ interface SecaoMapaProps {
 }
 
 export default function SecaoMapa({ pontos, onGerarOrdem }: SecaoMapaProps) {
+  const [parametros, definirParametros] = useSearchParams();
   const [pontoSelecionadoId, setPontoSelecionadoId] = useState<string | null>(null);
+
+  // A visão geral chega aqui via /mapa?ponto=<id>. O parâmetro semeia a
+  // seleção e sai da URL, para o botão voltar não reabrir o painel.
+  useEffect(() => {
+    const solicitado = parametros.get("ponto");
+    if (!solicitado) return;
+    if (pontos.some((ponto) => ponto.id === solicitado)) {
+      setPontoSelecionadoId(solicitado);
+    }
+    definirParametros({}, { replace: true });
+  }, [parametros, pontos, definirParametros]);
+
   const pontoSelecionado = pontos.find((ponto) => ponto.id === pontoSelecionadoId) ?? null;
 
   return (

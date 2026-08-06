@@ -86,6 +86,12 @@ function App() {
     navegar("/ordens");
   }
 
+  // A visão geral é uma tela de decisão: quase todo clique termina no mapa,
+  // no ponto que motivou o clique.
+  function abrirNoMapa(pontoId: string) {
+    navegar(`/mapa?ponto=${encodeURIComponent(pontoId)}`);
+  }
+
   return (
     <div className="app">
       <header className="app__cabecalho">
@@ -99,7 +105,14 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={<VisaoGeral pontos={pontosVegetacao} ordens={estado.ordens} />}
+              element={
+                <VisaoGeral
+                  pontos={pontosVegetacao}
+                  ordens={estado.ordens}
+                  onGerarOrdem={gerarOrdemDoPonto}
+                  onAbrirNoMapa={abrirNoMapa}
+                />
+              }
             />
             <Route
               path="/mapa"

@@ -2,51 +2,54 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  background: var(--cor-fundo);
-  border: 1px solid var(--cor-borda);
-  border-radius: var(--raio);
+  background: var(--fundo);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-md);
 }
 
 .coluna-kanban__cabecalho {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 12px 12px 10px;
-  border-bottom: 1px solid var(--cor-borda);
+  gap: var(--espaco-2);
+  padding: var(--espaco-3) var(--espaco-4);
+  border-bottom: 1px solid var(--borda);
 }
 
 .coluna-kanban__cabecalho h3 {
   margin: 0;
-  font-size: 0.82rem;
-  color: var(--cor-primaria);
+  font-size: var(--rotulo-tam);
+  font-weight: var(--rotulo-peso);
+  letter-spacing: var(--rotulo-espacamento);
+  text-transform: uppercase;
+  color: var(--texto-apagado);
 }
 
 .coluna-kanban__contador {
-  background: var(--cor-primaria);
-  color: #ffffff;
-  border-radius: 999px;
-  font-size: 0.7rem;
+  background: var(--marca-roxo);
+  color: var(--texto-sobre-escuro);
+  border-radius: var(--raio-pill);
+  font-size: var(--texto-xs);
   font-weight: 700;
   min-width: 22px;
   text-align: center;
-  padding: 2px 7px;
+  padding: 2px var(--espaco-2);
 }
 
 .coluna-kanban__cards {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: 10px;
+  padding: var(--espaco-3);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--espaco-3);
 }
 
 .coluna-kanban__vazio {
   margin: 0;
-  font-size: 0.76rem;
-  color: var(--cor-texto-suave);
+  font-size: var(--texto-xs);
+  color: var(--texto-apagado);
   text-align: center;
-  padding: 12px 0;
+  padding: var(--espaco-3) 0;
 }

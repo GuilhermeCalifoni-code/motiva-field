@@ -1,6 +1,5 @@
 import {
   FLUXO_STATUS,
-  PRIORIDADE_COR,
   PRIORIDADE_LABEL,
   STATUS_LABEL,
   formatarDataHora,
@@ -9,6 +8,7 @@ import {
   type Operador,
   type PontoVegetacao,
 } from "../mockData";
+import { COR_PRIORIDADE } from "../theme/tokens";
 import "./CardOrdem.css";
 
 interface CardOrdemProps {
@@ -31,7 +31,7 @@ export default function CardOrdem({ ordem, ponto, operador, agora, onAvancar }: 
         </span>
         <span
           className="card-ordem__prioridade"
-          style={{ backgroundColor: PRIORIDADE_COR[ordem.prioridade] }}
+          style={{ backgroundColor: COR_PRIORIDADE[ordem.prioridade] }}
         >
           {PRIORIDADE_LABEL[ordem.prioridade]}
         </span>

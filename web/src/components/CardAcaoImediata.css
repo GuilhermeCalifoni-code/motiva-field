@@ -1,0 +1,81 @@
+.card-acao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+  padding: var(--espaco-6);
+  border-radius: var(--raio-lg);
+  background: var(--acao-perigo-suave);
+  border: 1px solid var(--acao-perigo-borda);
+  border-left: 4px solid var(--acao-perigo);
+  min-width: 0;
+}
+
+.card-acao__rotulo {
+  color: var(--acao-perigo-forte);
+}
+
+.card-acao__numero {
+  display: flex;
+  align-items: baseline;
+  gap: var(--espaco-2);
+}
+
+.card-acao__valor {
+  font-size: var(--num-xg);
+  font-weight: var(--peso-num);
+  line-height: var(--altura-num);
+  font-variant-numeric: tabular-nums;
+  color: var(--acao-perigo);
+}
+
+.card-acao__unidade {
+  font-size: var(--texto-md);
+  color: var(--acao-perigo-forte);
+}
+
+.card-acao__detalhe {
+  margin: 0;
+  font-size: var(--texto-sm);
+  color: var(--acao-perigo-forte);
+  line-height: 1.5;
+}
+
+.card-acao__detalhe strong {
+  font-weight: 700;
+}
+
+.card-acao__botao {
+  align-self: flex-start;
+  margin-top: var(--espaco-1);
+  padding: var(--espaco-2) var(--espaco-4);
+  border: none;
+  border-radius: var(--raio-sm);
+  background: var(--acao-perigo);
+  color: var(--texto-sobre-escuro);
+  font-family: inherit;
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.card-acao__botao:hover {
+  background: var(--acao-perigo-forte);
+}
+
+/* Sem pendência, o bloco perde o vermelho: cor só aparece quando significa algo. */
+.card-acao--calmo {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--borda-forte);
+}
+
+.card-acao--calmo .card-acao__rotulo,
+.card-acao--calmo .card-acao__unidade,
+.card-acao--calmo .card-acao__detalhe {
+  color: var(--texto-suave);
+}
+
+.card-acao--calmo .card-acao__valor {
+  color: var(--texto);
+}

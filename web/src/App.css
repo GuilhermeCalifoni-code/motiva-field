@@ -7,22 +7,22 @@
 .app__cabecalho {
   display: flex;
   align-items: baseline;
-  gap: 12px;
-  padding: 14px 24px;
-  background: var(--cor-primaria);
-  color: #ffffff;
-  border-bottom: 3px solid var(--cor-destaque);
+  gap: var(--espaco-3);
+  padding: var(--espaco-4) var(--espaco-6);
+  background: var(--marca-roxo);
+  color: var(--texto-sobre-escuro);
+  border-bottom: 3px solid var(--marca-ouro);
 }
 
 .app__marca {
-  font-size: 1.15rem;
+  font-size: var(--texto-lg);
   font-weight: 700;
   letter-spacing: 0.02em;
 }
 
 .app__subtitulo {
-  font-size: 0.85rem;
-  color: #d9c9f2;
+  font-size: var(--texto-sm);
+  color: var(--texto-sobre-roxo);
 }
 
 .app__corpo {
@@ -35,7 +35,7 @@
   flex: 1;
   min-width: 0;
   min-height: 0;
-  padding: 18px;
+  padding: var(--espaco-6);
   overflow-y: auto;
   display: flex;
   flex-direction: column;

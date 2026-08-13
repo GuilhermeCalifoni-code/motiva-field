@@ -1,0 +1,21 @@
+# Ambiente virtual — cada maquina cria o seu com requirements.txt
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Fotos de campo: entram por outro caminho, nao pelo repositorio de codigo
+fotos/
+
+# Saidas do pipeline
+saidas/
+*.json.tmp
+
+# Ambiente
+.env
+.env.*
+!.env.example

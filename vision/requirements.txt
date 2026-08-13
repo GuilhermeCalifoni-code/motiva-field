@@ -1,0 +1,6 @@
+# Bloco 2 — visao computacional.
+# Deliberadamente enxuto: sem framework de modelo nesta fase.
+# A segmentacao e a medicao sao classicas (indice de cor + morfologia), o que
+# permite provar a matematica antes de existir foto real ou modelo treinado.
+numpy>=1.26
+opencv-python>=4.9

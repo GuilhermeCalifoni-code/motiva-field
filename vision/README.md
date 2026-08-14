@@ -20,7 +20,9 @@ entrar, ele substitui `mascara_vegetacao` sem mexer no resto.
 |---|---|
 | `segmentacao.py` | `exg`, `mascara_vegetacao`, `maior_regiao` |
 | `calibracao.py` | `pixels_por_cm` a partir da haste de altura conhecida |
+| `classificacao.py` | `carregar_modelo`, `classificar` — Seguro / Atenção / Crítico |
 | `teste_sintetico.py` | Cena gerada com resposta conhecida, prova a medicao |
+| `teste_classificacao.py` | Prova o caminho do modelo; **pula** se o modelo faltar |
 
 ## Rodando
 
@@ -35,9 +37,19 @@ Depois:
 
 ```bash
 .venv/Scripts/python teste_sintetico.py
+.venv/Scripts/python teste_classificacao.py
 ```
 
 Sai com codigo 0 se tudo passar. Nao abre janela — roda headless.
+
+## O modelo
+
+`teste_classificacao.py` **pula** a parte de classificacao enquanto
+`modelos/mobilenet_motiva.keras` nao existir, em vez de falhar. Assim ele vale
+no CI hoje e passa a cobrir o modelo sozinho quando o arquivo aparecer.
+
+O arquivo nao e versionado. Ver `modelos/README.md` para exportar do Colab e
+conferir a ordem das classes.
 
 ## A regra que nao se quebra
 

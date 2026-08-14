@@ -11,6 +11,12 @@ __pycache__/
 # Fotos de campo: entram por outro caminho, nao pelo repositorio de codigo
 fotos/
 
+# Pesos do modelo: binario grande que muda a cada retreino. O caminho e
+# versionado (modelos/README.md), o arquivo nao.
+modelos/*.keras
+modelos/*.h5
+modelos/*.tflite
+
 # Saidas do pipeline
 saidas/
 *.json.tmp

@@ -9,3 +9,5 @@
 numpy>=1.26
 opencv-python>=4.9
 tensorflow>=2.16
+flask>=3.0
+pillow>=10.0

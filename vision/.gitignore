@@ -21,6 +21,10 @@ modelos/*.tflite
 saidas/
 *.json.tmp
 
+# Servidor local
+servidor-visao.log
+servidor-visao.pid
+
 # Ambiente
 .env
 .env.*

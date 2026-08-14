@@ -7,12 +7,14 @@ devolve numero. Ver `docs/contrato-json-deteccoes.md`.
 
 ## Estado
 
-Fase 1: segmentacao e medicao classicas, sem modelo treinado e sem depender de
-foto real. O Excess Green separa verde de marrom por aritmetica de canais, e a
-haste de referencia converte pixels em centimetros.
+Fase 1: segmentacao e medicao classicas. O Excess Green separa verde de
+marrom por aritmetica de canais, e a haste de referencia converte pixels em
+centimetros.
 
-Isso permite provar a matematica antes da captura em campo. Quando o modelo
-entrar, ele substitui `mascara_vegetacao` sem mexer no resto.
+O modulo ja aceita foto real pelo servidor local: recebe upload ou captura da
+webcam, gera imagem anotada, mascara e o JSON do contrato. Ainda nao ha modelo
+`.keras` treinado; portanto a classificacao Seguro / Atencao / Critico fica
+desativada ate o modelo ser exportado e validado.
 
 ## Modulos
 
@@ -23,6 +25,9 @@ entrar, ele substitui `mascara_vegetacao` sem mexer no resto.
 | `classificacao.py` | `carregar_modelo`, `classificar` — Seguro / Atenção / Crítico |
 | `teste_sintetico.py` | Cena gerada com resposta conhecida, prova a medicao |
 | `teste_classificacao.py` | Prova o caminho do modelo; **pula** se o modelo faltar |
+| `pipeline.py` | Foto real entra; contrato JSON e evidencias visuais saem |
+| `app.py` | Servidor local com upload e webcam no Chrome |
+| `teste_pipeline.py` | Confere contrato/evidencias e recusa foto sem haste |
 
 ## Rodando
 
@@ -33,14 +38,24 @@ python -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt       # Linux e macOS
 ```
 
-Depois:
+Depois, execute os testes:
 
 ```bash
 .venv/Scripts/python teste_sintetico.py
 .venv/Scripts/python teste_classificacao.py
+.venv/Scripts/python teste_pipeline.py
 ```
 
-Sai com codigo 0 se tudo passar. Nao abre janela — roda headless.
+Para testar foto real no Chrome:
+
+```bash
+.venv/Scripts/python app.py
+```
+
+Abra `http://127.0.0.1:8766`. Use upload ou webcam, informe a altura da haste
+(padrao: 100 cm) e processe. A foto precisa conter a haste inteira, vertical e
+no mesmo plano da vegetacao. O resultado e salvo em `saidas/`, que nao entra no
+Git.
 
 ## O modelo
 

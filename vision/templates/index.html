@@ -10,17 +10,27 @@
     .wrap { max-width:1120px; margin:auto; padding:32px; }
     .eyebrow { color:#675e78; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
     h1 { color:#2e0854; margin:7px 0; } .lead { color:#675e78; max-width:780px; }
-    .grid { display:grid; grid-template-columns:360px 1fr; gap:20px; margin-top:24px; }
+    .grid { display:grid; grid-template-columns:380px 1fr; gap:20px; margin-top:24px; }
     .card { background:#fff; border:1px solid #e3ddee; border-radius:14px; padding:20px; }
     label { display:block; font-size:13px; font-weight:700; margin:13px 0 6px; }
-    input,button { font:inherit; } input[type=number],input[type=file] { width:100%; padding:10px; border:1px solid #cfc6e0; border-radius:8px; }
+    input,button,select { font:inherit; }
+    input[type=number],input[type=file],select { width:100%; padding:10px; border:1px solid #cfc6e0; border-radius:8px; background:#fff; }
     button { border:0; border-radius:8px; padding:11px 14px; background:#2e0854; color:#fff; font-weight:700; cursor:pointer; margin-top:12px; width:100%; }
     button.alt { background:#4b1f80; } .hint { font-size:13px; color:#675e78; line-height:1.45; }
     .error { color:#912018; background:#fef3f2; border:1px solid #fecdca; padding:12px; border-radius:8px; }
+    .aviso { color:#7a5c00; background:#fdf6e0; border:1px solid #f0dfa8; padding:10px 12px; border-radius:8px; font-size:13px; margin-top:10px; }
     .ok { color:#17713a; } .result img { max-width:100%; border-radius:8px; border:1px solid #e3ddee; margin-top:12px; }
     .metrics { display:flex; gap:10px; flex-wrap:wrap; }.metric { background:#faf9fc; border:1px solid #e3ddee; border-radius:8px; padding:12px; min-width:130px; }.metric b { display:block; font-size:21px; color:#2e0854; }
+    .avisos { margin:12px 0; padding:12px 14px; border-radius:8px; background:#fdf6e0; border:1px solid #f0dfa8; color:#7a5c00; }
+    .avisos b { display:block; margin-bottom:6px; } .avisos ul { margin:0; padding-left:18px; } .avisos li { margin:4px 0; line-height:1.45; }
+    .via { display:inline-block; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:700; }
+    .via-haste { background:#ede9f3; color:#2e0854; } .via-arquivo { background:#e6f4ea; color:#17713a; }
     pre { white-space:pre-wrap; background:#201a2b; color:#e8def8; padding:14px; border-radius:8px; max-height:290px; overflow:auto; font-size:12px; }
     video { width:100%; background:#201a2b; border-radius:8px; margin-top:10px; display:none; }
+    .abas { display:flex; gap:6px; margin-bottom:4px; }
+    .aba { flex:1; margin:0; background:#ede9f3; color:#2e0854; }
+    .aba[aria-selected="true"] { background:#2e0854; color:#fff; }
+    .painel[hidden] { display:none; }
     @media(max-width:750px) { .grid { grid-template-columns:1fr; }.wrap { padding:18px; } }
   </style>
 </head>
@@ -28,24 +38,59 @@
   <main class="wrap">
     <div class="eyebrow">Bloco 2 · Teste local</div>
     <h1>Visão: medir vegetação por foto</h1>
-    <p class="lead">Envie uma foto ou use a webcam. A haste inteira precisa aparecer verticalmente, no mesmo plano da vegetação. Sem haste, o sistema recusa a medição.</p>
+    <p class="lead">Duas vias de escala. Com a régua no quadro, cada foto se autocalibra. Com a calibração salva, mede-se sem régua — mas só vale para a geometria em que a calibração foi feita.</p>
+
     <div class="grid">
       <section class="card">
-        <label for="altura">Altura da haste (cm)</label>
-        <input id="altura" type="number" value="100" min="1" step="1">
-        <label for="arquivo">Foto</label>
-        <input id="arquivo" type="file" accept="image/jpeg,image/png">
-        <button id="enviar">Processar foto</button>
-        <button id="camera" class="alt">Usar webcam</button>
-        <video id="video" autoplay playsinline></video>
-        <button id="capturar" class="alt" style="display:none">Capturar e processar</button>
-        <p class="hint">A webcam exige sua permissão no Chrome. Para fotos de campo, prefira a câmera do celular e mantenha o GPS ativo.</p>
+        <div class="abas">
+          <button class="aba" id="aba-medir" aria-selected="true">Medir</button>
+          <button class="aba" id="aba-calibrar" aria-selected="false">Calibrar</button>
+        </div>
+
+        <div class="painel" id="painel-medir">
+          <label for="via">Fonte da escala</label>
+          <select id="via">
+            <option value="haste">Régua no quadro (cada foto se calibra)</option>
+            <option value="arquivo">Calibração salva (sem régua na foto)</option>
+          </select>
+          <div id="estado-calibracao"></div>
+
+          <div id="campo-haste">
+            <label for="altura">Comprimento da régua (cm) — opcional</label>
+            <input id="altura" type="number" placeholder="deixe vazio" min="1" step="0.1">
+            <p class="hint">O sistema lê a graduação da trena sozinho. Este campo só é usado se a leitura falhar — e, se você preencher, os dois valores são comparados.</p>
+          </div>
+
+          <label for="arquivo">Foto</label>
+          <input id="arquivo" type="file" accept="image/jpeg,image/png">
+          <button id="enviar">Processar foto</button>
+          <button id="camera" class="alt">Usar webcam</button>
+          <video id="video" autoplay playsinline></video>
+          <button id="capturar" class="alt" style="display:none">Capturar e processar</button>
+          <p class="hint">A webcam exige sua permissão no Chrome. Para fotos de campo, prefira a câmera do celular e mantenha o GPS ativo.</p>
+        </div>
+
+        <div class="painel" id="painel-calibrar" hidden>
+          <p class="hint">Fotografe a trena no quadro, na mesma pose que a câmera terá em campo. A escala resultante vale só para esta altura e distância.</p>
+          <label for="cal-referencia">Comprimento da trena (cm) — opcional</label>
+          <input id="cal-referencia" type="number" placeholder="deixe vazio" min="1" step="0.1">
+          <label for="cal-altura">Altura da câmera ao solo (cm)</label>
+          <input id="cal-altura" type="number" value="140" min="1" step="1">
+          <label for="cal-distancia">Distância da câmera ao alvo (cm)</label>
+          <input id="cal-distancia" type="number" value="200" min="1" step="1">
+          <label for="cal-foto">Foto com a trena</label>
+          <input id="cal-foto" type="file" accept="image/jpeg,image/png">
+          <button id="cal-enviar">Gerar calibração</button>
+          <p class="hint">A trena precisa aparecer <b>na vertical</b>. Deitada no chão ela não é reconhecida.</p>
+        </div>
       </section>
+
       <section id="resultado" class="card result">
         <p class="hint">O resultado aparecerá aqui: imagem anotada, máscara de vegetação e JSON do contrato.</p>
       </section>
     </div>
   </main>
+
   <script>
     const $ = (id) => document.getElementById(id);
     const resultado = $("resultado");
@@ -53,12 +98,49 @@
     let stream;
 
     function renderErro(texto) {
-      resultado.innerHTML = `<p class="error"><b>Foto não aprovada:</b><br>${texto}</p><p class="hint">Confira se a haste está inteira, vertical e contrastando com o fundo e a vegetação.</p>`;
+      resultado.innerHTML = `<p class="error"><b>Não foi possível medir:</b><br>${texto}</p><p class="hint">Na via da régua, ela precisa estar inteira, vertical e contrastando com o fundo. Na via da calibração salva, gere a calibração antes na aba ao lado.</p>`;
+    }
+
+    function trocarAba(medir) {
+      $("aba-medir").setAttribute("aria-selected", medir);
+      $("aba-calibrar").setAttribute("aria-selected", !medir);
+      $("painel-medir").hidden = !medir;
+      $("painel-calibrar").hidden = medir;
+    }
+    $("aba-medir").onclick = () => trocarAba(true);
+    $("aba-calibrar").onclick = () => trocarAba(false);
+
+    function ajustarVia() {
+      $("campo-haste").style.display = $("via").value === "haste" ? "block" : "none";
+    }
+    $("via").onchange = ajustarVia;
+
+    async function carregarEstadoCalibracao() {
+      const alvo = $("estado-calibracao");
+      try {
+        const dados = await (await fetch("/api/calibracao")).json();
+        if (!dados.existe) {
+          alvo.innerHTML = `<div class="aviso">Nenhuma calibração salva. Use a aba <b>Calibrar</b> antes de medir sem régua.</div>`;
+          return;
+        }
+        const g = dados.geometria || {};
+        const velha = dados.idade_dias !== null && dados.idade_dias > 7;
+        alvo.innerHTML = `<div class="aviso" style="${velha ? "" : "background:#f4ecff;border-color:#ddcaf5;color:#2e0854"}">
+          Calibração salva: <b>${dados.pixels_por_cm} px/cm</b><br>
+          câmera a ${g.altura_camera_cm ?? "?"} cm, alvo a ${g.distancia_alvo_cm ?? "?"} cm
+          ${dados.idade_dias !== null ? `<br>gerada há ${dados.idade_dias} dia(s)` : ""}
+          ${velha ? "<br><b>Mais de 7 dias.</b> Confira antes de confiar." : ""}
+        </div>`;
+      } catch (erro) {
+        alvo.innerHTML = `<div class="aviso">Não foi possível ler o estado da calibração.</div>`;
+      }
     }
 
     async function enviar(blob, nome) {
+      const via = $("via").value;
       const formulario = new FormData();
       formulario.append("imagem", blob, nome);
+      formulario.append("via", via);
       formulario.append("altura_haste_cm", $("altura").value);
       resultado.innerHTML = "<p class='hint'>Processando imagem…</p>";
       try {
@@ -66,7 +148,43 @@
         const dados = await resposta.json();
         if (!resposta.ok) throw new Error(dados.erro || "Falha no processamento");
         const deteccao = dados.deteccoes[0];
-        resultado.innerHTML = `<p class="ok"><b>Medição válida.</b> Pipeline concluído sem estimativa de escala.</p><div class="metrics"><div class="metric">Altura<b>${deteccao.metrica} cm</b></div><div class="metric">Cobertura<b>${deteccao.cobertura_pct}%</b></div><div class="metric">Escala<b>${dados.calibracao.pixels_por_cm} px/cm</b></div></div><img src="${dados.urls.imagem_anotada}" alt="Imagem anotada"><img src="${dados.urls.mascara}" alt="Máscara de vegetação"><h3>Contrato JSON</h3><pre>${JSON.stringify(dados, null, 2)}</pre>`;
+        const daCalibracao = dados.calibracao.referencia === "arquivo";
+        const selo = daCalibracao
+          ? `<span class="via via-arquivo">escala: calibração salva</span>`
+          : `<span class="via via-haste">escala: régua no quadro</span>`;
+        const g = dados.calibracao.geometria;
+        const geometria = (daCalibracao && g)
+          ? `<p class="hint">Geometria da calibração: câmera a ${g.altura_camera_cm} cm, alvo a ${g.distancia_alvo_cm} cm. Se esta foto não foi tirada assim, o número está errado.</p>`
+          : "";
+
+        // Como a escala foi obtida, em texto claro.
+        const grad = dados.calibracao.graduacao;
+        const viaEscala = dados.calibracao.via_escala;
+        let origemEscala = "";
+        if (viaEscala === "graduacao" && grad) {
+          origemEscala = `<p class="hint">Escala lida na <b>graduação da trena</b>: período de ${grad.periodo_px} px interpretado como ${grad.interpretacao}, confiança ${grad.confianca}. Nenhum número foi digitado.</p>`;
+        } else if (viaEscala === "comprimento_informado") {
+          origemEscala = `<p class="hint">Escala derivada do <b>comprimento informado</b> — a graduação não pôde ser lida.</p>`;
+        }
+
+        // Comprimento visível da trena: é o número que denuncia o erro de digitação.
+        const visivel = dados.calibracao.comprimento_visivel_cm;
+        const cartaoTrena = (visivel !== undefined && visivel !== null)
+          ? `<div class="metric">Trena lida<b>${visivel} cm</b></div>` : "";
+
+        const avisos = (dados.avisos || []);
+        const blocoAvisos = avisos.length
+          ? `<div class="avisos"><b>⚠ ${avisos.length} aviso(s) — o resultado saiu, mas confira antes de usar:</b><ul>${avisos.map((a) => `<li>${a}</li>`).join("")}</ul></div>`
+          : "";
+
+        resultado.innerHTML = `<p class="ok"><b>Medição válida.</b> Pipeline concluído sem estimativa de escala.</p>
+          <p>${selo}</p>
+          ${blocoAvisos}
+          <div class="metrics"><div class="metric">Altura<b>${deteccao.metrica} cm</b></div>${cartaoTrena}<div class="metric">Cobertura<b>${deteccao.cobertura_pct}%</b></div><div class="metric">Escala<b>${dados.calibracao.pixels_por_cm} px/cm</b></div></div>
+          ${origemEscala}
+          ${geometria}
+          <img src="${dados.urls.imagem_anotada}" alt="Imagem anotada"><img src="${dados.urls.mascara}" alt="Máscara de vegetação">
+          <h3>Contrato JSON</h3><pre>${JSON.stringify(dados, null, 2)}</pre>`;
       } catch (erro) { renderErro(erro.message); }
     }
 
@@ -89,6 +207,31 @@
       tela.getContext("2d").drawImage(video, 0, 0);
       tela.toBlob((imagem) => enviar(imagem, "captura-webcam.jpg"), "image/jpeg", .92);
     };
+
+    $("cal-enviar").onclick = async () => {
+      const foto = $("cal-foto").files[0];
+      if (!foto) return renderErro("Selecione a foto com a trena.");
+      const formulario = new FormData();
+      formulario.append("imagem", foto, foto.name);
+      formulario.append("referencia_cm", $("cal-referencia").value);
+      formulario.append("altura_camera_cm", $("cal-altura").value);
+      formulario.append("distancia_alvo_cm", $("cal-distancia").value);
+      resultado.innerHTML = "<p class='hint'>Gerando calibração…</p>";
+      try {
+        const resposta = await fetch("/api/calibrar", { method:"POST", body:formulario });
+        const dados = await resposta.json();
+        if (!resposta.ok) throw new Error(dados.erro || "Falha ao calibrar");
+        resultado.innerHTML = `<p class="ok"><b>Calibração gravada.</b></p>
+          <div class="metrics"><div class="metric">Escala<b>${dados.pixels_por_cm} px/cm</b></div><div class="metric">Câmera<b>${dados.geometria.altura_camera_cm} cm</b></div><div class="metric">Alvo<b>${dados.geometria.distancia_alvo_cm} cm</b></div></div>
+          <p class="hint">Vale só para esta geometria. Mudou altura, ângulo ou distância, refaça — a medida sai errada e nada avisa.</p>
+          <pre>${JSON.stringify(dados, null, 2)}</pre>`;
+        await carregarEstadoCalibracao();
+        $("via").value = "arquivo"; ajustarVia(); trocarAba(true);
+      } catch (erro) { renderErro(erro.message); }
+    };
+
+    ajustarVia();
+    carregarEstadoCalibracao();
   </script>
 </body>
 </html>

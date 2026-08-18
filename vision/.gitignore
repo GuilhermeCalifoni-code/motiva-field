@@ -21,6 +21,10 @@ modelos/*.tflite
 saidas/
 *.json.tmp
 
+# Calibracao persistida: especifica de cada maquina, camera e montagem no
+# veiculo. Versionar faria uma maquina medir com a escala de outra.
+calibracao.json
+
 # Servidor local
 servidor-visao.log
 servidor-visao.pid

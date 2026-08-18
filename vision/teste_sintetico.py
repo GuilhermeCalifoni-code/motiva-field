@@ -29,7 +29,10 @@ from segmentacao import altura_em_pixels, maior_regiao, mascara_vegetacao
 # haste clara. A haste contrasta com verde e marrom, como manda o protocolo.
 COR_FUNDO = (33, 67, 101)      # marrom de terra batida
 COR_VEGETACAO = (40, 160, 50)  # verde de mato
-COR_HASTE = (170, 170, 170)    # cinza claro
+COR_HASTE = (170, 170, 170)    # cinza claro — cai no fallback geometrico
+# Amarelo saturado, dentro da faixa HSV que calibracao.py procura. Serve para
+# exercitar a deteccao por cor sem depender de foto real.
+COR_TRENA_AMARELA = (0, 210, 230)
 
 LARGURA_IMAGEM = 700
 ALTURA_IMAGEM = 900
@@ -44,13 +47,92 @@ SIGMA_RUIDO = 5.0
 TOLERANCIA = 0.05
 
 
+def gerar_trena_graduada(
+    pixels_por_cm: float,
+    comprimento_cm: float,
+    largura_fita_cm: float = 2.5,
+    angulo_graus: float = 0.0,
+    semente: int = 11,
+) -> tuple[np.ndarray, tuple[int, int, int, int]]:
+    """Desenha uma trena amarela com graduacao, sobre fundo neutro.
+
+    A hierarquia de marcas imita a fita real: milimetro curto e claro, meio
+    centimetro medio, centimetro longo e escuro. E essa diferenca de tamanho
+    que permite ao leitor de graduacao descobrir se o periodo dominante vale
+    1 mm, 5 mm ou 1 cm.
+
+    Args:
+        pixels_por_cm: escala desejada, em px/cm.
+        comprimento_cm: comprimento da fita desenhada.
+        largura_fita_cm: largura fisica da fita, em cm. Fita real tem largura
+            constante, entao em pixels ela ESCALA junto com pixels_por_cm — e e
+            isso que permite desempatar a leitura da graduacao.
+        angulo_graus: inclinacao aplicada a cena, para testar o endireitamento.
+        semente: semente do ruido.
+
+    Returns:
+        `(imagem_bgr, bbox)` com bbox `(x, y, largura, altura)` da fita.
+    """
+    altura_fita = int(round(comprimento_cm * pixels_por_cm))
+    largura_px = max(8, int(round(largura_fita_cm * pixels_por_cm)))
+    margem = max(40, int(altura_fita * 0.18))
+    altura_total = altura_fita + margem * 2
+    largura_total = largura_px + margem * 2
+
+    imagem = np.full((altura_total, largura_total, 3), (150, 150, 150), dtype=np.uint8)
+
+    x0, y0 = margem, margem
+    x1, y1 = x0 + largura_px, y0 + altura_fita
+    cv2.rectangle(imagem, (x0, y0), (x1 - 1, y1 - 1), COR_TRENA_AMARELA, thickness=-1)
+
+    # Marcas a cada milimetro; comprimento e cor dependem da hierarquia.
+    milimetros = int(round(comprimento_cm * 10))
+    pixels_por_mm = pixels_por_cm / 10.0
+    for mm in range(milimetros + 1):
+        posicao = int(round(y0 + mm * pixels_por_mm))
+        if posicao >= y1:
+            break
+        if mm % 10 == 0:
+            comprimento_marca, cor, espessura = int(largura_px * 0.75), (20, 20, 20), 2
+        elif mm % 5 == 0:
+            comprimento_marca, cor, espessura = int(largura_px * 0.50), (40, 40, 40), 1
+        else:
+            comprimento_marca, cor, espessura = int(largura_px * 0.28), (70, 70, 70), 1
+        cv2.line(imagem, (x0, posicao), (x0 + comprimento_marca, posicao), cor, espessura)
+
+    bbox = (x0, y0, largura_px, altura_fita)
+
+    if abs(angulo_graus) > 1e-6:
+        centro = (largura_total / 2.0, altura_total / 2.0)
+        matriz = cv2.getRotationMatrix2D(centro, angulo_graus, 1.0)
+        imagem = cv2.warpAffine(
+            imagem, matriz, (largura_total, altura_total),
+            flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE,
+        )
+        # A bbox passa a ser a do retangulo girado, que e o que o detector por
+        # cor devolveria nessa foto.
+        cantos = np.array(
+            [[x0, y0], [x1, y0], [x1, y1], [x0, y1]], dtype=np.float64
+        )
+        girados = cv2.transform(cantos.reshape(-1, 1, 2), matriz).reshape(-1, 2)
+        gx, gy, gw, gh = cv2.boundingRect(girados.astype(np.int32))
+        bbox = (gx, gy, gw, gh)
+
+    gerador = np.random.default_rng(semente)
+    ruido = gerador.normal(0.0, 3.0, imagem.shape)
+    imagem = np.clip(imagem.astype(np.float64) + ruido, 0, 255).astype(np.uint8)
+
+    return imagem, bbox
+
+
 def gerar_cena(
     altura_haste_px: int,
     altura_vegetacao_px: int,
     com_haste: bool = True,
     semente: int = 42,
+    cor_haste: tuple[int, int, int] = COR_HASTE,
 ) -> np.ndarray:
-    """Monta a cena: fundo marrom, moita verde e haste cinza.
+    """Monta a cena: fundo marrom, moita verde e haste.
 
     Tudo apoiado na mesma linha do chao, como na foto real, em que haste e mato
     ficam a mesma distancia da camera.
@@ -61,6 +143,8 @@ def gerar_cena(
         com_haste: quando False, desenha a cena sem referencia — usado para
             provar que a calibracao falha em vez de chutar.
         semente: semente do ruido, para o teste ser reproduzivel.
+        cor_haste: BGR da haste. O padrao cinza cai no fallback geometrico;
+            passe COR_TRENA_AMARELA para exercitar a deteccao por cor.
 
     Returns:
         Imagem BGR uint8.
@@ -84,7 +168,7 @@ def gerar_cena(
             imagem,
             (HASTE_X, LINHA_DO_CHAO - altura_haste_px),
             (HASTE_X + HASTE_LARGURA, base),
-            COR_HASTE,
+            cor_haste,
             thickness=-1,
         )
 

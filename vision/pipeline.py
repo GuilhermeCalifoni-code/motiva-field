@@ -13,10 +13,20 @@ from PIL import Image
 
 try:  # como pacote: python -m vision.conferir
     from .calibracao import ReferenciaNaoEncontrada, medir_escala
-    from .segmentacao import altura_em_pixels, maior_regiao, mascara_vegetacao
+    from .segmentacao import (
+        altura_em_pixels,
+        maior_regiao,
+        mascara_vegetacao,
+        medir_altura_vegetacao,
+    )
 except ImportError:  # direto de dentro de vision/
     from calibracao import ReferenciaNaoEncontrada, medir_escala
-    from segmentacao import altura_em_pixels, maior_regiao, mascara_vegetacao
+    from segmentacao import (
+        altura_em_pixels,
+        maior_regiao,
+        mascara_vegetacao,
+        medir_altura_vegetacao,
+    )
 
 VERSAO_MODELO = "exg_haste_v1"
 
@@ -150,12 +160,26 @@ def processar_foto(
         }
 
     mascara = mascara_vegetacao(imagem)
-    regiao = maior_regiao(mascara)
-    if regiao is None:
-        raise FotoInvalida("nenhuma região de vegetação foi encontrada na imagem")
 
-    bbox, _ = regiao
-    altura_cm = altura_em_pixels(bbox) / escala
+    # Quando a trena esta no quadro, a base dela e a linha do chao e a moita
+    # medida e a que fica ao lado — nao a maior mancha verde da foto inteira,
+    # que numa rodovia e a faixa de grama ate o horizonte.
+    bbox_referencia = medicao["bbox_referencia"] if medicao is not None else None
+    medida = medir_altura_vegetacao(mascara, bbox_referencia)
+    if medida is None:
+        # Sem moita qualificada ao lado da trena, cai no comportamento antigo
+        # para nao perder a medicao — mas isso vira aviso mais abaixo.
+        regiao = maior_regiao(mascara)
+        if regiao is None:
+            raise FotoInvalida("nenhuma região de vegetação foi encontrada na imagem")
+        bbox, _ = regiao
+        altura_px = altura_em_pixels(bbox)
+        medida_ancorada = False
+    else:
+        altura_px, bbox = medida
+        medida_ancorada = True
+
+    altura_cm = altura_px / escala
     cobertura_pct = float(np.count_nonzero(mascara) / mascara.size * 100)
     capturado_em, coordenadas = _data_e_coordenadas(conteudo)
 
@@ -165,6 +189,13 @@ def processar_foto(
     comprimento_referencia_cm = (
         float(medicao["comprimento_visivel_cm"]) if medicao is not None else None
     )
+
+    if medicao is not None and not medida_ancorada:
+        avisos.append(
+            "nenhuma moita encostada no chao foi encontrada ao lado da trena; a "
+            "altura veio da maior mancha verde do quadro inteiro, que mistura "
+            "vegetacao de varias distancias. Trate o numero como indicativo."
+        )
 
     if altura_cm > ALTURA_IMPLAUSIVEL_CM:
         avisos.append(

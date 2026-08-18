@@ -148,3 +148,107 @@ def altura_em_pixels(bbox: tuple[int, int, int, int]) -> int:
     """Altura vertical do bbox `(x1, y1, x2, y2)`."""
     _, y1, _, y2 = bbox
     return int(y2 - y1)
+
+
+# --- Medicao da altura -------------------------------------------------------
+#
+# Medir o bbox da maior mancha verde do quadro NAO e medir altura de planta.
+# Numa foto de rodovia a maior mancha e a faixa de grama inteira, que vai do pe
+# da camera ate o horizonte; a extensao vertical desse bbox mistura vegetacao a
+# 1 m e a 30 m. Grama distante aparece mais alta no quadro sem ser mais alta.
+#
+# O protocolo de captura ja resolve isso: a trena fica encostada no chao, ao
+# lado da vegetacao, na mesma distancia da camera. Logo a base da trena e a
+# linha do chao, e o que interessa e a moita ao lado dela.
+
+# Meia-largura da banda de interesse, em multiplos da largura da trena.
+FATOR_BANDA_LATERAL = 4.0
+
+# Quao perto do chao a base da moita precisa estar, em fracao da altura da
+# imagem. Planta nasce do chao; mancha verde solta no alto do quadro e arvore,
+# barranco ou fundo.
+FRACAO_TOLERANCIA_CHAO = 0.05
+
+
+def medir_altura_vegetacao(
+    mascara: np.ndarray,
+    bbox_referencia: tuple[int, int, int, int] | None,
+    fator_banda: float = FATOR_BANDA_LATERAL,
+) -> tuple[int, tuple[int, int, int, int]] | None:
+    """Altura da vegetacao em pixels, medida do chao para cima.
+
+    Usa a trena como referencia geometrica: a base dela e a linha do chao, e a
+    moita que interessa e a que esta ao lado, dentro de uma banda lateral.
+
+    Args:
+        mascara: mascara binaria de vegetacao, uint8 com 0 e 255.
+        bbox_referencia: `(x, y, largura, altura)` da trena. Quando None, cai no
+            comportamento antigo (maior componente do quadro), que so faz
+            sentido em cena controlada.
+        fator_banda: meia-largura da banda, em multiplos da largura da trena.
+
+    Returns:
+        `(altura_px, bbox)` com bbox `(x1, y1, x2, y2)` da moita medida, ou None
+        quando nao ha vegetacao qualificada.
+    """
+    if mascara is None or mascara.size == 0:
+        return None
+
+    if bbox_referencia is None:
+        regiao = maior_regiao(mascara)
+        if regiao is None:
+            return None
+        bbox, _ = regiao
+        return altura_em_pixels(bbox), bbox
+
+    altura_img, largura_img = mascara.shape[:2]
+    rx, ry, rw, rh = (int(v) for v in bbox_referencia)
+    linha_do_chao = min(altura_img, ry + rh)
+
+    # Banda lateral centrada na trena.
+    centro_x = rx + rw / 2.0
+    meia = max(rw * fator_banda, rw + 1.0)
+    x_inicio = max(0, int(round(centro_x - meia)))
+    x_fim = min(largura_img, int(round(centro_x + meia)))
+    if x_fim - x_inicio < 3 or linha_do_chao < 3:
+        return None
+
+    # So o que esta na banda e acima do chao.
+    recorte = np.zeros_like(mascara)
+    recorte[:linha_do_chao, x_inicio:x_fim] = mascara[:linha_do_chao, x_inicio:x_fim]
+
+    # A propria trena nao e vegetacao, mas se o verde vazar por cima dela o
+    # componente pode encostar; remover a coluna dela evita medir a fita.
+    recorte[:, rx : rx + rw] = 0
+
+    quantidade, rotulos, estatisticas, _ = cv2.connectedComponentsWithStats(
+        (recorte > 0).astype(np.uint8), connectivity=8
+    )
+    if quantidade <= 1:
+        return None
+
+    tolerancia = max(3, int(altura_img * FRACAO_TOLERANCIA_CHAO))
+
+    melhor = None
+    melhor_area = 0
+    for indice in range(1, quantidade):
+        x = int(estatisticas[indice, cv2.CC_STAT_LEFT])
+        y = int(estatisticas[indice, cv2.CC_STAT_TOP])
+        largura = int(estatisticas[indice, cv2.CC_STAT_WIDTH])
+        altura = int(estatisticas[indice, cv2.CC_STAT_HEIGHT])
+        area = int(estatisticas[indice, cv2.CC_STAT_AREA])
+
+        base = y + altura
+        # Planta nasce do chao: a base tem de chegar perto da linha da trena.
+        if abs(base - linha_do_chao) > tolerancia:
+            continue
+        if area > melhor_area:
+            melhor_area = area
+            melhor = (x, y, largura, altura)
+
+    if melhor is None:
+        return None
+
+    x, y, largura, altura = melhor
+    altura_px = max(0, linha_do_chao - y)
+    return altura_px, (x, y, x + largura, linha_do_chao)

@@ -18,7 +18,7 @@ o local, registra a execução e comprova que foi feita.
 ```
 motiva-field/
 ├── vision/    Python — OpenCV/YOLO. Função pura: imagem entra, JSON sai.
-├── mobile/    React Native + Expo — operador em campo
+├── mobile/    Flutter (Dart) — operador em campo
 ├── web/       React + Vite + Leaflet — painel interno
 ├── db/        Supabase, PostgreSQL + PostGIS, migrations
 ├── shared/    Tipos e contratos entre as frentes
@@ -42,7 +42,7 @@ existirem. Decisão consciente do time — não sugerir inverter.
 Por isso vale uma regra rígida:
 
 **Todo dado falso mora em um arquivo só** (`web/src/mockData.ts`,
-`mobile/src/mockData.ts`). Nenhum componente inventa dado inline. Quando o banco
+`mobile/lib/mock_data.dart`). Nenhum componente inventa dado inline. Quando o banco
 chegar, troca-se aquele arquivo por queries e mais nada. Se você precisar de um
 campo que não existe no mock, adicione lá — nunca no componente.
 
@@ -64,7 +64,7 @@ momento do registro — sem isso não há prova de que o serviço foi feito.
 ## Convenções
 
 - Português nos nomes de tabela, coluna e domínio. Inglês em nomes de código.
-- TypeScript nos dois fronts. Nada de JavaScript solto.
+- TypeScript no web, Dart no mobile. Nada de JavaScript solto.
 - Nenhum caminho absoluto, IP ou chave no código. Tudo por variável de ambiente.
 - `.env` no `.gitignore` desde o primeiro commit.
 - Sem acento nem espaço em nome de arquivo ou pasta.

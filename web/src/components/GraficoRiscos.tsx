@@ -1,4 +1,5 @@
-import { RISCO_COR, RISCO_LABEL, contarPorRisco, type NivelRisco, type PontoVegetacao } from "../mockData";
+import { RISCO_LABEL, contarPorRisco, type NivelRisco, type PontoVegetacao } from "../mockData";
+import { COR_RISCO } from "../theme/tokens";
 import "./GraficoRiscos.css";
 
 interface GraficoRiscosProps {
@@ -22,7 +23,7 @@ export default function GraficoRiscos({ pontos }: GraficoRiscosProps) {
           <div className="grafico-riscos__trilho">
             <div
               className="grafico-riscos__barra"
-              style={{ width: `${(total / maior) * 100}%`, backgroundColor: RISCO_COR[nivel] }}
+              style={{ width: `${(total / maior) * 100}%`, backgroundColor: COR_RISCO[nivel] }}
             />
           </div>
           <span className="grafico-riscos__total">{total}</span>

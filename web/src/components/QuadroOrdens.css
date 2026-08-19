@@ -1,7 +1,7 @@
 .quadro-ordens {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--espaco-5);
   flex: 1;
   min-height: 0;
 }
@@ -10,35 +10,35 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--espaco-4);
 }
 
 .quadro-ordens__cabecalho h2 {
-  margin: 0 0 2px;
-  font-size: 1.05rem;
-  color: var(--cor-primaria);
+  margin: 0 0 var(--espaco-1);
+  font-size: var(--texto-lg);
+  color: var(--texto);
 }
 
 .quadro-ordens__cabecalho span {
-  font-size: 0.78rem;
-  color: var(--cor-texto-suave);
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
 }
 
 .quadro-ordens__nova {
-  background: var(--cor-destaque);
+  background: var(--marca-ouro);
   border: none;
-  border-radius: var(--raio);
-  padding: 11px 18px;
+  border-radius: var(--raio-sm);
+  padding: var(--espaco-3) var(--espaco-5);
   font-family: inherit;
-  font-size: 0.88rem;
+  font-size: var(--texto-md);
   font-weight: 700;
-  color: var(--cor-primaria-escura);
+  color: var(--marca-roxo-escuro);
   cursor: pointer;
   transition: background 0.15s ease;
 }
 
 .quadro-ordens__nova:hover {
-  background: var(--cor-destaque-escura);
+  background: var(--marca-ouro-escuro);
 }
 
 .quadro-ordens__colunas {
@@ -46,7 +46,7 @@
   min-height: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(200px, 1fr));
-  gap: 14px;
+  gap: var(--espaco-4);
 }
 
 @media (max-width: 1180px) {

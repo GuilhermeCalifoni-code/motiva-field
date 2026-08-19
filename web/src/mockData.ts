@@ -32,11 +32,7 @@ export const RISCO_LABEL: Record<NivelRisco, string> = {
   critico: "Crítico",
 };
 
-export const RISCO_COR: Record<NivelRisco, string> = {
-  tranquilo: "#22c55e",
-  atencao: "#f97316",
-  critico: "#f2b705",
-};
+// As cores vivem em theme/tokens — aqui só mora o dado de domínio.
 
 // Usado para ordenar a lista por risco decrescente (crítico primeiro).
 export const RISCO_ORDEM: Record<NivelRisco, number> = {
@@ -183,13 +179,6 @@ export function urgenciaPrazo(dados: Projecao): UrgenciaPrazo {
   return "neutro";
 }
 
-export const URGENCIA_COR: Record<UrgenciaPrazo, string> = {
-  vencido: "#dc2626",
-  urgente: "#dc2626",
-  atencao: "#f97316",
-  neutro: "#675e78",
-};
-
 // Prazos longos podem cair em outro ano — sem o sufixo, "08/10" seria lido
 // como daqui a dois meses.
 function diaMesDeIso(dataIso: string, anoReferencia: number): string {
@@ -226,6 +215,32 @@ export function viramCriticosEm(
     const dados = projecao(ponto, agora);
     return dados.diasRestantes !== null && dados.diasRestantes > 0 && dados.diasRestantes <= dias;
   }).length;
+}
+
+// Próximo ponto a cruzar o limite crítico. Ignora os que já são críticos:
+// esses não têm prazo, têm atraso, e aparecem no bloco de acao imediata.
+export function proximaRocada(
+  pontos: PontoVegetacao[],
+  agora: number = Date.now(),
+): { ponto: PontoVegetacao; previsao: Projecao } | null {
+  let melhor: { ponto: PontoVegetacao; previsao: Projecao } | null = null;
+  for (const ponto of pontos) {
+    const previsao = projecao(ponto, agora);
+    if (previsao.diasRestantes === null || previsao.diasRestantes === 0) continue;
+    if (melhor === null || previsao.diasRestantes < (melhor.previsao.diasRestantes ?? Infinity)) {
+      melhor = { ponto, previsao };
+    }
+  }
+  return melhor;
+}
+
+// Total que exige ação: os já críticos mais os que cruzam o limite na janela.
+export function pontosQueExigemAcao(
+  pontos: PontoVegetacao[],
+  dias: number,
+  agora: number = Date.now(),
+): number {
+  return contarPorRisco(pontos, "critico") + viramCriticosEm(pontos, dias, agora);
 }
 
 export type OrdenacaoPontos = "risco" | "prazo";
@@ -274,6 +289,35 @@ export function centroDoTrecho(pontos: PontoVegetacao[]): { latitude: number; lo
   };
 }
 
+// --- Ancoragem temporal das passagens ---------------------------------------
+//
+// As datas são calculadas a partir de hoje, não escritas à mão. Com datas
+// absolutas o cenário envelhecia sozinho: conforme a projeção passava do prazo,
+// o KPI "viram críticos em 15 dias" caía para zero e a demo passava a depender
+// do dia em que rodasse.
+//
+// Só o ancoramento é relativo. Alturas e intervalos continuam sendo dado fixo,
+// então as taxas de crescimento e os níveis de risco não mudam.
+//
+// Quando o banco chegar, isto some junto com o resto do mock: as passagens
+// passam a ter data real de captura.
+
+const INTERVALO_PASSAGENS_DIAS = 28;
+
+// Distância da última passagem até hoje. Em 4 dias, o ponto do km 99,90 cruza
+// o limite crítico daqui a ~9 dias — dentro da janela de 15 do KPI.
+const DIAS_DESDE_ULTIMA_PASSAGEM = 4;
+
+// Recebe as alturas medidas e devolve as passagens já datadas, da mais antiga
+// para a mais recente.
+function historicoDe(alturas: number[], agora: number = Date.now()): Passagem[] {
+  const diaDaUltima = Math.floor(agora / MS_POR_DIA) - DIAS_DESDE_ULTIMA_PASSAGEM;
+  return alturas.map((alturaCm, indice) => {
+    const recuoDias = (alturas.length - 1 - indice) * INTERVALO_PASSAGENS_DIAS;
+    return { data: diaEpochParaIso(diaDaUltima - recuoDias), alturaCm };
+  });
+}
+
 export const pontosVegetacao: PontoVegetacao[] = [
   {
     id: "sp270-pv-01",
@@ -287,13 +331,7 @@ export const pontosVegetacao: PontoVegetacao[] = [
     nivelRisco: "atencao",
     invadePista: false,
     cobrePlaca: false,
-    historico: [
-      { data: "2026-04-10", alturaCm: 12 },
-      { data: "2026-05-08", alturaCm: 17 },
-      { data: "2026-06-05", alturaCm: 22 },
-      { data: "2026-07-03", alturaCm: 27 },
-      { data: "2026-07-31", alturaCm: 32 },
-    ],
+    historico: historicoDe([12, 17, 22, 27, 32]),
   },
   {
     id: "sp270-pv-02",
@@ -307,13 +345,7 @@ export const pontosVegetacao: PontoVegetacao[] = [
     nivelRisco: "critico",
     invadePista: true,
     cobrePlaca: false,
-    historico: [
-      { data: "2026-04-10", alturaCm: 25 },
-      { data: "2026-05-08", alturaCm: 34 },
-      { data: "2026-06-05", alturaCm: 43 },
-      { data: "2026-07-03", alturaCm: 52 },
-      { data: "2026-07-31", alturaCm: 61 },
-    ],
+    historico: historicoDe([25, 34, 43, 52, 61]),
   },
   {
     id: "sp270-pv-03",
@@ -327,13 +359,7 @@ export const pontosVegetacao: PontoVegetacao[] = [
     nivelRisco: "tranquilo",
     invadePista: false,
     cobrePlaca: false,
-    historico: [
-      { data: "2026-04-10", alturaCm: 6 },
-      { data: "2026-05-08", alturaCm: 8 },
-      { data: "2026-06-05", alturaCm: 10 },
-      { data: "2026-07-03", alturaCm: 12 },
-      { data: "2026-07-31", alturaCm: 14 },
-    ],
+    historico: historicoDe([6, 8, 10, 12, 14]),
   },
   {
     id: "sp270-pv-04",
@@ -347,13 +373,7 @@ export const pontosVegetacao: PontoVegetacao[] = [
     nivelRisco: "critico",
     invadePista: false,
     cobrePlaca: true,
-    historico: [
-      { data: "2026-04-10", alturaCm: 22 },
-      { data: "2026-05-08", alturaCm: 29 },
-      { data: "2026-06-05", alturaCm: 36 },
-      { data: "2026-07-03", alturaCm: 43 },
-      { data: "2026-07-31", alturaCm: 50 },
-    ],
+    historico: historicoDe([22, 29, 36, 43, 50]),
   },
   {
     id: "sp270-pv-05",
@@ -367,13 +387,7 @@ export const pontosVegetacao: PontoVegetacao[] = [
     nivelRisco: "critico",
     invadePista: true,
     cobrePlaca: true,
-    historico: [
-      { data: "2026-04-10", alturaCm: 30 },
-      { data: "2026-05-08", alturaCm: 40 },
-      { data: "2026-06-05", alturaCm: 50 },
-      { data: "2026-07-03", alturaCm: 60 },
-      { data: "2026-07-31", alturaCm: 70 },
-    ],
+    historico: historicoDe([30, 40, 50, 60, 70]),
   },
   {
     id: "sp270-pv-06",
@@ -387,13 +401,7 @@ export const pontosVegetacao: PontoVegetacao[] = [
     nivelRisco: "tranquilo",
     invadePista: false,
     cobrePlaca: false,
-    historico: [
-      { data: "2026-04-10", alturaCm: 9 },
-      { data: "2026-05-08", alturaCm: 12 },
-      { data: "2026-06-05", alturaCm: 15 },
-      { data: "2026-07-03", alturaCm: 18 },
-      { data: "2026-07-31", alturaCm: 21 },
-    ],
+    historico: historicoDe([9, 12, 15, 18, 21]),
   },
   {
     id: "sp270-pv-07",
@@ -407,13 +415,7 @@ export const pontosVegetacao: PontoVegetacao[] = [
     nivelRisco: "atencao",
     invadePista: false,
     cobrePlaca: false,
-    historico: [
-      { data: "2026-04-10", alturaCm: 19 },
-      { data: "2026-05-08", alturaCm: 25 },
-      { data: "2026-06-05", alturaCm: 31 },
-      { data: "2026-07-03", alturaCm: 37 },
-      { data: "2026-07-31", alturaCm: 42 },
-    ],
+    historico: historicoDe([19, 25, 31, 37, 42]),
   },
   {
     id: "sp270-pv-08",
@@ -427,13 +429,7 @@ export const pontosVegetacao: PontoVegetacao[] = [
     nivelRisco: "atencao",
     invadePista: false,
     cobrePlaca: false,
-    historico: [
-      { data: "2026-04-10", alturaCm: 13 },
-      { data: "2026-05-08", alturaCm: 17 },
-      { data: "2026-06-05", alturaCm: 21 },
-      { data: "2026-07-03", alturaCm: 25 },
-      { data: "2026-07-31", alturaCm: 29 },
-    ],
+    historico: historicoDe([13, 17, 21, 25, 29]),
   },
 ];
 
@@ -470,12 +466,6 @@ export const PRIORIDADE_LABEL: Record<Prioridade, string> = {
   alta: "Alta",
 };
 
-export const PRIORIDADE_COR: Record<Prioridade, string> = {
-  baixa: "#22c55e",
-  media: "#f97316",
-  alta: "#e11d48",
-};
-
 // Ponto crítico gera OS de prioridade alta — regra do time de operação.
 export const PRIORIDADE_POR_RISCO: Record<NivelRisco, Prioridade> = {
   critico: "alta",
@@ -499,6 +489,24 @@ export interface OrdemServico {
   transicoes: TransicaoStatus[];
 }
 
+// Mesma ancoragem das passagens, pelo mesmo motivo: com datas absolutas o KPI
+// "OS concluídas nos últimos 30 dias" zerava sozinho e o "tempo em aberto" dos
+// cards crescia até virar semanas.
+//
+// O dia é relativo a hoje; o horário é fixo. Assim o cenário acompanha o
+// calendário sem que as OS apareçam abertas às três da manhã.
+function diasAtrasAs(
+  dias: number,
+  hora: number,
+  minuto: number,
+  agora: number = Date.now(),
+): string {
+  const momento = new Date(agora);
+  momento.setDate(momento.getDate() - dias);
+  momento.setHours(hora, minuto, 0, 0);
+  return momento.toISOString();
+}
+
 export const ordensServicoIniciais: OrdemServico[] = [
   {
     id: "os-01",
@@ -506,7 +514,7 @@ export const ordensServicoIniciais: OrdemServico[] = [
     operadorId: "op-01",
     prioridade: "alta",
     status: "pendente",
-    criadaEm: "2026-08-02T07:40:00-03:00",
+    criadaEm: diasAtrasAs(2, 7, 40),
     transicoes: [],
   },
   {
@@ -515,7 +523,7 @@ export const ordensServicoIniciais: OrdemServico[] = [
     operadorId: "op-02",
     prioridade: "alta",
     status: "pendente",
-    criadaEm: "2026-08-01T14:10:00-03:00",
+    criadaEm: diasAtrasAs(3, 14, 10),
     transicoes: [],
   },
   {
@@ -524,8 +532,8 @@ export const ordensServicoIniciais: OrdemServico[] = [
     operadorId: "op-03",
     prioridade: "alta",
     status: "em_deslocamento",
-    criadaEm: "2026-08-03T06:20:00-03:00",
-    transicoes: [{ status: "em_deslocamento", em: "2026-08-03T08:05:00-03:00" }],
+    criadaEm: diasAtrasAs(1, 6, 20),
+    transicoes: [{ status: "em_deslocamento", em: diasAtrasAs(1, 8, 5) }],
   },
   {
     id: "os-04",
@@ -533,10 +541,10 @@ export const ordensServicoIniciais: OrdemServico[] = [
     operadorId: "op-04",
     prioridade: "media",
     status: "no_local",
-    criadaEm: "2026-08-02T09:00:00-03:00",
+    criadaEm: diasAtrasAs(2, 9, 0),
     transicoes: [
-      { status: "em_deslocamento", em: "2026-08-03T07:15:00-03:00" },
-      { status: "no_local", em: "2026-08-03T08:40:00-03:00" },
+      { status: "em_deslocamento", em: diasAtrasAs(1, 7, 15) },
+      { status: "no_local", em: diasAtrasAs(1, 8, 40) },
     ],
   },
   {
@@ -545,11 +553,11 @@ export const ordensServicoIniciais: OrdemServico[] = [
     operadorId: "op-01",
     prioridade: "media",
     status: "concluida",
-    criadaEm: "2026-07-20T08:00:00-03:00",
+    criadaEm: diasAtrasAs(15, 8, 0),
     transicoes: [
-      { status: "em_deslocamento", em: "2026-07-21T07:10:00-03:00" },
-      { status: "no_local", em: "2026-07-21T08:25:00-03:00" },
-      { status: "concluida", em: "2026-07-21T11:50:00-03:00" },
+      { status: "em_deslocamento", em: diasAtrasAs(14, 7, 10) },
+      { status: "no_local", em: diasAtrasAs(14, 8, 25) },
+      { status: "concluida", em: diasAtrasAs(14, 11, 50) },
     ],
   },
   {
@@ -558,17 +566,21 @@ export const ordensServicoIniciais: OrdemServico[] = [
     operadorId: "op-02",
     prioridade: "baixa",
     status: "concluida",
-    criadaEm: "2026-07-10T10:30:00-03:00",
+    criadaEm: diasAtrasAs(25, 10, 30),
     transicoes: [
-      { status: "em_deslocamento", em: "2026-07-13T09:05:00-03:00" },
-      { status: "no_local", em: "2026-07-13T10:40:00-03:00" },
-      { status: "concluida", em: "2026-07-13T15:20:00-03:00" },
+      { status: "em_deslocamento", em: diasAtrasAs(22, 9, 5) },
+      { status: "no_local", em: diasAtrasAs(22, 10, 40) },
+      { status: "concluida", em: diasAtrasAs(22, 15, 20) },
     ],
   },
 ];
 
 export function ordemEstaAberta(ordem: OrdemServico): boolean {
   return ordem.status !== "concluida";
+}
+
+export function contarPorStatus(ordens: OrdemServico[], status: StatusOS): number {
+  return ordens.filter((ordem) => ordem.status === status).length;
 }
 
 // Momento em que a OS foi concluída, ou null se ainda estiver aberta.

@@ -2,16 +2,17 @@
   display: flex;
   flex: 1;
   min-height: 420px;
-  border: 1px solid var(--cor-borda);
-  border-radius: var(--raio);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-lg);
   overflow: hidden;
-  background: var(--cor-superficie);
+  background: var(--superficie);
+  box-shadow: var(--sombra-card);
 }
 
 .secao-mapa__mapa {
   flex: 0 0 70%;
   min-width: 0;
-  border-right: 1px solid var(--cor-borda);
+  border-right: 1px solid var(--borda);
 }
 
 .secao-mapa__lista {

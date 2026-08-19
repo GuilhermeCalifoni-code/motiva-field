@@ -1,16 +1,16 @@
 .selo-prazo {
   display: inline-flex;
   flex-direction: column;
-  line-height: 1.25;
+  line-height: 1.3;
 }
 
 .selo-prazo__dias {
-  font-size: 0.78rem;
+  font-size: var(--texto-sm);
   font-weight: 600;
 }
 
 .selo-prazo__data {
-  font-size: 0.68rem;
+  font-size: var(--texto-xs);
   opacity: 0.8;
 }
 

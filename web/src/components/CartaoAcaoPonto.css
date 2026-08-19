@@ -1,0 +1,98 @@
+.cartao-acao {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: var(--espaco-4);
+  padding: var(--espaco-4);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-md);
+  transition: border-color 0.15s ease;
+}
+
+.cartao-acao:hover {
+  border-color: var(--borda-forte);
+}
+
+.cartao-acao__identidade {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-1);
+  align-items: flex-start;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cartao-acao__km {
+  font-size: var(--texto-lg);
+  font-weight: 600;
+  color: var(--marca-roxo);
+}
+
+.cartao-acao__identidade:hover .cartao-acao__km {
+  text-decoration: underline;
+}
+
+.cartao-acao__local {
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
+}
+
+.cartao-acao__medida {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--espaco-1);
+}
+
+.cartao-acao__crescimento {
+  font-size: var(--num-m);
+  font-weight: var(--peso-num);
+  line-height: var(--altura-num);
+  font-variant-numeric: tabular-nums;
+  color: var(--texto);
+}
+
+.cartao-acao__medida-rotulo {
+  font-size: var(--texto-xs);
+}
+
+.cartao-acao__prazo {
+  min-width: 132px;
+}
+
+.cartao-acao__gerar {
+  padding: var(--espaco-2) var(--espaco-4);
+  border: 1px solid var(--borda-forte);
+  border-radius: var(--raio-sm);
+  background: var(--superficie);
+  color: var(--marca-roxo);
+  font-family: inherit;
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.cartao-acao__gerar:hover {
+  background: var(--marca-ouro);
+  border-color: var(--marca-ouro);
+  color: var(--marca-roxo-escuro);
+}
+
+@media (max-width: 1320px) {
+  .cartao-acao {
+    grid-template-columns: 1fr auto;
+    row-gap: var(--espaco-3);
+  }
+
+  .cartao-acao__prazo {
+    min-width: 0;
+  }
+}

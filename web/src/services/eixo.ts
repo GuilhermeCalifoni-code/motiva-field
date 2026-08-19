@@ -5,7 +5,8 @@
 // longitude pelo cosseno da latitude, erra menos que a precisão do traçado.
 
 import eixoBruto from "@db/rodovias/sp270-trecho.geojson?raw";
-import { RISCO_COR, type PontoVegetacao } from "../mockData";
+import type { PontoVegetacao } from "../mockData";
+import { COR_RISCO } from "../theme/tokens";
 
 export interface Coordenada {
   latitude: number;
@@ -117,7 +118,7 @@ export function segmentosPorRisco(
 
     segmentos.push({
       coordenadas: [inicio, fim],
-      cor: RISCO_COR[maisProximo.nivelRisco],
+      cor: COR_RISCO[maisProximo.nivelRisco],
       pontoId: maisProximo.id,
     });
   }

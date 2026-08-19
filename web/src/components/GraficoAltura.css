@@ -5,19 +5,19 @@
 }
 
 .grafico-altura__eixo {
-  stroke: var(--cor-borda);
+  stroke: var(--borda);
   stroke-width: 1;
 }
 
 .grafico-altura__limite {
-  stroke: #c9b8e0;
+  stroke: var(--borda-forte);
   stroke-width: 1;
   stroke-dasharray: 2 3;
 }
 
 .grafico-altura__limite-rotulo {
   font-size: 8px;
-  fill: var(--cor-texto-suave);
+  fill: var(--texto-suave);
 }
 
 .grafico-altura__projecao {
@@ -33,29 +33,29 @@
 
 .grafico-altura__linha {
   fill: none;
-  stroke: var(--cor-primaria);
+  stroke: var(--marca-roxo);
   stroke-width: 2;
 }
 
 .grafico-altura__ponto {
-  fill: var(--cor-destaque);
-  stroke: var(--cor-primaria);
+  fill: var(--marca-ouro);
+  stroke: var(--marca-roxo);
   stroke-width: 1.5;
 }
 
 .grafico-altura__valor {
   font-size: 10px;
-  fill: var(--cor-texto);
+  fill: var(--texto);
   font-weight: 600;
 }
 
 .grafico-altura__data {
   font-size: 9px;
-  fill: var(--cor-texto-suave);
+  fill: var(--texto-suave);
 }
 
 .grafico-altura__nota {
-  margin: 6px 0 0;
-  font-size: 0.7rem;
-  color: var(--cor-texto-suave);
+  margin: var(--espaco-2) 0 0;
+  font-size: var(--texto-xs);
+  color: var(--texto-suave);
 }

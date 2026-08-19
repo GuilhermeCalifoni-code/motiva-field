@@ -2,55 +2,57 @@
   display: block;
   width: 100%;
   text-align: left;
-  background: var(--cor-superficie);
-  border: 1px solid var(--cor-borda);
-  border-radius: var(--raio);
-  padding: 12px 14px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-md);
+  padding: var(--espaco-4);
   cursor: pointer;
   font-family: inherit;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .item-ponto:hover {
-  border-color: var(--cor-primaria-clara);
+  border-color: var(--borda-forte);
 }
 
 .item-ponto--selecionado {
-  border-color: var(--cor-destaque);
-  box-shadow: 0 0 0 2px var(--cor-destaque);
+  border-color: var(--marca-ouro);
+  box-shadow: 0 0 0 2px var(--marca-ouro);
 }
 
 .item-ponto__topo {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 6px;
+  gap: var(--espaco-2);
+  margin-bottom: var(--espaco-2);
 }
 
 .item-ponto__km {
+  font-size: var(--texto-md);
   font-weight: 700;
-  color: var(--cor-primaria);
+  color: var(--marca-roxo);
 }
 
 .item-ponto__local {
-  font-size: 0.85rem;
-  color: var(--cor-texto-suave);
-  margin-bottom: 8px;
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
+  margin-bottom: var(--espaco-2);
 }
 
 .item-ponto__metricas {
   display: flex;
-  gap: 16px;
-  font-size: 0.8rem;
-  color: var(--cor-texto-suave);
+  gap: var(--espaco-4);
+  font-size: var(--texto-xs);
+  color: var(--texto-suave);
 }
 
 .item-ponto__metricas strong {
-  color: var(--cor-texto);
+  color: var(--texto);
 }
 
 .item-ponto__prazo {
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px dashed var(--cor-borda);
+  margin-top: var(--espaco-2);
+  padding-top: var(--espaco-2);
+  border-top: 1px dashed var(--borda);
 }

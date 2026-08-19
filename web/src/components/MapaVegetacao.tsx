@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { CircleMarker, MapContainer, TileLayer, Tooltip, useMap } from "react-leaflet";
 import type { LatLngBoundsExpression } from "leaflet";
-import { RISCO_COR, type PontoVegetacao } from "../mockData";
+import type { PontoVegetacao } from "../mockData";
+import { COR_MARCA, COR_RISCO } from "../theme/tokens";
 import { ancorarNoEixo, eixoTrecho } from "../services/eixo";
 import EixoRodovia from "./EixoRodovia";
 import "./MapaVegetacao.css";
@@ -61,9 +62,9 @@ export default function MapaVegetacao({ pontos, pontoSelecionadoId, onSelecionar
             center={[ancora.latitude, ancora.longitude]}
             radius={selecionado ? 11 : 8}
             pathOptions={{
-              color: selecionado ? "#2e0854" : "#ffffff",
+              color: selecionado ? COR_MARCA.roxo : COR_MARCA.branco,
               weight: selecionado ? 3 : 2,
-              fillColor: RISCO_COR[ponto.nivelRisco],
+              fillColor: COR_RISCO[ponto.nivelRisco],
               fillOpacity: 1,
             }}
             eventHandlers={{ click: () => onSelecionar(ponto.id) }}

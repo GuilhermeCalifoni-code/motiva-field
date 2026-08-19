@@ -1,37 +1,111 @@
 .visao-geral {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: var(--espaco-6);
 }
 
-.visao-geral__kpis {
+.visao-geral__cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espaco-4);
+}
+
+.visao-geral__titulo {
+  margin: 0 0 var(--espaco-1);
+  font-size: var(--texto-lg);
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.visao-geral__subtitulo {
+  margin: 0;
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
+}
+
+/* Faixa de topo: o card de ação pesa mais que os três resumos juntos. */
+.visao-geral__faixa {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 14px;
+  grid-template-columns: minmax(280px, 1fr) 2fr;
+  gap: var(--espaco-4);
+  align-items: stretch;
+}
+
+.visao-geral__resumos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--espaco-4);
+}
+
+.visao-geral__selo-chuva {
+  padding: 2px var(--espaco-2);
+  border-radius: var(--raio-pill);
+  background: var(--acao-atencao-suave);
+  border: 1px solid var(--acao-atencao-borda);
+  color: var(--acao-atencao-forte);
+  font-size: var(--texto-xs);
+  font-weight: var(--rotulo-peso);
+  letter-spacing: var(--rotulo-espacamento);
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .visao-geral__colunas {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 14px;
+  grid-template-columns: 6fr 4fr;
+  gap: var(--espaco-4);
   align-items: start;
 }
 
-@media (max-width: 1080px) {
+.visao-geral__coluna-principal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+  min-width: 0;
+}
+
+.visao-geral__bloco {
+  padding: var(--espaco-5);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-card);
+  min-width: 0;
+}
+
+.visao-geral__bloco-titulo {
+  margin: 0 0 var(--espaco-4);
+}
+
+.visao-geral__ajuda {
+  margin: calc(var(--espaco-4) * -1 + var(--espaco-1)) 0 var(--espaco-4);
+  font-size: var(--texto-xs);
+  color: var(--texto-apagado);
+}
+
+.visao-geral__cartoes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+}
+
+.visao-geral__coluna-lateral {
+  min-width: 0;
+}
+
+@media (max-width: 1180px) {
+  .visao-geral__faixa {
+    grid-template-columns: 1fr;
+  }
+
   .visao-geral__colunas {
     grid-template-columns: 1fr;
   }
 }
 
-.visao-geral__bloco {
-  background: var(--cor-superficie);
-  border: 1px solid var(--cor-borda);
-  border-radius: var(--raio);
-  padding: 16px;
-}
-
-.visao-geral__bloco h2 {
-  margin: 0 0 14px;
-  font-size: 0.95rem;
-  color: var(--cor-primaria);
+@media (max-width: 720px) {
+  .visao-geral__resumos {
+    grid-template-columns: 1fr;
+  }
 }

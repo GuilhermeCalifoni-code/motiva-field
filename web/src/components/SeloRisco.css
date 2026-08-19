@@ -1,9 +1,10 @@
 .selo-risco {
   display: inline-block;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #201a2b;
+  padding: 3px var(--espaco-3);
+  border-radius: var(--raio-pill);
+  font-size: var(--texto-xs);
+  font-weight: var(--rotulo-peso);
+  color: var(--texto);
   line-height: 1.4;
+  white-space: nowrap;
 }

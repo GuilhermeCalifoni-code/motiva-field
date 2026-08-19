@@ -1,0 +1,13 @@
+# Bloco 2 — visao computacional.
+#
+# A segmentacao e a medicao (segmentacao.py, calibracao.py) usam so numpy e
+# OpenCV: sao classicas de proposito, para provar a matematica antes de existir
+# modelo ou foto real.
+#
+# O TensorFlow entra so na classificacao (classificacao.py). Instalado junto
+# com numpy 2.5.2 e opencv 5.0.0 sem rebaixar nenhum dos dois.
+numpy>=1.26
+opencv-python>=4.9
+tensorflow>=2.16
+flask>=3.0
+pillow>=10.0

@@ -1,0 +1,35 @@
+# Ambiente virtual — cada maquina cria o seu com requirements.txt
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Fotos de campo: entram por outro caminho, nao pelo repositorio de codigo
+fotos/
+
+# Pesos do modelo: binario grande que muda a cada retreino. O caminho e
+# versionado (modelos/README.md), o arquivo nao.
+modelos/*.keras
+modelos/*.h5
+modelos/*.tflite
+
+# Saidas do pipeline
+saidas/
+*.json.tmp
+
+# Calibracao persistida: especifica de cada maquina, camera e montagem no
+# veiculo. Versionar faria uma maquina medir com a escala de outra.
+calibracao.json
+
+# Servidor local
+servidor-visao.log
+servidor-visao.pid
+
+# Ambiente
+.env
+.env.*
+!.env.example

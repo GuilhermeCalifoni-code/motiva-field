@@ -9,3 +9,13 @@ dist-ssr/
 
 .DS_Store
 Thumbs.db
+
+# Dependencias npm da geracao de slides
+docs/S2-CP1/node_modules/
+docs/S2-CP1/package-lock.json
+docs/S2-CP1/package.json
+
+# Lixo de execucao local
+.motiva-web.log
+.motiva-web.pid
+mobile/package-lock.json

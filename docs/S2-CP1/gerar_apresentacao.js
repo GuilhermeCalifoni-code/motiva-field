@@ -25,11 +25,12 @@ const VERDE = "22C55E";
 // PREENCHER ANTES DA APRESENTACAO
 const TURMA = "[TURMA]";
 const INTEGRANTES = [
-  { nome: "[Integrante 1]", rm: "[RM]", papel: "Bloco 1 — painel web" },
-  { nome: "[Integrante 2]", rm: "[RM]", papel: "Bloco 1 — app mobile" },
-  { nome: "[Integrante 3]", rm: "[RM]", papel: "Bloco 2 — visão computacional" },
-  { nome: "[Integrante 4]", rm: "[RM]", papel: "Bloco 3 — banco e pipeline" },
-  { nome: "[Integrante 5]", rm: "[RM]", papel: "Bloco 3 — integração" },
+  { nome: "Bento Donato Garcia", rm: "561621", papel: "[participação no projeto]" },
+  { nome: "Enzo Ribeiro Domingues Piazentin", rm: "564216", papel: "[participação no projeto]" },
+  { nome: "Guilherme Domingues Califoni", rm: "565157", papel: "[participação no projeto]" },
+  { nome: "Antonio Lucas Santana Tavares", rm: "565516", papel: "[participação no projeto]" },
+  { nome: "Lucas M.", rm: "563667", papel: "[participação no projeto]" },
+  { nome: "Gustavo Schimith", rm: "564800", papel: "[participação no projeto]" },
 ];
 
 const pres = new pptxgen();
@@ -96,7 +97,7 @@ function cartao(slide, o) {
 {
   const s = pres.addSlide();
   tituloSlide(s, "Quem somos e o que cada um fez", "Grupo");
-  const y0 = 2.0, alt = 0.78, gap = 0.14;
+  const y0 = 1.9, alt = 0.72, gap = 0.12;
   INTEGRANTES.forEach((m, i) => {
     const y = y0 + i * (alt + gap);
     cartao(s, { x: L, y: y, w: LARG, h: alt });

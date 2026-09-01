@@ -67,11 +67,12 @@ SAIDA = Path(__file__).resolve().parent / "S2-CP1-Motiva-Tema2-Sensoriamento.pdf
 # --- PREENCHER ANTES DA ENTREGA ---------------------------------------------
 TURMA = "[TURMA]"
 INTEGRANTES = [
-    ("[Nome do integrante 1]", "[RM]"),
-    ("[Nome do integrante 2]", "[RM]"),
-    ("[Nome do integrante 3]", "[RM]"),
-    ("[Nome do integrante 4]", "[RM]"),
-    ("[Nome do integrante 5]", "[RM]"),
+    ("Bento Donato Garcia", "561621"),
+    ("Enzo Ribeiro Domingues Piazentin", "564216"),
+    ("Guilherme Domingues Califoni", "565157"),
+    ("Antonio Lucas Santana Tavares", "565516"),
+    ("Lucas M.", "563667"),
+    ("Gustavo Schimith", "564800"),
 ]
 # ----------------------------------------------------------------------------
 

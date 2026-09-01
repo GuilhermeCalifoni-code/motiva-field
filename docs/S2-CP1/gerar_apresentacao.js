@@ -23,7 +23,7 @@ const PERIGO = "D92D20";
 const VERDE = "22C55E";
 
 // PREENCHER ANTES DA APRESENTACAO
-const TURMA = "[TURMA]";
+const TURMA = "2CCPO";
 const INTEGRANTES = [
   { nome: "Bento Donato Garcia", rm: "561621", papel: "[participação no projeto]" },
   { nome: "Enzo Ribeiro Domingues Piazentin", rm: "564216", papel: "[participação no projeto]" },

@@ -65,7 +65,7 @@ PERIGO = colors.HexColor("#D92D20")
 SAIDA = Path(__file__).resolve().parent / "S2-CP1-Motiva-Tema2-Sensoriamento.pdf"
 
 # --- PREENCHER ANTES DA ENTREGA ---------------------------------------------
-TURMA = "[TURMA]"
+TURMA = "2CCPO"
 INTEGRANTES = [
     ("Bento Donato Garcia", "561621"),
     ("Enzo Ribeiro Domingues Piazentin", "564216"),

@@ -197,7 +197,7 @@ def construir(paginas: dict[str, int] | None = None) -> dict[str, int]:
     h.append(Spacer(1, 0.8 * cm))
     h.append(p(f"Turma: {TURMA}", E_SUB_CAPA))
     h.append(Spacer(1, 1.6 * cm))
-    h.append(p("Documentação técnica — FIAP — Sprint 2", E_SUB_CAPA))
+    h.append(p("Documentação técnica — FIAP — CP1", E_SUB_CAPA))
     h.append(PageBreak())
 
     # -------------------------------------------------------------- ÍNDICE --

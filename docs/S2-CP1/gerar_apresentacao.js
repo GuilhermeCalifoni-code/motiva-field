@@ -83,7 +83,7 @@ function cartao(slide, o) {
   s.addShape(pres.ShapeType.rect, {
     x: L, y: 5.0, w: 1.4, h: 0.05, fill: { color: OURO }, line: { color: OURO },
   });
-  s.addText(`Turma ${TURMA}  ·  FIAP  ·  Sprint 2`, {
+  s.addText(`Turma ${TURMA}  ·  FIAP  ·  CP1`, {
     x: L, y: 5.35, w: LARG, h: 0.4, isTextBox: true, margin: 0,
     fontFace: "Calibri", fontSize: 14, color: "D9C9F2",
   });

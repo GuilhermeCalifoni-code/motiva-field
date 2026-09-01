@@ -1,6 +1,6 @@
 # S2-CP01 — Tema 2: Sensoriamento da vegetação e qualidade da medição
 
-Entrega do CP1 de Sprint 2. Dois arquivos vão para o professor:
+Entrega do CP1. Dois arquivos vão para o professor:
 
 | Arquivo | O que é |
 |---|---|

@@ -5,6 +5,7 @@ import {
   type Operador,
   type PontoVegetacao,
   type Prioridade,
+  type StatusOS,
 } from "../mockData";
 import ColunaKanban from "./ColunaKanban";
 import ModalNovaOS from "./ModalNovaOS";
@@ -15,7 +16,7 @@ interface QuadroOrdensProps {
   pontos: PontoVegetacao[];
   operadores: Operador[];
   onCriar: (pontoId: string, operadorId: string, prioridade: Prioridade) => void;
-  onAvancar: (id: string) => void;
+  onMover: (id: string, status: StatusOS) => void;
 }
 
 export default function QuadroOrdens({
@@ -23,7 +24,7 @@ export default function QuadroOrdens({
   pontos,
   operadores,
   onCriar,
-  onAvancar,
+  onMover,
 }: QuadroOrdensProps) {
   const [modalAberto, setModalAberto] = useState(false);
   const agora = Date.now();
@@ -32,12 +33,11 @@ export default function QuadroOrdens({
     <div className="quadro-ordens">
       <header className="quadro-ordens__cabecalho">
         <div>
+          <p className="quadro-ordens__eyebrow">Execução em campo</p>
           <h2>Ordens de serviço</h2>
-          <span>{ordens.length} no total</span>
+          <span>{ordens.length} ordens no ciclo operacional</span>
         </div>
-        <button type="button" className="quadro-ordens__nova" onClick={() => setModalAberto(true)}>
-          Nova OS
-        </button>
+        <div className="quadro-ordens__acoes"><span className="quadro-ordens__resumo">{ordens.filter((ordem) => ordem.status === "no_local").length} equipes em campo</span><button type="button" className="quadro-ordens__nova" onClick={() => setModalAberto(true)}>+ Nova ordem</button></div>
       </header>
 
       <div className="quadro-ordens__colunas">
@@ -49,7 +49,7 @@ export default function QuadroOrdens({
             pontos={pontos}
             operadores={operadores}
             agora={agora}
-            onAvancar={onAvancar}
+            onMover={onMover}
           />
         ))}
       </div>

@@ -1,0 +1,86 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-15 at 09.07.41 (2).jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.5-flash-lite",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "vegetacao_passeio",
+    "roi_normalizada_0a1000": [
+      418,
+      0,
+      1000,
+      943
+    ],
+    "confianca": 0.4,
+    "motivo": "Vegetação rasteira crescendo na borda da calçada/asfalto, mas sem régua de referência métrica e com forte dispersão lateral."
+  },
+  "base_topo": {
+    "compativeis": false,
+    "base_visivel": true,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      426,
+      835
+    ],
+    "topo_px_normalizado_0a1000": [
+      57,
+      597
+    ],
+    "motivo": "A base e o topo da vegetação podem ser distinguidos do asfalto, mas a inclinação acentuada e a descontinuidade impedem uma medição confiável sem escala física."
+  },
+  "amostras": [],
+  "referencias": [],
+  "plano_local": "asfalto irregular com transição para margem de terra e água",
+  "inclinacao_desconhecida": true,
+  "dados": {
+    "observacoes": [
+      "Presença de vegetação rasteira na lateral direita da via.",
+      "Pavimento asfáltico deteriorado à esquerda.",
+      "Ausência total de régua, fita métrica ou escala de referência válida."
+    ],
+    "inferencias": [
+      "A faixa verde ocupa a margem entre o pavimento e uma área alagada ou córrego."
+    ],
+    "desconhecidos": [
+      "Escala métrica real da cena",
+      "Profundidade e inclinação exata do plano do solo"
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": false,
+    "referencia_valida": false,
+    "referencia_localizada": false,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": false,
+    "pode_calcular": false
+  },
+  "confianca_componentes": {
+    "alvo": 0.5,
+    "roi": 0.6,
+    "base": 0.5,
+    "topo": 0.5,
+    "base_topo": 0.3,
+    "referencia": 0.0,
+    "relacao_espacial": 0.3,
+    "solo": 0.7,
+    "geometria": 0.2,
+    "global_": 0.3
+  },
+  "objetos_ignorados": [
+    "lixo plástico disperso",
+    "margem de água"
+  ],
+  "limitacoes": [
+    "Ausência de régua ou fita métrica legível na cena.",
+    "Perspectiva oblícua acentuada dificultando a geometria sem calibração."
+  ],
+  "proxima_captura": "Realizar nova captura posicionando uma régua métrica calibrada e legível próxima à base da vegetação, mantendo a câmera perpendicular ao alvo."
+}

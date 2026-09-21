@@ -6,7 +6,7 @@ import '../theme.dart';
 import '../widgets/cartao_secao.dart';
 import '../widgets/slot_foto.dart';
 
-/// Comprovacao de execucao. Sem foto do antes, foto do depois e coordenada do
+/// Comprovação de execução. Sem foto do antes, foto do depois e coordenada do
 /// momento do registro, nao ha prova de que o servico foi feito — por isso o
 /// botao de concluir so acende quando as tres evidencias existem.
 class ComprovacaoScreen extends StatelessWidget {
@@ -15,8 +15,8 @@ class ComprovacaoScreen extends StatelessWidget {
   final EstadoOperacao estado;
 
   void _concluir(BuildContext context) {
-    estado.avancarPara(StatusOS.concluida);
-    // Volta para a ordem ativa, que agora mostra o servico comprovado.
+    estado.avancarPara(StatusOS.validacao);
+    // O operador envia a prova; a conclusão pertence à validação do gestor.
     Navigator.of(context).popUntil((Route<void> rota) => rota.isFirst);
   }
 
@@ -28,7 +28,7 @@ class ComprovacaoScreen extends StatelessWidget {
         final PontoVegetacao ponto = estado.ponto;
 
         return Scaffold(
-          appBar: AppBar(title: const Text('Comprovacao de execucao')),
+          appBar: AppBar(title: const Text('Comprovação de execução')),
           body: SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(Espacos.x5),
@@ -37,9 +37,8 @@ class ComprovacaoScreen extends StatelessWidget {
                 children: <Widget>[
                   _Progresso(reunidas: estado.evidenciasReunidas),
                   const SizedBox(height: Espacos.x5),
-
                   CartaoSecao(
-                    rotulo: 'Evidencia fotografica',
+                    rotulo: 'Evidência fotográfica',
                     filho: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -70,40 +69,40 @@ class ComprovacaoScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: Espacos.x3),
                         const Text(
-                          'As duas fotos sao obrigatorias e ficam anexadas a ordem.',
-                          style: TextStyle(fontSize: 12, color: Cores.textoSuave),
+                          'As duas fotos são obrigatórias e ficam anexadas a ordem.',
+                          style:
+                              TextStyle(fontSize: 12, color: Cores.textoSuave),
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: Espacos.x4),
-
                   _CartaoGps(estado: estado, ponto: ponto),
                   const SizedBox(height: Espacos.x4),
-
                   CartaoSecao(
-                    rotulo: 'Detalhamento do servico',
+                    rotulo: 'Detalhamento do serviço',
                     filho: Column(
                       children: <Widget>[
                         _Linha(rotulo: 'Tipo', valor: detalheServico.tipo),
                         _Linha(rotulo: 'Faixa', valor: detalheServico.faixa),
                         _Linha(
-                          rotulo: 'Extensao',
+                          rotulo: 'Extensão',
                           valor: '${detalheServico.extensaoM} m',
                         ),
                         _Linha(
                           rotulo: 'Equipamento',
                           valor: detalheServico.equipamento,
                         ),
-                        _Linha(rotulo: 'Ordem', valor: estado.ordem.id.toUpperCase()),
+                        _Linha(
+                            rotulo: 'Ordem',
+                            valor: estado.ordem.id.toUpperCase()),
                         _Linha(rotulo: 'Operador', valor: estado.operador.nome),
                       ],
                     ),
                   ),
                   const SizedBox(height: Espacos.x4),
-
                   CartaoSecao(
-                    rotulo: 'Localizacao',
+                    rotulo: 'Localização',
                     filho: Column(
                       children: <Widget>[
                         _Linha(
@@ -120,18 +119,17 @@ class ComprovacaoScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: Espacos.x6),
-
                   ElevatedButton.icon(
                     onPressed: estado.comprovacaoCompleta
                         ? () => _concluir(context)
                         : null,
                     icon: const Icon(Icons.check_circle_outline, size: 20),
-                    label: const Text('Servico concluido'),
+                    label: const Text('Enviar para validação'),
                   ),
                   const SizedBox(height: Espacos.x3),
                   if (!estado.comprovacaoCompleta)
                     const Text(
-                      'Faltam evidencias para comprovar a execucao.',
+                      'Faltam evidências para enviar a validacao.',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 12, color: Cores.textoSuave),
                     ),
@@ -176,8 +174,8 @@ class _Progresso extends StatelessWidget {
           Expanded(
             child: Text(
               completo
-                  ? 'Comprovacao completa. Pode concluir.'
-                  : 'Evidencias: $reunidas de $total',
+                  ? 'Comprovação completa. Pode enviar.'
+                  : 'Evidências: $reunidas de $total',
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -209,7 +207,8 @@ class _CartaoGps extends StatelessWidget {
           if (capturado) ...<Widget>[
             Row(
               children: <Widget>[
-                const Icon(Icons.my_location, size: 20, color: Cores.riscoTranquilo),
+                const Icon(Icons.my_location,
+                    size: 20, color: Cores.riscoTranquilo),
                 const SizedBox(width: Espacos.x3),
                 Expanded(
                   child: Text(
@@ -225,7 +224,7 @@ class _CartaoGps extends StatelessWidget {
             ),
             const SizedBox(height: Espacos.x2),
             Text(
-              'Capturada as ${formatarHora(estado.gpsCapturadoEm!)} · precisao 4 m',
+              'Capturada às ${formatarHora(estado.gpsCapturadoEm!)} · precisão 4 m',
               style: const TextStyle(fontSize: 12, color: Cores.textoSuave),
             ),
           ] else ...<Widget>[

@@ -8,11 +8,11 @@
 
 :root {
   /* --- Marca --------------------------------------------------------- */
-  --marca-roxo: #2e0854;
-  --marca-roxo-claro: #4b1f80;
-  --marca-roxo-escuro: #1c0435;
-  --marca-ouro: #f2b705;
-  --marca-ouro-escuro: #c99400;
+  --marca-roxo: #5b1b8c;
+  --marca-roxo-claro: #7b3fb0;
+  --marca-roxo-escuro: #210038;
+  --marca-ouro: #d6a400;
+  --marca-ouro-escuro: #9a7300;
 
   /* --- Semântica de ação ---------------------------------------------
    * Vermelho só para o que exige ação agora. Laranja para o que exige ação
@@ -41,11 +41,11 @@
   --prioridade-alta: #e11d48;
 
   /* --- Superfícies ---------------------------------------------------- */
-  --fundo: #f6f4fa;
+  --fundo: #f7f7fa;
   --superficie: #ffffff;
-  --superficie-alt: #faf9fc;
-  --borda: #e3ddee;
-  --borda-forte: #cfc6e0;
+  --superficie-alt: #f1eff6;
+  --borda: #e8e6ed;
+  --borda-forte: #d4cfdd;
 
   /* --- Texto ---------------------------------------------------------- */
   --texto: #201a2b;
@@ -65,13 +65,13 @@
   --espaco-7: 48px;
 
   /* --- Raio e sombra --------------------------------------------------- */
-  --raio-sm: 8px;
-  --raio-md: 12px;
-  --raio-lg: 16px;
+  --raio-sm: 6px;
+  --raio-md: 10px;
+  --raio-lg: 12px;
   --raio-pill: 999px;
 
-  --sombra-card: 0 1px 2px rgba(32, 26, 43, 0.06);
-  --sombra-elevada: 0 8px 28px rgba(46, 8, 84, 0.16);
+  --sombra-card: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --sombra-elevada: 0 12px 32px rgba(33, 0, 56, 0.16);
 
   /* Véu atrás de painel lateral e modal. */
   --sobreposicao: rgba(28, 4, 53, 0.38);
@@ -79,7 +79,7 @@
   /* --- Tipografia ------------------------------------------------------
    * Número grande e leve; rótulo pequeno, apagado e em maiúsculas discretas.
    * O contraste entre os dois é o que cria a hierarquia. */
-  --fonte-familia: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --fonte-familia: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
 
   --num-xg: 52px;
   --num-g: 36px;

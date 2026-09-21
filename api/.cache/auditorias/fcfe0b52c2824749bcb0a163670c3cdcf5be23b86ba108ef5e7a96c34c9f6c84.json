@@ -1,0 +1,199 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-10 at 19.03.36 (4).jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.5-flash-lite",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "graminea_faixa_local",
+    "roi_normalizada_0a1000": [
+      480,
+      0,
+      850,
+      1000
+    ],
+    "confianca": 0.85,
+    "motivo": "Vegetação de gramínea com base no solo e envelope superior visíveis e contíguos à régua de referência."
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": false,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      540,
+      720
+    ],
+    "topo_px_normalizado_0a1000": [
+      570,
+      140
+    ],
+    "motivo": "Base apoiada na linha de solo identificada e topo distinguível na mesma faixa vertical."
+  },
+  "amostras": [
+    {
+      "base_px_normalizado_0a1000": [
+        540,
+        720
+      ],
+      "topo_px_normalizado_0a1000": [
+        570,
+        140
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        525,
+        730
+      ],
+      "topo_px_normalizado_0a1000": [
+        550,
+        160
+      ],
+      "confianca": 0.82
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        555,
+        715
+      ],
+      "topo_px_normalizado_0a1000": [
+        590,
+        150
+      ],
+      "confianca": 0.83
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        570,
+        710
+      ],
+      "topo_px_normalizado_0a1000": [
+        615,
+        180
+      ],
+      "confianca": 0.81
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        500,
+        740
+      ],
+      "topo_px_normalizado_0a1000": [
+        530,
+        200
+      ],
+      "confianca": 0.8
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        585,
+        705
+      ],
+      "topo_px_normalizado_0a1000": [
+        640,
+        220
+      ],
+      "confianca": 0.79
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        485,
+        750
+      ],
+      "topo_px_normalizado_0a1000": [
+        510,
+        250
+      ],
+      "confianca": 0.78
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        600,
+        700
+      ],
+      "topo_px_normalizado_0a1000": [
+        665,
+        240
+      ],
+      "confianca": 0.79
+    }
+  ],
+  "referencias": [
+    {
+      "tipo": "regua_metrica_vertical",
+      "bbox_normalizada_0a1000": [
+        495,
+        0,
+        555,
+        735
+      ],
+      "ponto_superior_normalizado_0a1000": [
+        525,
+        260
+      ],
+      "ponto_inferior_normalizado_0a1000": [
+        525,
+        720
+      ],
+      "intervalo_observado_cm": 5.0,
+      "incerteza_cm": 0.2,
+      "confianca": 0.9,
+      "compatibilidade_espacial": 0.95,
+      "utilizavel": true,
+      "incerteza_descricao": "Marcações da trena visíveis e legíveis na vertical próxima ao alvo vegetal."
+    }
+  ],
+  "plano_local": "solo com cobertura vegetal herbácea e trena posicionada verticalmente",
+  "inclinacao_desconhecida": false,
+  "dados": {
+    "observacoes": [
+      "Trena métrica amarela posicionada verticalmente no centro da imagem",
+      "Base da vegetação visível e apoiada no mesmo plano de referência da trena",
+      "Folhas de gramíneas estendendo-se verticalmente ao longo da escala"
+    ],
+    "inferencias": [
+      "A trena está no mesmo plano de distância aproximada do alvo principal",
+      "O intervalo observado entre as marcações selecionadas é de 5 cm físicos"
+    ],
+    "desconhecidos": [
+      "Presença de micro-re relevo imperceptível na base exata de cada folha individual"
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": true,
+    "referencia_valida": true,
+    "referencia_localizada": true,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": true,
+    "pode_calcular": true
+  },
+  "confianca_componentes": {
+    "alvo": 0.85,
+    "roi": 0.9,
+    "base": 0.85,
+    "topo": 0.85,
+    "base_topo": 0.85,
+    "referencia": 0.9,
+    "relacao_espacial": 0.9,
+    "solo": 0.85,
+    "geometria": 0.85,
+    "global_": 0.87
+  },
+  "objetos_ignorados": [
+    "folhas dicotiledôneas dispersas",
+    "detritos secos no solo"
+  ],
+  "limitacoes": [
+    "sobreposição parcial entre folhas na porção superior",
+    "guarda_deterministica: múltiplos alvos ou profundidades declarados; medição em centímetros rebaixada para triagem"
+  ],
+  "proxima_captura": "Manter enquadramento vertical similar com foco na trena e na base da vegetação."
+}

@@ -1,0 +1,198 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-15 at 09.07.43.jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.5-flash-lite",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "medir_com_regua",
+  "geometria_candidata": true,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "arbusto_em_vaso",
+    "roi_normalizada_0a1000": [
+      120,
+      200,
+      990,
+      980
+    ],
+    "confianca": 0.85,
+    "motivo": "Arbusto visível com base no vaso e topo discernível junto à escala da fita métrica."
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": true,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      230,
+      900
+    ],
+    "topo_px_normalizado_0a1000": [
+      260,
+      230
+    ],
+    "motivo": "Base do caule principal no vaso e topo da fita métrica alinhados verticalmente com o eixo do arbusto."
+  },
+  "amostras": [
+    {
+      "base_px_normalizado_0a1000": [
+        230,
+        900
+      ],
+      "topo_px_normalizado_0a1000": [
+        260,
+        230
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        250,
+        890
+      ],
+      "topo_px_normalizado_0a1000": [
+        300,
+        310
+      ],
+      "confianca": 0.8
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        200,
+        910
+      ],
+      "topo_px_normalizado_0a1000": [
+        350,
+        360
+      ],
+      "confianca": 0.8
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        280,
+        880
+      ],
+      "topo_px_normalizado_0a1000": [
+        400,
+        380
+      ],
+      "confianca": 0.75
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        310,
+        850
+      ],
+      "topo_px_normalizado_0a1000": [
+        550,
+        370
+      ],
+      "confianca": 0.8
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        480,
+        800
+      ],
+      "topo_px_normalizado_0a1000": [
+        580,
+        480
+      ],
+      "confianca": 0.8
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        550,
+        780
+      ],
+      "topo_px_normalizado_0a1000": [
+        750,
+        470
+      ],
+      "confianca": 0.75
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        600,
+        750
+      ],
+      "topo_px_normalizado_0a1000": [
+        850,
+        430
+      ],
+      "confianca": 0.7
+    }
+  ],
+  "referencias": [
+    {
+      "tipo": "fita_metrica",
+      "bbox_normalizada_0a1000": [
+        20,
+        10,
+        140,
+        930
+      ],
+      "ponto_superior_normalizado_0a1000": [
+        110,
+        200
+      ],
+      "ponto_inferior_normalizado_0a1000": [
+        120,
+        800
+      ],
+      "intervalo_observado_cm": 60.0,
+      "incerteza_cm": 0.5,
+      "confianca": 0.95,
+      "compatibilidade_espacial": 0.95,
+      "utilizavel": true,
+      "incerteza_descricao": "Fita métrica legível posicionada verticalmente ao lado do alvo."
+    }
+  ],
+  "plano_local": "Parede texturizada ao fundo com vaso apoiado em solo horizontal.",
+  "inclinacao_desconhecida": false,
+  "dados": {
+    "observacoes": [
+      "Fita métrica visível e esticada verticalmente ao lado esquerdo do arbusto.",
+      "Base do vaso claramente delimitada na imagem.",
+      "Topo do ramo principal alinhado com a escala da fita."
+    ],
+    "inferencias": [
+      "O plano de fundo vertical é razoavelmente paralelo ao plano de medição da fita.",
+      "A base física do arbusto coincide com a base do vaso azul."
+    ],
+    "desconhecidos": [
+      "Possíveis pequenas distorções de perspectiva devido ao ângulo da câmera móvel."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": true,
+    "referencia_valida": true,
+    "referencia_localizada": true,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": true,
+    "pode_calcular": true
+  },
+  "confianca_componentes": {
+    "alvo": 0.85,
+    "roi": 0.9,
+    "base": 0.9,
+    "topo": 0.85,
+    "base_topo": 0.9,
+    "referencia": 0.95,
+    "relacao_espacial": 0.9,
+    "solo": 0.85,
+    "geometria": 0.88,
+    "global_": 0.89
+  },
+  "objetos_ignorados": [
+    "Folhas caídas no chão",
+    "Vaso secundário à direita sem escala direta"
+  ],
+  "limitacoes": [
+    "Foto ligeiramente oblíqua com leve variação de profundidade nos ramos laterais."
+  ],
+  "proxima_captura": "Manter enquadramento ortogonal e garantir foco nítido nas marcações da fita métrica."
+}

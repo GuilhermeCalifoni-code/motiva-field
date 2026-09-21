@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import '../estado_operacao.dart';
 import '../mock_data.dart';
 import '../theme.dart';
-import 'ordem_ativa_screen.dart';
+import 'painel_mobile_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _cpf = TextEditingController();
   final TextEditingController _senha = TextEditingController();
   bool _senhaVisivel = false;
+  String? _erro;
 
   @override
   void dispose() {
@@ -25,12 +26,17 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _entrar() {
-    // Ainda nao ha autenticacao: o login entra com o operador da sessao.
+  void _entrar({bool biometria = false}) {
+    const String cpfDemo = '12345678901';
+    const String senhaDemo = 'Campo2026!';
+    if (!biometria && (_cpf.text != cpfDemo || _senha.text != senhaDemo)) {
+      setState(() => _erro = 'CPF ou senha não reconhecidos.');
+      return;
+    }
     final EstadoOperacao estado = EstadoOperacao(operador: operadorAtual);
     Navigator.of(context).pushReplacement(
       MaterialPageRoute<void>(
-        builder: (BuildContext context) => OrdemAtivaScreen(estado: estado),
+        builder: (BuildContext context) => PainelMobileScreen(estado: estado),
       ),
     );
   }
@@ -51,12 +57,13 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: Espacos.x6),
               const _Logo(),
               const SizedBox(height: Espacos.x7),
-              const Text('CPF', style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.8,
-                color: Cores.sobreRoxo,
-              )),
+              const Text('CPF',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.8,
+                    color: Cores.sobreRoxo,
+                  )),
               const SizedBox(height: Espacos.x2),
               _Campo(
                 controlador: _cpf,
@@ -68,12 +75,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               const SizedBox(height: Espacos.x5),
-              const Text('SENHA', style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.8,
-                color: Cores.sobreRoxo,
-              )),
+              const Text('SENHA',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.8,
+                    color: Cores.sobreRoxo,
+                  )),
               const SizedBox(height: Espacos.x2),
               _Campo(
                 controlador: _senha,
@@ -85,17 +93,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Cores.sobreRoxo,
                     size: 20,
                   ),
-                  onPressed: () => setState(() => _senhaVisivel = !_senhaVisivel),
+                  onPressed: () =>
+                      setState(() => _senhaVisivel = !_senhaVisivel),
                 ),
               ),
               const SizedBox(height: Espacos.x6),
               ElevatedButton(onPressed: _entrar, child: const Text('Entrar')),
+              if (_erro != null)
+                Padding(
+                    padding: const EdgeInsets.only(top: Espacos.x3),
+                    child: Text(_erro!,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: Color(0xFFFFD2CF), fontSize: 13))),
               const SizedBox(height: Espacos.x5),
               const _Separador(),
               const SizedBox(height: Espacos.x5),
               // Biometria e so visual nesta fase.
               OutlinedButton.icon(
-                onPressed: _entrar,
+                onPressed: () => _entrar(biometria: true),
                 icon: const Icon(Icons.fingerprint, size: 26),
                 label: const Text('Entrar com biometria'),
                 style: OutlinedButton.styleFrom(
@@ -113,9 +129,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: Espacos.x6),
               const Text(
-                'Motiva Field · versao de demonstracao',
+                'Motiva Field · versão de demonstração',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 12, color: Cores.sobreRoxo),
+                style: TextStyle(fontSize: 12, color: Color(0xFFF7F1FF)),
               ),
             ],
           ),
@@ -153,7 +169,7 @@ class _Logo extends StatelessWidget {
         ),
         const SizedBox(height: Espacos.x2),
         const Text(
-          'Operacao de campo',
+          'Operação de campo',
           style: TextStyle(fontSize: 14, color: Cores.sobreRoxo),
         ),
       ],
@@ -188,7 +204,7 @@ class _Campo extends StatelessWidget {
       style: const TextStyle(fontSize: 16, color: Cores.sobreEscuro),
       decoration: InputDecoration(
         hintText: dica,
-        hintStyle: const TextStyle(color: Cores.roxoClaro),
+        hintStyle: const TextStyle(color: Cores.sobreRoxo),
         suffixIcon: sufixo,
         filled: true,
         fillColor: Cores.roxoTranslucido,
@@ -219,7 +235,8 @@ class _Separador extends StatelessWidget {
         Expanded(child: Divider(color: Cores.roxoClaro)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: Espacos.x4),
-          child: Text('ou', style: TextStyle(color: Cores.sobreRoxo, fontSize: 13)),
+          child: Text('ou',
+              style: TextStyle(color: Cores.sobreRoxo, fontSize: 13)),
         ),
         Expanded(child: Divider(color: Cores.roxoClaro)),
       ],

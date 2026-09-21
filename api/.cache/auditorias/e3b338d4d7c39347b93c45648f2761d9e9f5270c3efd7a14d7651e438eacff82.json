@@ -1,0 +1,70 @@
+{
+  "arquivo": "scaled_1a69b3fc-cdda-48d0-a63b-27b089d02c025836274360100518774.jpg",
+  "origem": "gemini",
+  "modelo": "gemini-3.6-flash",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "bloquear",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": null,
+    "roi_normalizada_0a1000": null,
+    "confianca": 0.0,
+    "motivo": "Imagem sintética/pixelada sem presença de alvo vegetal identificável."
+  },
+  "base_topo": {
+    "compativeis": false,
+    "base_visivel": false,
+    "topo_visivel": false,
+    "base_px_normalizado_0a1000": null,
+    "topo_px_normalizado_0a1000": null,
+    "motivo": "Ausência de vegetação e pontos de contato com o solo."
+  },
+  "amostras": [],
+  "referencias": [],
+  "plano_local": null,
+  "inclinacao_desconhecida": true,
+  "dados": {
+    "observacoes": [
+      "Ilustração em pixel art com formas geométricas abstratas."
+    ],
+    "inferencias": [],
+    "desconhecidos": [
+      "Alvo vegetal",
+      "Escala física",
+      "Plano do solo"
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": false,
+    "roi_valida": false,
+    "base_valida": false,
+    "topo_valido": false,
+    "base_topo_compativeis": false,
+    "referencia_valida": false,
+    "referencia_localizada": false,
+    "relacao_espacial_avaliada": false,
+    "solo_identificado": false,
+    "geometria_suficiente": false,
+    "pode_calcular": false
+  },
+  "confianca_componentes": {
+    "alvo": 0.0,
+    "roi": 0.0,
+    "base": 0.0,
+    "topo": 0.0,
+    "base_topo": 0.0,
+    "referencia": 0.0,
+    "relacao_espacial": 0.0,
+    "solo": 0.0,
+    "geometria": 0.0,
+    "global_": 0.0
+  },
+  "objetos_ignorados": [
+    "Estrutura geométrica/casa pixelada"
+  ],
+  "limitacoes": [
+    "Imagem sintética sem alvos vegetais nem escala física."
+  ],
+  "proxima_captura": "Fotografar vegetação real em ambiente externo com régua graduada no mesmo plano visual."
+}

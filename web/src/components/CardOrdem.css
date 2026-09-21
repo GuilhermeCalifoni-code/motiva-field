@@ -6,7 +6,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--espaco-2);
+  cursor: grab;
+  transition: box-shadow .15s ease, transform .15s ease;
 }
+.card-ordem:active{cursor:grabbing;transform:rotate(1deg);box-shadow:var(--sombra-elevada);}
 
 .card-ordem__topo {
   display: flex;
@@ -62,21 +65,4 @@
   text-align: right;
 }
 
-.card-ordem__avancar {
-  margin-top: var(--espaco-1);
-  background: transparent;
-  border: 1px solid var(--borda);
-  border-radius: var(--raio-sm);
-  padding: var(--espaco-2);
-  font-family: inherit;
-  font-size: var(--texto-xs);
-  font-weight: 600;
-  color: var(--marca-roxo);
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.card-ordem__avancar:hover {
-  background: var(--fundo);
-  border-color: var(--borda-forte);
-}
+.card-ordem__arrastar{margin:var(--espaco-1) 0 0;padding-top:var(--espaco-2);border-top:1px solid var(--borda);color:var(--texto-apagado);font-size:11px;}

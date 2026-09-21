@@ -11,7 +11,14 @@ enum Margem { direita, esquerda }
 
 enum NivelRisco { tranquilo, atencao, critico }
 
-enum StatusOS { pendente, emDeslocamento, noLocal, concluida }
+enum StatusOS {
+  pendente,
+  programada,
+  emDeslocamento,
+  noLocal,
+  validacao,
+  concluida
+}
 
 enum Prioridade { baixa, media, alta }
 
@@ -29,9 +36,9 @@ extension NivelRiscoRotulo on NivelRisco {
       case NivelRisco.tranquilo:
         return 'Tranquilo';
       case NivelRisco.atencao:
-        return 'Atencao';
+        return 'Atenção';
       case NivelRisco.critico:
-        return 'Critico';
+        return 'Crítico';
     }
   }
 }
@@ -40,13 +47,17 @@ extension StatusOSRotulo on StatusOS {
   String get rotulo {
     switch (this) {
       case StatusOS.pendente:
-        return 'Pendente';
+        return 'Triagem';
+      case StatusOS.programada:
+        return 'Programada';
       case StatusOS.emDeslocamento:
         return 'Em deslocamento';
       case StatusOS.noLocal:
-        return 'No local';
+        return 'Em campo';
+      case StatusOS.validacao:
+        return 'Validação';
       case StatusOS.concluida:
-        return 'Concluida';
+        return 'Concluída';
     }
   }
 }
@@ -57,7 +68,7 @@ extension PrioridadeRotulo on Prioridade {
       case Prioridade.baixa:
         return 'Baixa';
       case Prioridade.media:
-        return 'Media';
+        return 'Média';
       case Prioridade.alta:
         return 'Alta';
     }
@@ -77,8 +88,10 @@ const int alturaCriticaCm = 45;
 /// Ordem das colunas do fluxo de OS. Cada transicao guarda horario.
 const List<StatusOS> fluxoStatus = <StatusOS>[
   StatusOS.pendente,
+  StatusOS.programada,
   StatusOS.emDeslocamento,
   StatusOS.noLocal,
+  StatusOS.validacao,
   StatusOS.concluida,
 ];
 
@@ -123,7 +136,8 @@ class PontoVegetacao {
 }
 
 class Operador {
-  const Operador({required this.id, required this.nome, required this.matricula});
+  const Operador(
+      {required this.id, required this.nome, required this.matricula});
 
   final String id;
   final String nome;
@@ -438,10 +452,13 @@ final List<OrdemServico> ordensServico = <OrdemServico>[
     pontoId: 'sp270-pv-02',
     operadorId: 'op-02',
     prioridade: Prioridade.alta,
-    status: StatusOS.pendente,
+    status: StatusOS.programada,
     criadaEm: DateTime(2026, 8, 1, 14, 10),
     previsaoConclusao: DateTime(2026, 8, 5, 12, 0),
-    transicoes: <TransicaoStatus>[],
+    transicoes: <TransicaoStatus>[
+      TransicaoStatus(
+          status: StatusOS.programada, em: DateTime(2026, 8, 2, 9, 0)),
+    ],
   ),
   OrdemServico(
     id: 'os-03',
@@ -452,7 +469,8 @@ final List<OrdemServico> ordensServico = <OrdemServico>[
     criadaEm: DateTime(2026, 8, 3, 6, 20),
     previsaoConclusao: DateTime(2026, 8, 4, 11, 0),
     transicoes: <TransicaoStatus>[
-      TransicaoStatus(status: StatusOS.emDeslocamento, em: DateTime(2026, 8, 3, 8, 5)),
+      TransicaoStatus(
+          status: StatusOS.emDeslocamento, em: DateTime(2026, 8, 3, 8, 5)),
     ],
   ),
   OrdemServico(
@@ -464,8 +482,10 @@ final List<OrdemServico> ordensServico = <OrdemServico>[
     criadaEm: DateTime(2026, 8, 2, 9, 0),
     previsaoConclusao: DateTime(2026, 8, 4, 10, 30),
     transicoes: <TransicaoStatus>[
-      TransicaoStatus(status: StatusOS.emDeslocamento, em: DateTime(2026, 8, 3, 7, 15)),
-      TransicaoStatus(status: StatusOS.noLocal, em: DateTime(2026, 8, 3, 8, 40)),
+      TransicaoStatus(
+          status: StatusOS.emDeslocamento, em: DateTime(2026, 8, 3, 7, 15)),
+      TransicaoStatus(
+          status: StatusOS.noLocal, em: DateTime(2026, 8, 3, 8, 40)),
     ],
   ),
   OrdemServico(
@@ -477,9 +497,12 @@ final List<OrdemServico> ordensServico = <OrdemServico>[
     criadaEm: DateTime(2026, 7, 20, 8, 0),
     previsaoConclusao: DateTime(2026, 7, 21, 12, 0),
     transicoes: <TransicaoStatus>[
-      TransicaoStatus(status: StatusOS.emDeslocamento, em: DateTime(2026, 7, 21, 7, 10)),
-      TransicaoStatus(status: StatusOS.noLocal, em: DateTime(2026, 7, 21, 8, 25)),
-      TransicaoStatus(status: StatusOS.concluida, em: DateTime(2026, 7, 21, 11, 50)),
+      TransicaoStatus(
+          status: StatusOS.emDeslocamento, em: DateTime(2026, 7, 21, 7, 10)),
+      TransicaoStatus(
+          status: StatusOS.noLocal, em: DateTime(2026, 7, 21, 8, 25)),
+      TransicaoStatus(
+          status: StatusOS.concluida, em: DateTime(2026, 7, 21, 11, 50)),
     ],
   ),
   OrdemServico(
@@ -487,13 +510,16 @@ final List<OrdemServico> ordensServico = <OrdemServico>[
     pontoId: 'sp270-pv-08',
     operadorId: 'op-02',
     prioridade: Prioridade.baixa,
-    status: StatusOS.concluida,
+    status: StatusOS.validacao,
     criadaEm: DateTime(2026, 7, 10, 10, 30),
     previsaoConclusao: DateTime(2026, 7, 13, 16, 0),
     transicoes: <TransicaoStatus>[
-      TransicaoStatus(status: StatusOS.emDeslocamento, em: DateTime(2026, 7, 13, 9, 5)),
-      TransicaoStatus(status: StatusOS.noLocal, em: DateTime(2026, 7, 13, 10, 40)),
-      TransicaoStatus(status: StatusOS.concluida, em: DateTime(2026, 7, 13, 15, 20)),
+      TransicaoStatus(
+          status: StatusOS.emDeslocamento, em: DateTime(2026, 7, 13, 9, 5)),
+      TransicaoStatus(
+          status: StatusOS.noLocal, em: DateTime(2026, 7, 13, 10, 40)),
+      TransicaoStatus(
+          status: StatusOS.validacao, em: DateTime(2026, 7, 13, 15, 20)),
     ],
   ),
 ];
@@ -569,7 +595,8 @@ String duasCasas(int valor) => valor.toString().padLeft(2, '0');
 String formatarDataHora(DateTime d) =>
     '${duasCasas(d.day)}/${duasCasas(d.month)} ${duasCasas(d.hour)}:${duasCasas(d.minute)}';
 
-String formatarHora(DateTime d) => '${duasCasas(d.hour)}:${duasCasas(d.minute)}';
+String formatarHora(DateTime d) =>
+    '${duasCasas(d.hour)}:${duasCasas(d.minute)}';
 
 /// Coordenada como o operador ve no comprovante.
 String formatarCoordenada(double latitude, double longitude) =>

@@ -1,0 +1,209 @@
+{
+  "arquivo": "e137e722-3f40-40fd-bc26-75abeac53835_pasted-image-1.png",
+  "origem": "gemini",
+  "modelo": "gemini-3.6-flash",
+  "versao_contrato": "v4-regua-referencia-2026-09-14",
+  "decisao": "medir_com_regua",
+  "geometria_candidata": true,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "gramado",
+    "roi_normalizada_0a1000": [
+      0,
+      0,
+      980,
+      1000
+    ],
+    "confianca": 0.92,
+    "motivo": "Faixa local de gramado com linha de solo e envelope superior claramente separáveis e identificáveis na vizinhança da régua."
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": true,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      830,
+      570
+    ],
+    "topo_px_normalizado_0a1000": [
+      120,
+      570
+    ],
+    "motivo": "Linha do solo e o topo da folhagem circundante estão visíveis e no mesmo plano de profundidade focal."
+  },
+  "amostras": [
+    {
+      "base_px_normalizado_0a1000": [
+        800,
+        100
+      ],
+      "topo_px_normalizado_0a1000": [
+        140,
+        100
+      ],
+      "confianca": 0.88
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        810,
+        200
+      ],
+      "topo_px_normalizado_0a1000": [
+        250,
+        200
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        820,
+        300
+      ],
+      "topo_px_normalizado_0a1000": [
+        350,
+        300
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        820,
+        400
+      ],
+      "topo_px_normalizado_0a1000": [
+        280,
+        400
+      ],
+      "confianca": 0.92
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        830,
+        500
+      ],
+      "topo_px_normalizado_0a1000": [
+        300,
+        500
+      ],
+      "confianca": 0.95
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        830,
+        600
+      ],
+      "topo_px_normalizado_0a1000": [
+        320,
+        600
+      ],
+      "confianca": 0.92
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        820,
+        700
+      ],
+      "topo_px_normalizado_0a1000": [
+        120,
+        700
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        810,
+        800
+      ],
+      "topo_px_normalizado_0a1000": [
+        100,
+        800
+      ],
+      "confianca": 0.88
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        800,
+        900
+      ],
+      "topo_px_normalizado_0a1000": [
+        200,
+        900
+      ],
+      "confianca": 0.85
+    }
+  ],
+  "referencias": [
+    {
+      "tipo": "regua",
+      "bbox_normalizada_0a1000": [
+        0,
+        556,
+        730,
+        660
+      ],
+      "ponto_superior_normalizado_0a1000": [
+        135,
+        570
+      ],
+      "ponto_inferior_normalizado_0a1000": [
+        360,
+        570
+      ],
+      "intervalo_observado_cm": 5.0,
+      "incerteza_cm": 0.2,
+      "confianca": 0.95,
+      "compatibilidade_espacial": 0.95,
+      "utilizavel": true,
+      "incerteza_descricao": "Marcações legíveis de 10cm a 15cm diretamente adjacentes à vegetação."
+    }
+  ],
+  "plano_local": "Solo terroso plano delimitado por borda de concreto e parede de pedra ao fundo.",
+  "inclinacao_desconhecida": false,
+  "dados": {
+    "observacoes": [
+      "Régua rígida graduada transparente posicionada verticalmente junto ao solo.",
+      "Marcações numéricas legíveis na régua.",
+      "Base da folhagem inserida no solo exposto."
+    ],
+    "inferencias": [
+      "A régua compartilha o mesmo plano de profundidade das plantas adjacentes."
+    ],
+    "desconhecidos": [
+      "Parâmetros intrínsecos exatos da câmera."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": true,
+    "referencia_valida": true,
+    "referencia_localizada": true,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": true,
+    "pode_calcular": true
+  },
+  "confianca_componentes": {
+    "alvo": 0.92,
+    "roi": 0.95,
+    "base": 0.9,
+    "topo": 0.9,
+    "base_topo": 0.91,
+    "referencia": 0.95,
+    "relacao_espacial": 0.93,
+    "solo": 0.92,
+    "geometria": 0.9,
+    "global_": 0.92
+  },
+  "objetos_ignorados": [
+    "borda_concreto",
+    "folhas_secas",
+    "parede_fundo"
+  ],
+  "limitacoes": [
+    "Leve ângulo oblíquo na captura da imagem."
+  ],
+  "proxima_captura": "Manter enquadramento paralelo ao plano de medição para otimizar precisão determinística."
+}

@@ -1,0 +1,75 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-15 at 09.07.44 (1).jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.5-flash-lite",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "bloquear",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": null,
+    "roi_normalizada_0a1000": null,
+    "confianca": 0.0,
+    "motivo": "Ausência de alvo vegetal isolado com base e topo claramente definidos na mesma faixa, além da falta de referência métrica válida."
+  },
+  "base_topo": {
+    "compativeis": false,
+    "base_visivel": false,
+    "topo_visivel": false,
+    "base_px_normalizado_0a1000": null,
+    "topo_px_normalizado_0a1000": null,
+    "motivo": "Base e topo não podem ser determinados de forma confiável."
+  },
+  "amostras": [],
+  "referencias": [],
+  "plano_local": "superfície pavimentada irregular com meio-fio e vegetação dispersa",
+  "inclinacao_desconhecida": true,
+  "dados": {
+    "observacoes": [
+      "Presença de vegetação crescendo em fenda no pavimento próximo ao meio-fio.",
+      "Vasos feitos de pneus com plantas ao fundo.",
+      "Ausência total de régua, fita ou escala métrica legível próxima ao alvo."
+    ],
+    "inferencias": [
+      "A imagem possui perspectiva oblíqua acentuada."
+    ],
+    "desconhecidos": [
+      "Distância exata da câmera ao alvo.",
+      "Dimensões reais dos elementos presentes na cena."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": false,
+    "roi_valida": false,
+    "base_valida": false,
+    "topo_valido": false,
+    "base_topo_compativeis": false,
+    "referencia_valida": false,
+    "referencia_localizada": false,
+    "relacao_espacial_avaliada": false,
+    "solo_identificado": false,
+    "geometria_suficiente": false,
+    "pode_calcular": false
+  },
+  "confianca_componentes": {
+    "alvo": 0.0,
+    "roi": 0.0,
+    "base": 0.0,
+    "topo": 0.0,
+    "base_topo": 0.0,
+    "referencia": 0.0,
+    "relacao_espacial": 0.0,
+    "solo": 0.2,
+    "geometria": 0.0,
+    "global_": 0.0
+  },
+  "objetos_ignorados": [
+    "pneus utilizados como vasos",
+    "meio-fio"
+  ],
+  "limitacoes": [
+    "Ausência de referência métrica válida",
+    "Foto oblíqua sem calibração espacial"
+  ],
+  "proxima_captura": "Realizar nova captura perpendicular ao alvo incluindo uma régua métrica calibrada e visível ao lado da vegetação."
+}

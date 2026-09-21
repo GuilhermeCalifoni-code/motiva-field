@@ -13,20 +13,16 @@ from PIL import Image
 
 try:  # como pacote: python -m vision.conferir
     from .calibracao import ReferenciaNaoEncontrada, medir_escala
-    from .segmentacao import (
-        altura_em_pixels,
-        maior_regiao,
-        mascara_vegetacao,
-        medir_altura_vegetacao,
-    )
+    from .segmentacao import altura_em_pixels, maior_regiao, mascara_vegetacao, medir_altura_vegetacao, regiao_para_geometria
+    from .geometria import GeometriaInsuficiente, carregar_perfil, medir_altura, monte_carlo_horizontal
+    from .validacao_geometrica import qualidade_imagem, validar
+    from .auditoria_atencao import validar_auditoria
 except ImportError:  # direto de dentro de vision/
     from calibracao import ReferenciaNaoEncontrada, medir_escala
-    from segmentacao import (
-        altura_em_pixels,
-        maior_regiao,
-        mascara_vegetacao,
-        medir_altura_vegetacao,
-    )
+    from segmentacao import altura_em_pixels, maior_regiao, mascara_vegetacao, medir_altura_vegetacao, regiao_para_geometria
+    from geometria import GeometriaInsuficiente, carregar_perfil, medir_altura, monte_carlo_horizontal
+    from validacao_geometrica import qualidade_imagem, validar
+    from auditoria_atencao import validar_auditoria
 
 VERSAO_MODELO = "exg_haste_v1"
 
@@ -101,6 +97,8 @@ def processar_foto(
     diretorio_saida: Path | None = None,
     *,
     calibracao: dict[str, object] | None = None,
+    tentar_referencia_no_quadro: bool = False,
+    auditoria: dict[str, object] | None = None,
 ) -> dict[str, object]:
     """Processa uma foto e gera o contrato do Bloco 2 mais evidências visuais.
 
@@ -120,6 +118,10 @@ def processar_foto(
     """
     if not conteudo:
         raise FotoInvalida("arquivo vazio")
+
+    # Sem trena/calibração legada, a geometria monocular é o caminho principal.
+    if calibracao is None and referencia_cm is None and not tentar_referencia_no_quadro:
+        return processar_geometria(conteudo, nome_arquivo, diretorio_saida, auditoria=auditoria)
 
     if calibracao is None and referencia_cm is not None and referencia_cm <= 0:
         raise FotoInvalida("o comprimento da referência deve ser positivo")
@@ -160,6 +162,12 @@ def processar_foto(
         }
 
     mascara = mascara_vegetacao(imagem)
+    atencao = validar_auditoria(auditoria, imagem.shape[1], imagem.shape[0]) if auditoria else None
+    if atencao and atencao["aprovada"] and atencao["roi_px"]:
+        x1, y1, x2, y2 = atencao["roi_px"]
+        mascara_roi = np.zeros_like(mascara)
+        mascara_roi[y1:y2, x1:x2] = mascara[y1:y2, x1:x2]
+        mascara = mascara_roi
 
     # Quando a trena esta no quadro, a base dela e a linha do chao e a moita
     # medida e a que fica ao lado — nao a maior mancha verde da foto inteira,
@@ -221,6 +229,10 @@ def processar_foto(
         "coordenadas": coordenadas,
         "modelo_versao": VERSAO_MODELO,
         "calibracao": bloco_calibracao,
+        "validacao_metrica": {
+            "alvo_ancorado_na_referencia": medida_ancorada,
+            "escala_deterministica": True,
+        },
         "avisos": avisos,
         "deteccoes": [{
             "classe": "vegetacao_alta",
@@ -251,3 +263,41 @@ def processar_foto(
         resultado["evidencias"] = {"imagem_anotada": anotada.name, "mascara": mascara_path.name, "json": contrato.name}
 
     return resultado
+
+
+def processar_geometria(conteudo: bytes, nome_arquivo: str, diretorio_saida: Path | None = None, *, auditoria: dict[str, object] | None = None) -> dict[str, object]:
+    """Fluxo principal: segmenta, extrai pontos e mede por raios 3D locais."""
+    imagem = cv2.imdecode(np.frombuffer(conteudo, dtype=np.uint8), cv2.IMREAD_COLOR)
+    if imagem is None:
+        raise FotoInvalida("não foi possível ler a imagem; envie JPG, JPEG ou PNG")
+    perfil, mascara = carregar_perfil(), mascara_vegetacao(imagem)
+    qualidade = qualidade_imagem(imagem)
+    atencao = validar_auditoria(auditoria, imagem.shape[1], imagem.shape[0])
+    # A auditoria escolhe a região, mas não cria pixels: a segmentação dentro
+    # da ROI continua inteiramente determinística.
+    mascara_geometria = mascara
+    if atencao["aprovada"] and atencao["roi_px"]:
+        x1, y1, x2, y2 = atencao["roi_px"]
+        mascara_geometria = np.zeros_like(mascara)
+        mascara_geometria[y1:y2, x1:x2] = mascara[y1:y2, x1:x2]
+    regiao = regiao_para_geometria(mascara_geometria)
+    # Sem IMU/EXIF de pose e sem plano 3D estimável, uma foto isolada só tem
+    # hipótese horizontal não comprovada; portanto não vira medição válida.
+    orientacao = {"confiavel": bool(perfil.get("orientacao_validada", False)), "score": .70 if perfil.get("orientacao_validada") else .0}
+    plano = {"confiavel": bool(perfil.get("plano_local_confirmado", False)), "score": .80 if perfil.get("plano_local_confirmado") else .0, "modelo": "horizontal" if perfil.get("plano_local_confirmado") else None}
+    mc = None
+    bruta = None
+    if regiao and atencao["aprovada"] and perfil.get("calibrado") and plano["confiavel"] and orientacao["confiavel"]:
+        try:
+            mc = monte_carlo_horizontal(regiao["topo_px"], regiao["base_px"], perfil)
+            bruta = medir_altura(regiao["topo_px"], regiao["base_px"], perfil).json()
+        except GeometriaInsuficiente:
+            pass
+    status = validar(perfil, qualidade, regiao, plano, orientacao, mc, atencao)
+    capturado_em, coordenadas = _data_e_coordenadas(conteudo)
+    if status["valido"] and bruta:
+        medida = {**bruta, "valido": True, "confianca": status["confianca"], "intervalo_cm": mc["intervalo_cm"], "modelo_terreno": plano["modelo"], "motivo": None}
+    else:
+        medida = {"valido": False, "altura_cm": None, "intervalo_cm": None, "incerteza_cm": None, "confianca": status["confianca"], "topo_px": list(regiao["topo_px"]) if regiao else None, "base_px": list(regiao["base_px"]) if regiao else None, "metodo": "geometria_monocular", "modelo_terreno": None, "motivo": status["motivos"][0] if status["motivos"] else "insufficient_geometric_evidence"}
+    debug = {"qualidade_imagem": qualidade, "auditoria_atencao": atencao, "orientacao": orientacao, "plano": plano, "monte_carlo": mc, "fatores_confianca": status["fatores_confianca"], "regiao": regiao}
+    return {"arquivo": Path(nome_arquivo).name, "capturado_em": capturado_em, "coordenadas": coordenadas, "modelo_versao": "geometria_hibrida_v2", "calibracao": {"referencia": "perfil_camera", "perfil": perfil}, "avisos": status["motivos"], "medicao_altura": medida, "debug": debug, "deteccoes": [{"classe": "vegetacao", "confianca": medida["confianca"], "metrica": medida["altura_cm"], "unidade": "cm", "bbox": list(regiao["bbox"]) if regiao else None}]}

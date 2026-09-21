@@ -1,0 +1,73 @@
+{
+  "arquivo": "03_VALIDACAO_ATUAL__foto_3.png",
+  "origem": "gemini",
+  "modelo": "gemini-3.5-flash-lite",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": null,
+    "roi_normalizada_0a1000": null,
+    "confianca": 0.1,
+    "motivo": "Ausência de régua ou escala métrica válida próxima ao alvo vegetal para medição determinística."
+  },
+  "base_topo": {
+    "compativeis": false,
+    "base_visivel": true,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": null,
+    "topo_px_normalizado_0a1000": null,
+    "motivo": "Sem referência de escala métrica legível na imagem."
+  },
+  "amostras": [],
+  "referencias": [],
+  "plano_local": "Solo irregular com folhas secas e vegetação esparsa",
+  "inclinacao_desconhecida": true,
+  "dados": {
+    "observacoes": [
+      "Presença de touceira de grama verde em meio a solo coberto por folhas secas.",
+      "Ausência total de régua, fita métrica ou objeto de referência com escala legível."
+    ],
+    "inferencias": [
+      "O ambiente é externo com iluminação solar direta e sombras difusas."
+    ],
+    "desconhecidos": [
+      "Escala física exata dos objetos presentes na cena.",
+      "Inclinação exata do plano do solo."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": false,
+    "roi_valida": false,
+    "base_valida": false,
+    "topo_valido": false,
+    "base_topo_compativeis": false,
+    "referencia_valida": false,
+    "referencia_localizada": false,
+    "relacao_espacial_avaliada": false,
+    "solo_identificado": true,
+    "geometria_suficiente": false,
+    "pode_calcular": false
+  },
+  "confianca_componentes": {
+    "alvo": 0.1,
+    "roi": 0.0,
+    "base": 0.2,
+    "topo": 0.2,
+    "base_topo": 0.0,
+    "referencia": 0.0,
+    "relacao_espacial": 0.0,
+    "solo": 0.5,
+    "geometria": 0.0,
+    "global_": 0.1
+  },
+  "objetos_ignorados": [
+    "Pneu usado ao fundo",
+    "Tronco de árvore"
+  ],
+  "limitacoes": [
+    "Ausência de régua ou escala métrica padrão compatível na cena."
+  ],
+  "proxima_captura": "Realizar nova captura incluindo uma régua ou escala métrica padrão posicionada verticalmente ao lado do alvo vegetal."
+}

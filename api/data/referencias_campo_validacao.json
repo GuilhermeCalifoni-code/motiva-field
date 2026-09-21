@@ -1,0 +1,102 @@
+{
+  "versao": "1",
+  "aviso": "Referências de campo informadas após a inferência cega. Não usar para calibrar ou substituir a saída oficial do modelo.",
+  "referencias": [
+    {
+      "arquivo": "WhatsApp Image 2026-09-15 at 09.07.41 (1).jpeg",
+      "sha256": "c282555e1c0dc15254bcc7fedb4f139bbae8bf4bdf4cce2c66d7caebe4e03ee8",
+      "altura_cm_referencia": 22.0,
+      "fonte": "valor informado pelo usuário",
+      "uso": "validacao_pos_inferencia_cega",
+      "confirmacao_independente": false
+    },
+    {
+      "arquivo": "WhatsApp Image 2026-09-15 at 09.07.41 (2).jpeg",
+      "sha256": "c9cd4750568d016e44a13ca0cc5fdac3596ba9d4bcf4362905ff56903e1cce11",
+      "altura_cm_referencia": 22.0,
+      "fonte": "valor informado pelo usuário",
+      "uso": "validacao_pos_inferencia_cega",
+      "confirmacao_independente": false
+    },
+    {
+      "arquivo": "WhatsApp Image 2026-09-15 at 09.07.41.jpeg",
+      "sha256": "788c9741044b8a4f276cf3dec197646c600b4a9c85d80cd7642f09c93b0c3145",
+      "altura_cm_referencia": 18.0,
+      "fonte": "valor informado pelo usuário",
+      "uso": "validacao_pos_inferencia_cega",
+      "confirmacao_independente": false
+    },
+    {
+      "arquivo": "WhatsApp Image 2026-09-15 at 09.07.42 (1).jpeg",
+      "sha256": "dad676574eabc9cf94337865bec4b70b83bef39561be5d0c63196b890ae4a8a9",
+      "altura_cm_referencia": 18.0,
+      "fonte": "valor informado pelo usuário",
+      "uso": "validacao_pos_inferencia_cega",
+      "confirmacao_independente": false
+    },
+    {
+      "arquivo": "WhatsApp Image 2026-09-15 at 09.07.42 (2).jpeg",
+      "sha256": "ac0acb97fcc30a2d66c4c8a318f38d826dce7a8d6c534bd78232459de2fdcdae",
+      "altura_cm_referencia": 22.0,
+      "fonte": "valor informado pelo usuário",
+      "uso": "validacao_pos_inferencia_cega",
+      "confirmacao_independente": false
+    },
+    {
+      "arquivo": "WhatsApp Image 2026-09-15 at 09.07.42 (3).jpeg",
+      "sha256": "5ae396ab3978a640d3407b7cf3a3e6a24cadd6be074b21ddf33c146c16d4166f",
+      "altura_cm_referencia": 34.0,
+      "fonte": "valor informado pelo usuário",
+      "uso": "validacao_pos_inferencia_cega",
+      "confirmacao_independente": false
+    },
+    {
+      "arquivo": "WhatsApp Image 2026-09-15 at 09.07.42.jpeg",
+      "sha256": "f75ac30b3c8ce7423ba3d75a3b057213173ed5918a7d1bffc18835a9f85cd7fd",
+      "altura_cm_referencia": 18.0,
+      "fonte": "valor informado pelo usuário",
+      "uso": "validacao_pos_inferencia_cega",
+      "confirmacao_independente": false
+    },
+    {
+      "arquivo": "WhatsApp Image 2026-09-15 at 09.07.43 (1).jpeg",
+      "sha256": "38b30e76b9ed4cb613557dcea51fc2904d1928496b04117b881746869dd9eb83",
+      "altura_cm_referencia": 37.0,
+      "fonte": "valor informado pelo usuário",
+      "uso": "validacao_pos_inferencia_cega",
+      "confirmacao_independente": false
+    },
+    {
+      "arquivo": "WhatsApp Image 2026-09-15 at 09.07.43.jpeg",
+      "sha256": "88e8ab8f4a2d9b34a49ac6754bd41f8c1519c95ba658bcd3b99dc1dbe5622cfa",
+      "altura_cm_referencia": 34.0,
+      "fonte": "valor informado pelo usuário",
+      "uso": "validacao_pos_inferencia_cega",
+      "confirmacao_independente": false
+    },
+    {
+      "arquivo": "WhatsApp Image 2026-09-15 at 09.07.44 (1).jpeg",
+      "sha256": "b876edf7e9b58adc3d7500dc228a7af2fac5ae7b0af8edb74056472e3e62ca4f",
+      "altura_cm_referencia": 37.0,
+      "fonte": "valor informado pelo usuário",
+      "uso": "validacao_pos_inferencia_cega",
+      "confirmacao_independente": false
+    },
+    {
+      "arquivo": "WhatsApp Image 2026-09-15 at 09.07.44 (2).jpeg",
+      "sha256": "71c3f641fd150b187b246f0449d2f394e8445ad0ec96ad4b1b4e0c6ec94bc14e",
+      "altura_cm_referencia": 37.0,
+      "fonte": "valor informado pelo usuário",
+      "uso": "validacao_pos_inferencia_cega",
+      "confirmacao_independente": false
+    },
+    {
+      "arquivo": "WhatsApp Image 2026-09-15 at 09.07.44.jpeg",
+      "sha256": "8945a59462961d2c31d6ea515f2ed3b02939e9872ee54ffd9c153b77cd707db1",
+      "altura_cm_referencia": 37.0,
+      "fonte": "valor informado pelo usuário",
+      "uso": "validacao_pos_inferencia_cega",
+      "confirmacao_independente": false
+    }
+  ]
+}

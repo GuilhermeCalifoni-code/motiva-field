@@ -1,0 +1,14 @@
+{
+  "arquivo": "foto.jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-g4os",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "alvo": {"classe": "graminea", "roi_normalizada_0a1000": [140, 410, 660, 650], "confianca": 0.95, "motivo": "Lâmina foliar vertical principal adjacente à escala da trena."},
+  "base_topo": {"compativeis": true, "base_visivel": true, "topo_visivel": true, "base_px_normalizado_0a1000": [435, 640], "topo_px_normalizado_0a1000": [575, 142], "motivo": "Base junto ao solo e topo da folha mais alta claramente definidos."},
+  "referencias": [{"tipo": "trena_cm", "bbox_normalizada_0a1000": [407, 0, 463, 650], "ponto_superior_normalizado_0a1000": [448, 232], "ponto_inferior_normalizado_0a1000": [448, 554], "intervalo_observado_cm": 5, "incerteza_cm": 0.1, "confianca": 0.98, "compatibilidade_espacial": 0.95, "utilizavel": true, "incerteza_descricao": "Numeração 4 e 9 cm nítidas; paralaxe reduzida pela proximidade."}],
+  "plano_local": "solo gramado local", "inclinacao_desconhecida": false,
+  "objetos_ignorados": ["veículos", "meio-fio", "folhas fora de foco"],
+  "limitacoes": ["Há múltiplas folhas em alturas e profundidades diferentes; a massa principal e a folha mais alta não representam a mesma métrica operacional."],
+  "proxima_captura": "Manter enquadramento e aproximar levemente para reduzir desvio lateral entre folha e régua."
+}

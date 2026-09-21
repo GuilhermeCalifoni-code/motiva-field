@@ -1,0 +1,199 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-15 at 09.07.41 (1).jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.6-flash",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "medir_com_regua",
+  "geometria_candidata": true,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "planta_herbacea",
+    "roi_normalizada_0a1000": [
+      310,
+      125,
+      730,
+      860
+    ],
+    "confianca": 0.92,
+    "motivo": "Planta herbácea individual bem definida emergindo da junção do solo com a parede azulejada."
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": true,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      520,
+      780
+    ],
+    "topo_px_normalizado_0a1000": [
+      630,
+      130
+    ],
+    "motivo": "Base no ponto de inserção no solo/fresta e topo no apêndice foliar mais elevado da haste principal."
+  },
+  "amostras": [
+    {
+      "base_px_normalizado_0a1000": [
+        520,
+        780
+      ],
+      "topo_px_normalizado_0a1000": [
+        630,
+        130
+      ],
+      "confianca": 0.92
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        515,
+        775
+      ],
+      "topo_px_normalizado_0a1000": [
+        580,
+        150
+      ],
+      "confianca": 0.89
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        505,
+        770
+      ],
+      "topo_px_normalizado_0a1000": [
+        525,
+        190
+      ],
+      "confianca": 0.88
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        490,
+        765
+      ],
+      "topo_px_normalizado_0a1000": [
+        455,
+        200
+      ],
+      "confianca": 0.86
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        470,
+        755
+      ],
+      "topo_px_normalizado_0a1000": [
+        410,
+        360
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        525,
+        785
+      ],
+      "topo_px_normalizado_0a1000": [
+        680,
+        320
+      ],
+      "confianca": 0.83
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        530,
+        790
+      ],
+      "topo_px_normalizado_0a1000": [
+        720,
+        570
+      ],
+      "confianca": 0.81
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        510,
+        770
+      ],
+      "topo_px_normalizado_0a1000": [
+        360,
+        420
+      ],
+      "confianca": 0.84
+    }
+  ],
+  "referencias": [
+    {
+      "tipo": "fita_metrica",
+      "bbox_normalizada_0a1000": [
+        281,
+        0,
+        362,
+        900
+      ],
+      "ponto_superior_normalizado_0a1000": [
+        335,
+        165
+      ],
+      "ponto_inferior_normalizado_0a1000": [
+        335,
+        555
+      ],
+      "intervalo_observado_cm": 10.0,
+      "incerteza_cm": 0.2,
+      "confianca": 0.95,
+      "compatibilidade_espacial": 0.92,
+      "utilizavel": true,
+      "incerteza_descricao": "Marcações métricas de 10 cm e 20 cm claramente legíveis na fita métrica próxima ao plano do vegetal."
+    }
+  ],
+  "plano_local": "Parede vertical azulejada com piso horizontal de concreto; fita métrica apoiada paralelamente ao plano de crescimento do vegetal.",
+  "inclinacao_desconhecida": false,
+  "dados": {
+    "observacoes": [
+      "Fita métrica amarela posicionada na vertical à esquerda do vegetal principal.",
+      "Marcação dos números 10 (101) e 20 (201) visíveis na escala em cm.",
+      "Vegetal principal em haste vertical única com folhagem lateral.",
+      "Vegetação secundária rasteira presente na base."
+    ],
+    "inferencias": [
+      "O plano da fita métrica coincide substancialmente com o plano de crescimento do ramo principal."
+    ],
+    "desconhecidos": [
+      "Ângulo exato do eixo da câmera em relação ao plano de fundo."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": true,
+    "referencia_valida": true,
+    "referencia_localizada": true,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": true,
+    "pode_calcular": true
+  },
+  "confianca_componentes": {
+    "alvo": 0.92,
+    "roi": 0.95,
+    "base": 0.88,
+    "topo": 0.92,
+    "base_topo": 0.9,
+    "referencia": 0.95,
+    "relacao_espacial": 0.92,
+    "solo": 0.86,
+    "geometria": 0.9,
+    "global_": 0.91
+  },
+  "objetos_ignorados": [
+    "Touceira rasteira secundária à direita da planta principal",
+    "Pequena gramínea fina e delgada ao lado direito"
+  ],
+  "limitacoes": [
+    "Sombra leve no azulejo ao fundo",
+    "Pequena distorção de perspectiva típica de lente mobile em close-up"
+  ],
+  "proxima_captura": "Manter a fita métrica esticada no mesmo plano vertical e perpendicular ao solo."
+}

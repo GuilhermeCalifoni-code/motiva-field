@@ -1,0 +1,76 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-15 at 09.07.43 (1).jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.5-flash-lite",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": null,
+    "roi_normalizada_0a1000": null,
+    "confianca": 0.1,
+    "motivo": "Pequena touceira de vegetação isolada no pavimento sem referência métrica válida e ângulo oblíquo desfavorável."
+  },
+  "base_topo": {
+    "compativeis": false,
+    "base_visivel": true,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": null,
+    "topo_px_normalizado_0a1000": null,
+    "motivo": "Alvo isolado de pequeno porte sem escala métrica física adjacente."
+  },
+  "amostras": [],
+  "referencias": [],
+  "plano_local": "Pavimento de concreto plano com inclinação oblíqua aparente",
+  "inclinacao_desconhecida": true,
+  "dados": {
+    "observacoes": [
+      "Presença de vegetação brotando em fenda no pavimento de concreto.",
+      "Ausência de régua, fita ou escala métrica legível próxima ao alvo.",
+      "Perspectiva da câmera fortemente oblíqua."
+    ],
+    "inferencias": [
+      "A vegetação está fixada diretamente no nível do solo/pavimento."
+    ],
+    "desconhecidos": [
+      "Dimensões reais da touceira de vegetação.",
+      "Distância exata e ângulo de inclinação do dispositivo em relação ao alvo."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": false,
+    "roi_valida": false,
+    "base_valida": false,
+    "topo_valido": false,
+    "base_topo_compativeis": false,
+    "referencia_valida": false,
+    "referencia_localizada": false,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": false,
+    "pode_calcular": false
+  },
+  "confianca_componentes": {
+    "alvo": 0.1,
+    "roi": 0.1,
+    "base": 0.3,
+    "topo": 0.3,
+    "base_topo": 0.1,
+    "referencia": 0.0,
+    "relacao_espacial": 0.2,
+    "solo": 0.6,
+    "geometria": 0.1,
+    "global_": 0.1
+  },
+  "objetos_ignorados": [
+    "Carro branco à esquerda",
+    "Pneus empilhados com vegetação à direita",
+    "Árvore ao fundo"
+  ],
+  "limitacoes": [
+    "Ausência de referência métrica válida na cena",
+    "Foto tirada em ângulo oblíquo"
+  ],
+  "proxima_captura": "Realizar nova captura na vertical (top-down) posicionando uma régua padrão ao lado da vegetação."
+}

@@ -17,6 +17,7 @@ try:  # como pacote: python -m vision.app
         salvar_calibracao,
     )
     from .pipeline import FotoInvalida, processar_foto
+    from .geometria import CAMINHO_PADRAO_PERFIL, carregar_perfil, salvar_perfil
 except ImportError:  # direto de dentro de vision/: python app.py
     from calibracao import (
         CAMINHO_PADRAO_CALIBRACAO,
@@ -28,6 +29,7 @@ except ImportError:  # direto de dentro de vision/: python app.py
         salvar_calibracao,
     )
     from pipeline import FotoInvalida, processar_foto
+    from geometria import CAMINHO_PADRAO_PERFIL, carregar_perfil, salvar_perfil
 
 def _cm_opcional(bruto: str | None) -> float | None:
     """Le um comprimento do formulario. Vazio vira None, e nao um padrao.
@@ -79,6 +81,24 @@ def calibracao_atual():
     })
 
 
+@app.get("/api/perfil-camera")
+def perfil_camera():
+    return jsonify(carregar_perfil(CAMINHO_PADRAO_PERFIL))
+
+
+@app.post("/api/perfil-camera")
+def atualizar_perfil_camera():
+    atual = carregar_perfil(CAMINHO_PADRAO_PERFIL)
+    entrada = request.get_json(silent=True) or request.form.to_dict()
+    for campo in ("altura_camera_m", "pitch_graus", "roll_graus", "yaw_graus", "fx_px", "fy_px", "cx_px", "cy_px", "incerteza_altura_m", "incerteza_pitch_graus", "incerteza_pixel_px"):
+        if campo in entrada:
+            atual[campo] = float(entrada[campo])
+    if "calibrado" in entrada:
+        atual["calibrado"] = bool(entrada["calibrado"])
+    salvar_perfil(atual, CAMINHO_PADRAO_PERFIL)
+    return jsonify(atual)
+
+
 @app.post("/api/calibrar")
 def calibrar():
     """Gera e salva a calibração a partir de uma foto com a referência."""
@@ -112,10 +132,12 @@ def processar():
         return jsonify({"erro": "Selecione ou capture uma imagem antes de processar."}), 400
 
     # "arquivo" mede sem régua no quadro; "haste" detecta a régua na foto.
-    via = request.form.get("via", "haste")
+    via = request.form.get("via", "geometria")
 
     try:
-        if via == "arquivo":
+        if via == "geometria":
+            resultado = processar_foto(arquivo.read(), secure_filename(arquivo.filename), None, SAIDAS)
+        elif via == "arquivo":
             calibracao = carregar_calibracao(CAMINHO_PADRAO_CALIBRACAO)
             resultado = processar_foto(
                 arquivo.read(), secure_filename(arquivo.filename), None, SAIDAS,

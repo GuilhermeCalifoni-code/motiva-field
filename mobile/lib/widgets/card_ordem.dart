@@ -37,7 +37,8 @@ class CardOrdem extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('ORDEM ${ordem.id.toUpperCase()}', style: estiloRotulo),
+                    Text('ORDEM ${ordem.id.toUpperCase()}',
+                        style: estiloRotulo),
                     SeloRisco(nivelRisco: ponto.nivelRisco),
                   ],
                 ),
@@ -68,7 +69,7 @@ class CardOrdem extends StatelessWidget {
                     Expanded(
                       child: _Medida(
                         valor: '+${crescimento.toStringAsFixed(1)} cm',
-                        rotulo: 'por mes',
+                        rotulo: 'por mês',
                       ),
                     ),
                   ],
@@ -79,8 +80,10 @@ class CardOrdem extends StatelessWidget {
                   runSpacing: Espacos.x2,
                   children: <Widget>[
                     SeloPrioridade(prioridade: ordem.prioridade),
-                    if (ponto.invadePista) const _SeloAlerta(texto: 'Invade a pista'),
-                    if (ponto.cobrePlaca) const _SeloAlerta(texto: 'Cobre placa'),
+                    if (ponto.invadePista)
+                      const _SeloAlerta(texto: 'Invade a pista'),
+                    if (ponto.cobrePlaca)
+                      const _SeloAlerta(texto: 'Cobre placa'),
                   ],
                 ),
               ],
@@ -95,8 +98,9 @@ class CardOrdem extends StatelessWidget {
                 const SizedBox(width: Espacos.x2),
                 Expanded(
                   child: Text(
-                    'Previsao de conclusao: ${formatarDataHora(ordem.previsaoConclusao)}',
-                    style: const TextStyle(fontSize: 14, color: Cores.textoSuave),
+                    'Previsão de conclusão: ${formatarDataHora(ordem.previsaoConclusao)}',
+                    style:
+                        const TextStyle(fontSize: 14, color: Cores.textoSuave),
                   ),
                 ),
               ],
@@ -176,7 +180,7 @@ class _FotoDoPonto extends StatelessWidget {
           Icon(Icons.image_outlined, size: 32, color: Cores.textoApagado),
           SizedBox(height: Espacos.x2),
           Text(
-            'Foto da ultima passagem',
+            'Foto da última passagem',
             style: TextStyle(fontSize: 13, color: Cores.textoApagado),
           ),
         ],

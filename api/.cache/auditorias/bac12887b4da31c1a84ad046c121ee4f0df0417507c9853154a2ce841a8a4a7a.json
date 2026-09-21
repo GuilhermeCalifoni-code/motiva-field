@@ -1,0 +1,15 @@
+{
+  "arquivo": "foto.png",
+  "origem": "gemini",
+  "modelo": "gemini-g4os",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "alvo": {"classe": null, "roi_normalizada_0a1000": null, "confianca": 0.0, "motivo": "Nenhum alvo vertical específico com base e topo definidos para medição."},
+  "base_topo": {"compativeis": false, "base_visivel": false, "topo_visivel": false, "base_px_normalizado_0a1000": null, "topo_px_normalizado_0a1000": null, "motivo": "Ausência de um mesmo alvo com extremidades inferior e superior definidas."},
+  "referencias": [],
+  "plano_local": "pavimentação de concreto e solo",
+  "inclinacao_desconhecida": true,
+  "objetos_ignorados": ["vegetação rasteira dispersa", "concreto quebrado", "meio-fio", "parede lateral"],
+  "limitacoes": ["Ausência de escala métrica validada.", "Ângulo oblíquo sem orientação calibrada.", "Falta de um alvo específico com base e topo."],
+  "proxima_captura": "Capture o alvo lateralmente, com base e topo visíveis no mesmo plano e câmera calibrada."
+}

@@ -13,6 +13,13 @@ export interface Clima {
   chuvaPrevista24hMm: number;
 }
 
+export function impactoNoCrescimento(clima: Clima): { nivel: "baixo" | "atencao" | "alto"; texto: string } {
+  const chuva = clima.chuva24hMm + clima.chuvaPrevista24hMm;
+  if (chuva >= 20) return { nivel: "alto", texto: "Chuva acumulada e prevista elevam a prioridade de inspeção." };
+  if (chuva >= 1 || clima.temperaturaC >= 28) return { nivel: "atencao", texto: "Condição favorável ao crescimento; acompanhe a próxima passagem." };
+  return { nivel: "baixo", texto: "Sem sinal climático imediato de aceleração do crescimento." };
+}
+
 interface RespostaOpenMeteo {
   current?: {
     time?: string;

@@ -39,7 +39,8 @@ class OrdemAtivaScreen extends StatelessWidget {
                 child: Center(
                   child: Text(
                     ordem.status.rotulo,
-                    style: const TextStyle(fontSize: 13, color: Cores.sobreRoxo),
+                    style:
+                        const TextStyle(fontSize: 13, color: Cores.sobreRoxo),
                   ),
                 ),
               ),
@@ -96,7 +97,7 @@ class _Saudacao extends StatelessWidget {
         ),
         const SizedBox(height: Espacos.x1),
         Text(
-          'Matricula ${operador.matricula} · voce tem 1 ordem em aberto',
+          'Matrícula ${operador.matricula} · você tem 1 ordem em aberto',
           style: const TextStyle(fontSize: 14, color: Cores.textoSuave),
         ),
       ],
@@ -112,7 +113,7 @@ class _CondicoesLocaisCard extends StatelessWidget {
     const CondicoesLocais c = condicoesLocais;
 
     return CartaoSecao(
-      rotulo: 'Condicoes locais',
+      rotulo: 'Condições locais',
       filho: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -135,7 +136,8 @@ class _CondicoesLocaisCard extends StatelessWidget {
                     const SizedBox(height: Espacos.x1),
                     Text(
                       'Vento ${c.ventoKmh} km/h · chuva ${c.chuva24hMm.toStringAsFixed(1)} mm em 24h',
-                      style: const TextStyle(fontSize: 13, color: Cores.textoSuave),
+                      style: const TextStyle(
+                          fontSize: 13, color: Cores.textoSuave),
                     ),
                   ],
                 ),
@@ -155,7 +157,8 @@ class _CondicoesLocaisCard extends StatelessWidget {
               ),
               child: const Row(
                 children: <Widget>[
-                  Icon(Icons.water_drop_outlined, size: 16, color: Cores.atencaoForte),
+                  Icon(Icons.water_drop_outlined,
+                      size: 16, color: Cores.atencaoForte),
                   SizedBox(width: Espacos.x2),
                   Expanded(
                     child: Text(
@@ -191,7 +194,7 @@ class _AvisoConcluida extends StatelessWidget {
           SizedBox(width: Espacos.x3),
           Expanded(
             child: Text(
-              'Servico comprovado e enviado. Nenhuma ordem em aberto.',
+              'Serviço comprovado e enviado. Nenhuma ordem em aberto.',
               style: TextStyle(fontSize: 14, color: Cores.texto),
             ),
           ),

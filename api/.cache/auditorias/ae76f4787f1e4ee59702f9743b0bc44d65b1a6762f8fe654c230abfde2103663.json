@@ -1,0 +1,210 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-10 at 19.03.30.jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.6-flash",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "medir_com_regua",
+  "geometria_candidata": true,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "gramado_faixa_local",
+    "roi_normalizada_0a1000": [
+      50,
+      250,
+      950,
+      1000
+    ],
+    "confianca": 0.92,
+    "motivo": "Faixa de relvado local contínua com base no solo e envelope superior de folhas claramente auditáveis."
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": true,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      440,
+      560
+    ],
+    "topo_px_normalizado_0a1000": [
+      440,
+      350
+    ],
+    "motivo": "Base no ponto de contato com o solo e topo na crista das folhas no plano da fita métrica."
+  },
+  "amostras": [
+    {
+      "base_px_normalizado_0a1000": [
+        100,
+        780
+      ],
+      "topo_px_normalizado_0a1000": [
+        100,
+        620
+      ],
+      "confianca": 0.88
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        200,
+        720
+      ],
+      "topo_px_normalizado_0a1000": [
+        200,
+        540
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        300,
+        640
+      ],
+      "topo_px_normalizado_0a1000": [
+        300,
+        450
+      ],
+      "confianca": 0.91
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        400,
+        570
+      ],
+      "topo_px_normalizado_0a1000": [
+        400,
+        360
+      ],
+      "confianca": 0.94
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        500,
+        570
+      ],
+      "topo_px_normalizado_0a1000": [
+        500,
+        370
+      ],
+      "confianca": 0.93
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        600,
+        620
+      ],
+      "topo_px_normalizado_0a1000": [
+        600,
+        420
+      ],
+      "confianca": 0.91
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        700,
+        680
+      ],
+      "topo_px_normalizado_0a1000": [
+        700,
+        480
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        800,
+        750
+      ],
+      "topo_px_normalizado_0a1000": [
+        800,
+        550
+      ],
+      "confianca": 0.89
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        900,
+        820
+      ],
+      "topo_px_normalizado_0a1000": [
+        900,
+        650
+      ],
+      "confianca": 0.85
+    }
+  ],
+  "referencias": [
+    {
+      "tipo": "fita_metrica",
+      "bbox_normalizada_0a1000": [
+        390,
+        300,
+        475,
+        570
+      ],
+      "ponto_superior_normalizado_0a1000": [
+        435,
+        375
+      ],
+      "ponto_inferior_normalizado_0a1000": [
+        445,
+        520
+      ],
+      "intervalo_observado_cm": 7.0,
+      "incerteza_cm": 0.2,
+      "confianca": 0.95,
+      "compatibilidade_espacial": 0.96,
+      "utilizavel": true,
+      "incerteza_descricao": "Marcações de 10 cm e 3 cm nitidamente legíveis na fita métrica vertical adjacente ao alvo."
+    }
+  ],
+  "plano_local": "Plano vertical contendo a trena e o envelope de relvado frontal imediato.",
+  "inclinacao_desconhecida": false,
+  "dados": {
+    "observacoes": [
+      "Fita métrica da marca Irwin posicionada verticalmente dentro do envelope do gramado.",
+      "Graduações numéricas legíveis na fita (marcação de 3 cm até 10 cm identificáveis).",
+      "Contato da base da trena no solo visível."
+    ],
+    "inferencias": [
+      "Plano da fita métrica coincide com o plano médio das hastes de relva amostradas na ROI."
+    ],
+    "desconhecidos": [
+      "Espessura exata da camada de palhada compactada sob o solo superficial visual."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": true,
+    "referencia_valida": true,
+    "referencia_localizada": true,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": true,
+    "pode_calcular": true
+  },
+  "confianca_componentes": {
+    "alvo": 0.92,
+    "roi": 0.94,
+    "base": 0.9,
+    "topo": 0.91,
+    "base_topo": 0.92,
+    "referencia": 0.95,
+    "relacao_espacial": 0.94,
+    "solo": 0.9,
+    "geometria": 0.93,
+    "global_": 0.92
+  },
+  "objetos_ignorados": [
+    "mao_humana",
+    "corpo_trena_azul",
+    "veiculo_fundo",
+    "edificios_fundo"
+  ],
+  "limitacoes": [
+    "Algumas hastes de relva cobrem parcialmente a borda inferior da fita métrica."
+  ],
+  "proxima_captura": "Manter a trena perpendicular ao solo sem inclinação lateral para minimizar distorções de perspectiva."
+}

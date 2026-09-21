@@ -1,0 +1,219 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-15 at 09.07.42.jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.5-flash-lite",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "medir_com_regua",
+  "geometria_candidata": true,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "vegetacao_graminea",
+    "roi_normalizada_0a1000": [
+      320,
+      150,
+      990,
+      850
+    ],
+    "confianca": 0.85,
+    "motivo": "Touceira de grama com base no solo visível e envelope superior identificável ao lado da fita métrica."
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": true,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      360,
+      570
+    ],
+    "topo_px_normalizado_0a1000": [
+      385,
+      350
+    ],
+    "motivo": "Base e topo locais identificados na mesma vertical de interesse junto à escala."
+  },
+  "amostras": [
+    {
+      "base_px_normalizado_0a1000": [
+        360,
+        570
+      ],
+      "topo_px_normalizado_0a1000": [
+        385,
+        350
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        400,
+        550
+      ],
+      "topo_px_normalizado_0a1000": [
+        415,
+        380
+      ],
+      "confianca": 0.82
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        440,
+        530
+      ],
+      "topo_px_normalizado_0a1000": [
+        450,
+        330
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        480,
+        510
+      ],
+      "topo_px_normalizado_0a1000": [
+        490,
+        370
+      ],
+      "confianca": 0.8
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        520,
+        500
+      ],
+      "topo_px_normalizado_0a1000": [
+        530,
+        310
+      ],
+      "confianca": 0.83
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        560,
+        490
+      ],
+      "topo_px_normalizado_0a1000": [
+        570,
+        350
+      ],
+      "confianca": 0.8
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        600,
+        480
+      ],
+      "topo_px_normalizado_0a1000": [
+        610,
+        300
+      ],
+      "confianca": 0.82
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        650,
+        490
+      ],
+      "topo_px_normalizado_0a1000": [
+        660,
+        340
+      ],
+      "confianca": 0.8
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        700,
+        510
+      ],
+      "topo_px_normalizado_0a1000": [
+        710,
+        320
+      ],
+      "confianca": 0.81
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        750,
+        530
+      ],
+      "topo_px_normalizado_0a1000": [
+        760,
+        360
+      ],
+      "confianca": 0.79
+    }
+  ],
+  "referencias": [
+    {
+      "tipo": "fita_metrica",
+      "bbox_normalizada_0a1000": [
+        160,
+        0,
+        300,
+        610
+      ],
+      "ponto_superior_normalizado_0a1000": [
+        250,
+        150
+      ],
+      "ponto_inferior_normalizado_0a1000": [
+        265,
+        550
+      ],
+      "intervalo_observado_cm": 10.0,
+      "incerteza_cm": 0.2,
+      "confianca": 0.9,
+      "compatibilidade_espacial": 0.95,
+      "utilizavel": true,
+      "incerteza_descricao": "Fita métrica legível posicionada verticalmente ao lado do alvo vegetal."
+    }
+  ],
+  "plano_local": "Superfície de solo/asfalto com inclinação aparente moderada e fita métrica ortogonal próxima.",
+  "inclinacao_desconhecida": false,
+  "dados": {
+    "observacoes": [
+      "Fita métrica visível e legível ao lado esquerdo da touceira de grama.",
+      "Base da vegetação apoiada sobre o solo/asfalto.",
+      "Envelope superior da grama claramente discernível."
+    ],
+    "inferencias": [
+      "A escala da fita métrica é perfeitamente linear e utilizável para a altura local."
+    ],
+    "desconhecidos": [
+      "Variações tridimensionais profundas na densidade total da massa verde ao fundo."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": true,
+    "referencia_valida": true,
+    "referencia_localizada": true,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": true,
+    "pode_calcular": true
+  },
+  "confianca_componentes": {
+    "alvo": 0.85,
+    "roi": 0.9,
+    "base": 0.85,
+    "topo": 0.85,
+    "base_topo": 0.9,
+    "referencia": 0.9,
+    "relacao_espacial": 0.95,
+    "solo": 0.85,
+    "geometria": 0.88,
+    "global_": 0.88
+  },
+  "objetos_ignorados": [
+    "Estruturas e entulhos ao fundo",
+    "Folhas secas isoladas fora do alvo"
+  ],
+  "limitacoes": [
+    "Presença de desníveis leves no solo ao redor da touceira."
+  ],
+  "proxima_captura": "Manter enquadramento similar com iluminação frontal se houver variações de sombra."
+}

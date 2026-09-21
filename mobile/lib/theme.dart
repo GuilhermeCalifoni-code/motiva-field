@@ -20,13 +20,13 @@ class Cores {
   static const Color perigoBorda = Color(0xFFFECDCA);
 
   static const Color atencao = Color(0xFFF97316);
-  static const Color atencaoForte = Color(0xFF9A3412);
+  static const Color atencaoForte = Color(0xFF7C2D12);
   static const Color atencaoSuave = Color(0xFFFFF7ED);
 
   // Escala de risco: codificacao de dado, igual a do painel web.
   static const Color riscoTranquilo = Color(0xFF22C55E);
   static const Color riscoAtencao = Color(0xFFF97316);
-  static const Color riscoCritico = Color(0xFFF2B705);
+  static const Color riscoCritico = Color(0xFFD92D20);
 
   // Superficies
   static const Color fundo = Color(0xFFF6F4FA);
@@ -112,6 +112,37 @@ ThemeData construirTema() {
           borderRadius: BorderRadius.circular(Raios.sm),
         ),
       ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: Cores.roxo,
+        side: const BorderSide(color: Cores.bordaForte),
+        minimumSize: const Size.fromHeight(48),
+        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Raios.sm),
+        ),
+      ),
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: Cores.superficie,
+      indicatorColor: const Color(0xFFEDE5F7),
+      labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>((states) {
+        return TextStyle(
+          fontSize: 11,
+          fontWeight: states.contains(WidgetState.selected)
+              ? FontWeight.w800
+              : FontWeight.w600,
+          color: states.contains(WidgetState.selected)
+              ? Cores.roxo
+              : Cores.textoSuave,
+        );
+      }),
+    ),
+    snackBarTheme: const SnackBarThemeData(
+      backgroundColor: Cores.roxoEscuro,
+      contentTextStyle: TextStyle(color: Cores.sobreEscuro),
+      behavior: SnackBarBehavior.floating,
     ),
   );
 }

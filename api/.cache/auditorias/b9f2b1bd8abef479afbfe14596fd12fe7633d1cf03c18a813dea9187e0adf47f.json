@@ -1,0 +1,222 @@
+{
+  "arquivo": "e137e722-3f40-40fd-bc26-75abeac53835_pasted-image-1.png",
+  "origem": "gemini",
+  "modelo": "gemini-3.6-flash",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "medir_com_regua",
+  "geometria_candidata": true,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "gramado",
+    "roi_normalizada_0a1000": [
+      250,
+      50,
+      900,
+      950
+    ],
+    "confianca": 0.92,
+    "motivo": "Massa contínua de vegetação com linha de solo visível próxima ao bordo de concreto e régua graduada no mesmo plano local."
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": true,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      610,
+      835
+    ],
+    "topo_px_normalizado_0a1000": [
+      610,
+      100
+    ],
+    "motivo": "Base no contato com o solo/concreto e envelope superior das folhas claramente discerníveis."
+  },
+  "amostras": [
+    {
+      "base_px_normalizado_0a1000": [
+        350,
+        835
+      ],
+      "topo_px_normalizado_0a1000": [
+        350,
+        550
+      ],
+      "confianca": 0.88
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        400,
+        835
+      ],
+      "topo_px_normalizado_0a1000": [
+        400,
+        480
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        450,
+        835
+      ],
+      "topo_px_normalizado_0a1000": [
+        450,
+        500
+      ],
+      "confianca": 0.89
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        500,
+        835
+      ],
+      "topo_px_normalizado_0a1000": [
+        500,
+        320
+      ],
+      "confianca": 0.91
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        550,
+        835
+      ],
+      "topo_px_normalizado_0a1000": [
+        550,
+        310
+      ],
+      "confianca": 0.92
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        650,
+        835
+      ],
+      "topo_px_normalizado_0a1000": [
+        650,
+        300
+      ],
+      "confianca": 0.91
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        700,
+        835
+      ],
+      "topo_px_normalizado_0a1000": [
+        700,
+        280
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        750,
+        835
+      ],
+      "topo_px_normalizado_0a1000": [
+        750,
+        200
+      ],
+      "confianca": 0.88
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        800,
+        835
+      ],
+      "topo_px_normalizado_0a1000": [
+        800,
+        180
+      ],
+      "confianca": 0.87
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        850,
+        835
+      ],
+      "topo_px_normalizado_0a1000": [
+        850,
+        150
+      ],
+      "confianca": 0.85
+    }
+  ],
+  "referencias": [
+    {
+      "tipo": "regua_graduada",
+      "bbox_normalizada_0a1000": [
+        558,
+        0,
+        660,
+        715
+      ],
+      "ponto_superior_normalizado_0a1000": [
+        610,
+        125
+      ],
+      "ponto_inferior_normalizado_0a1000": [
+        570,
+        360
+      ],
+      "intervalo_observado_cm": 5.0,
+      "incerteza_cm": 0.2,
+      "confianca": 0.95,
+      "compatibilidade_espacial": 0.95,
+      "utilizavel": true,
+      "incerteza_descricao": "Escala graduada transparente visível e cravada diretamente na terra junto ao alvo."
+    }
+  ],
+  "plano_local": "Plano horizontal do solo plano próximo a bordo de concreto urbano",
+  "inclinacao_desconhecida": false,
+  "dados": {
+    "observacoes": [
+      "Régua acrílica graduada inserida verticalmente na terra",
+      "Marcações numéricas de centímetros legíveis (ex: 10 a 15)",
+      "Linha de contato do solo com o meio-fio bem definida"
+    ],
+    "inferencias": [
+      "A régua está fincada no mesmo plano do sistema radicular/solo do gramado",
+      "Intercalação de marcas de 1 cm visíveis no corpo do instrumento"
+    ],
+    "desconhecidos": [
+      "Profundidade exata em que a ponta da régua penetrou no solo abaixo da linha visível"
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": true,
+    "referencia_valida": true,
+    "referencia_localizada": true,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": true,
+    "pode_calcular": true
+  },
+  "confianca_componentes": {
+    "alvo": 0.92,
+    "roi": 0.9,
+    "base": 0.88,
+    "topo": 0.89,
+    "base_topo": 0.9,
+    "referencia": 0.95,
+    "relacao_espacial": 0.92,
+    "solo": 0.9,
+    "geometria": 0.91,
+    "global_": 0.91
+  },
+  "objetos_ignorados": [
+    "borda de concreto/meio-fio",
+    "muro ao fundo",
+    "folha seca caída"
+  ],
+  "limitacoes": [
+    "Transparência da régua de acrílico exige contraste cuidadoso nas marcações",
+    "Oclusão parcial das marcas numéricas inferiores por folhagem rasteira"
+  ],
+  "proxima_captura": "Manter enquadramento com a régua em posição vertical e assegurar boa iluminação sobre os traços numéricos da escala."
+}

@@ -1,0 +1,199 @@
+{
+  "arquivo": "01_WHATSAPP_ORIGINAIS__WhatsApp Image 2026-09-10 at 19.03.34 (1).jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.5-flash-lite",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "touceira_grama",
+    "roi_normalizada_0a1000": [
+      280,
+      40,
+      520,
+      660
+    ],
+    "confianca": 0.92,
+    "motivo": "Touceira de grama perfeitamente alinhada e contígua à trena amarela, com base e topo visíveis na mesma profundidade local."
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": false,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      485,
+      645
+    ],
+    "topo_px_normalizado_0a1000": [
+      405,
+      175
+    ],
+    "motivo": "Base apoiada na linha de solo junto à trena e topo correspondente ao envelope superior da mesma faixa."
+  },
+  "amostras": [
+    {
+      "base_px_normalizado_0a1000": [
+        485,
+        645
+      ],
+      "topo_px_normalizado_0a1000": [
+        405,
+        175
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        480,
+        630
+      ],
+      "topo_px_normalizado_0a1000": [
+        390,
+        190
+      ],
+      "confianca": 0.88
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        490,
+        650
+      ],
+      "topo_px_normalizado_0a1000": [
+        420,
+        210
+      ],
+      "confianca": 0.89
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        475,
+        625
+      ],
+      "topo_px_normalizado_0a1000": [
+        380,
+        160
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        482,
+        640
+      ],
+      "topo_px_normalizado_0a1000": [
+        410,
+        185
+      ],
+      "confianca": 0.91
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        488,
+        648
+      ],
+      "topo_px_normalizado_0a1000": [
+        400,
+        200
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        478,
+        635
+      ],
+      "topo_px_normalizado_0a1000": [
+        395,
+        170
+      ],
+      "confianca": 0.87
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        486,
+        642
+      ],
+      "topo_px_normalizado_0a1000": [
+        415,
+        195
+      ],
+      "confianca": 0.89
+    }
+  ],
+  "referencias": [
+    {
+      "tipo": "trena_metrica",
+      "bbox_normalizada_0a1000": [
+        290,
+        0,
+        515,
+        660
+      ],
+      "ponto_superior_normalizado_0a1000": [
+        380,
+        90
+      ],
+      "ponto_inferior_normalizado_0a1000": [
+        485,
+        645
+      ],
+      "intervalo_observado_cm": 15.0,
+      "incerteza_cm": 0.2,
+      "confianca": 0.95,
+      "compatibilidade_espacial": 0.98,
+      "utilizavel": true,
+      "incerteza_descricao": "Marcações da trena perfeitamente legíveis e fisicamente justapostas ao alvo vegetal."
+    }
+  ],
+  "plano_local": "Solo horizontal com vegetação rasteira uniforme e trena inserida verticalmente na mesma profundidade.",
+  "inclinacao_desconhecida": false,
+  "dados": {
+    "observacoes": [
+      "Trena métrica amarela posicionada verticalmente no solo junto à grama.",
+      "Marcações numéricas da trena claramente legíveis (ex: 10, 20 cm).",
+      "Base da vegetação e da trena visíveis no mesmo plano de referência."
+    ],
+    "inferencias": [
+      "A faixa vegetal analisada compartilha da mesma linha de base da trena.",
+      "O topo amostrado reflete o envelope local da grama."
+    ],
+    "desconhecidos": [
+      "Variações milimétricas de oclusão na base oculta por folhas caídas."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": true,
+    "referencia_valida": true,
+    "referencia_localizada": true,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": true,
+    "pode_calcular": true
+  },
+  "confianca_componentes": {
+    "alvo": 0.92,
+    "roi": 0.94,
+    "base": 0.9,
+    "topo": 0.9,
+    "base_topo": 0.91,
+    "referencia": 0.95,
+    "relacao_espacial": 0.96,
+    "solo": 0.9,
+    "geometria": 0.92,
+    "global_": 0.92
+  },
+  "objetos_ignorados": [
+    "Mão humana na parte inferior da imagem",
+    "Muro e vegetação distante ao fundo"
+  ],
+  "limitacoes": [
+    "Pequena oclusão de folhas secas na base inferior da trena.",
+    "guarda_deterministica: base/zero da escala declarado como ocluído; medição em centímetros rebaixada para triagem"
+  ],
+  "proxima_captura": "Manter a trena vertical e perpendicular ao solo na mesma posição para validação determinística."
+}

@@ -150,6 +150,38 @@ def altura_em_pixels(bbox: tuple[int, int, int, int]) -> int:
     return int(y2 - y1)
 
 
+def regiao_para_geometria(mascara: np.ndarray) -> dict[str, object] | None:
+    """Escolhe uma região vegetal candidata e seus pontos extremos.
+
+    Não converte pixel em centímetros. A escolha privilegia componentes com
+    área suficiente e base baixa no quadro, mas devolve None quando a máscara
+    não contém uma região suficientemente definida. O módulo geométrico decide
+    se os raios resultantes podem ou não produzir uma altura.
+    """
+    if mascara is None or mascara.size == 0:
+        return None
+    h, w = mascara.shape[:2]
+    n, labels, stats, _ = cv2.connectedComponentsWithStats((mascara > 0).astype(np.uint8), 8)
+    candidatas: list[tuple[float, int]] = []
+    for i in range(1, n):
+        x, y, largura, altura, area = (int(stats[i, j]) for j in range(5))
+        if area < max(80, int(h * w * 0.0003)) or altura < max(12, int(h * .025)):
+            continue
+        # Base mais baixa é preferível; área reduz ruído isolado.
+        pontuacao = (y + altura) / h + min(1.0, area / (h * w * .03)) * .2
+        candidatas.append((pontuacao, i))
+    if not candidatas:
+        return None
+    _, indice = max(candidatas)
+    ys, xs = np.where(labels == indice)
+    x1, x2, y1, y2 = int(xs.min()), int(xs.max()), int(ys.min()), int(ys.max())
+    # Medianas tornam topo/base menos vulneráveis a uma folha solta.
+    faixa = max(2, int((y2 - y1 + 1) * .08))
+    topo_x = float(np.median(xs[ys <= y1 + faixa]))
+    base_x = float(np.median(xs[ys >= y2 - faixa]))
+    return {"bbox": (x1, y1, x2 + 1, y2 + 1), "topo_px": (topo_x, float(y1)), "base_px": (base_x, float(y2)), "area_px": int(len(xs))}
+
+
 # --- Medicao da altura -------------------------------------------------------
 #
 # Medir o bbox da maior mancha verde do quadro NAO e medir altura de planta.
@@ -230,6 +262,7 @@ def medir_altura_vegetacao(
     tolerancia = max(3, int(altura_img * FRACAO_TOLERANCIA_CHAO))
 
     melhor = None
+    melhor_indice = None
     melhor_area = 0
     for indice in range(1, quantidade):
         x = int(estatisticas[indice, cv2.CC_STAT_LEFT])
@@ -244,11 +277,34 @@ def medir_altura_vegetacao(
             continue
         if area > melhor_area:
             melhor_area = area
+            melhor_indice = indice
             melhor = (x, y, largura, altura)
 
     if melhor is None:
         return None
 
     x, y, largura, altura = melhor
-    altura_px = max(0, linha_do_chao - y)
-    return altura_px, (x, y, x + largura, linha_do_chao)
+    # Altura operacional robusta: 20 faixas uniformes da ROI, envelope local
+    # p10 de y em cada faixa, remoção objetiva de outliers por IQR e p85 final.
+    # Isso mede a cobertura representativa, não a folha isolada mais alta.
+    alturas_colunas: list[float] = []
+    if melhor_indice is not None:
+        ys, xs = np.where(rotulos == melhor_indice)
+        centros = np.linspace(x, x + largura - 1, 20)
+        raio = max(1, int(round(largura / 40)))
+        for centro in centros:
+            selecao = np.abs(xs - centro) <= raio
+            ys_faixa = ys[selecao]
+            if len(ys_faixa) >= 5:
+                topo_local = float(np.percentile(ys_faixa, 10))
+                alturas_colunas.append(max(0.0, linha_do_chao - topo_local))
+    if len(alturas_colunas) >= 8:
+        valores = np.asarray(alturas_colunas, dtype=float)
+        q1, q3 = np.percentile(valores, [25, 75])
+        iqr = max(1.0, float(q3 - q1))
+        filtradas = valores[(valores >= q1 - 1.5 * iqr) & (valores <= q3 + 1.5 * iqr)]
+        altura_px = int(round(float(np.percentile(filtradas, 85))))
+    else:
+        altura_px = max(0, linha_do_chao - y)
+    topo_representativo = max(0, linha_do_chao - altura_px)
+    return altura_px, (x, topo_representativo, x + largura, linha_do_chao)

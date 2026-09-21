@@ -1,0 +1,36 @@
+{
+  "versao": "monocular_plano_local_v2",
+  "camera_model": "POCO X7 Pro",
+  "camera_principal": {
+    "sensor": "Sony IMX882",
+    "resolucao_mp": 50,
+    "abertura": "f/1.5",
+    "ois": true,
+    "zoom_captura": "1x",
+    "fonte": "https://www.mi.com/global/product/poco-x7-pro/"
+  },
+  "arcore_depth_status": "nao_confirmado_no_aparelho",
+  "intrinsecos_status": "placeholder_ate_calibracao_com_tabuleiro",
+  "resolucao_calibracao": null,
+  "montagem": "celular_seguro_na_mao",
+  "plano_local_confirmado": false,
+  "altura_camera_m": 1.65,
+  "pitch_graus": 45.0,
+  "roll_graus": 0.0,
+  "yaw_graus": 0.0,
+  "fx_px": 1500.0,
+  "fy_px": 1500.0,
+  "cx_px": 960.0,
+  "cy_px": 540.0,
+  "distorcao": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "incerteza_altura_m": 0.05,
+  "incerteza_pitch_graus": 7.0,
+  "incerteza_pixel_px": 3.0,
+  "calibrado": false
+}

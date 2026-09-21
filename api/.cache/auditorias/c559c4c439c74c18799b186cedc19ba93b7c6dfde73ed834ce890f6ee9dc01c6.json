@@ -1,0 +1,211 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-10 at 19.03.29.jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.6-flash",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "gramado",
+    "roi_normalizada_0a1000": [
+      0,
+      250,
+      1000,
+      1000
+    ],
+    "confianca": 0.9,
+    "motivo": "Massa contínua de gramado rasteiro com fita métrica vertical inserida na ROI"
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": false,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      452,
+      550
+    ],
+    "topo_px_normalizado_0a1000": [
+      450,
+      415
+    ],
+    "motivo": "Envelope superior da vegetação e plano de contato do solo visíveis adjacentes à escala"
+  },
+  "amostras": [
+    {
+      "base_px_normalizado_0a1000": [
+        200,
+        630
+      ],
+      "topo_px_normalizado_0a1000": [
+        200,
+        450
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        300,
+        590
+      ],
+      "topo_px_normalizado_0a1000": [
+        300,
+        430
+      ],
+      "confianca": 0.86
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        380,
+        560
+      ],
+      "topo_px_normalizado_0a1000": [
+        380,
+        420
+      ],
+      "confianca": 0.88
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        452,
+        550
+      ],
+      "topo_px_normalizado_0a1000": [
+        450,
+        415
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        520,
+        560
+      ],
+      "topo_px_normalizado_0a1000": [
+        520,
+        430
+      ],
+      "confianca": 0.87
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        600,
+        580
+      ],
+      "topo_px_normalizado_0a1000": [
+        600,
+        445
+      ],
+      "confianca": 0.86
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        700,
+        640
+      ],
+      "topo_px_normalizado_0a1000": [
+        700,
+        480
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        800,
+        710
+      ],
+      "topo_px_normalizado_0a1000": [
+        800,
+        530
+      ],
+      "confianca": 0.84
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        900,
+        800
+      ],
+      "topo_px_normalizado_0a1000": [
+        900,
+        620
+      ],
+      "confianca": 0.82
+    }
+  ],
+  "referencias": [
+    {
+      "tipo": "fita_metrica",
+      "bbox_normalizada_0a1000": [
+        385,
+        300,
+        485,
+        565
+      ],
+      "ponto_superior_normalizado_0a1000": [
+        440,
+        365
+      ],
+      "ponto_inferior_normalizado_0a1000": [
+        452,
+        480
+      ],
+      "intervalo_observado_cm": 5.0,
+      "incerteza_cm": 0.2,
+      "confianca": 0.92,
+      "compatibilidade_espacial": 0.95,
+      "utilizavel": true,
+      "incerteza_descricao": "Marcações legíveis de 10 cm e 5 cm na fita métrica posicionada no mesmo plano da vegetação"
+    }
+  ],
+  "plano_local": "Plano horizontal de relvado próximo à fita métrica mantida verticalmente",
+  "inclinacao_desconhecida": false,
+  "dados": {
+    "observacoes": [
+      "Fita métrica métrica/polegadas mantida verticalmente por mão humana",
+      "Marcações graduadas de 2 cm a 10 cm nitidamente visíveis",
+      "Gramado denso ao redor da fita métrica"
+    ],
+    "inferencias": [
+      "A extremidade da fita está inserida no nível aproximado do solo/palhada",
+      "A altura local da vegetação varia em torno do intervalo de 5 a 10 cm graduado na fita"
+    ],
+    "desconhecidos": [
+      "Profundidade exata do solo sob a camada de mato/palha compactada"
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": true,
+    "referencia_valida": true,
+    "referencia_localizada": true,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": true,
+    "pode_calcular": true
+  },
+  "confianca_componentes": {
+    "alvo": 0.9,
+    "roi": 0.9,
+    "base": 0.85,
+    "topo": 0.88,
+    "base_topo": 0.87,
+    "referencia": 0.92,
+    "relacao_espacial": 0.95,
+    "solo": 0.84,
+    "geometria": 0.88,
+    "global_": 0.89
+  },
+  "objetos_ignorados": [
+    "Mão do operador segurando a trena",
+    "Veículo prata estacionado ao fundo",
+    "Edificações e vegetação de porte alto ao fundo"
+  ],
+  "limitacoes": [
+    "Oclusão parcial do ponto zero da fita pelo dossel da grama",
+    "guarda_deterministica: base/zero da escala declarado como ocluído; medição em centímetros rebaixada para triagem"
+  ],
+  "proxima_captura": "Manter o enquadramento atual com boa iluminação e garantir visualização nítida do ponto de contato da fita com o solo."
+}

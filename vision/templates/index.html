@@ -38,7 +38,7 @@
   <main class="wrap">
     <div class="eyebrow">Bloco 2 · Teste local</div>
     <h1>Visão: medir vegetação por foto</h1>
-    <p class="lead">Duas vias de escala. Com a régua no quadro, cada foto se autocalibra. Com a calibração salva, mede-se sem régua — mas só vale para a geometria em que a calibração foi feita.</p>
+    <p class="lead">Fluxo principal: geometria monocular com plano local. A trena permanece apenas para comparação histórica; sem geometria suficiente, a altura fica indisponível.</p>
 
     <div class="grid">
       <section class="card">
@@ -50,7 +50,8 @@
         <div class="painel" id="painel-medir">
           <label for="via">Fonte da escala</label>
           <select id="via">
-            <option value="haste">Régua no quadro (cada foto se calibra)</option>
+            <option value="geometria" selected>Geometria monocular (plano local)</option>
+            <option value="haste">Régua no quadro (modo histórico)</option>
             <option value="arquivo">Calibração salva (sem régua na foto)</option>
           </select>
           <div id="estado-calibracao"></div>

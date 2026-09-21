@@ -25,7 +25,7 @@ class NavegacaoScreen extends StatelessWidget {
     final Manobra proxima = rota.manobras.first;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Navegacao')),
+      appBar: AppBar(title: const Text('Navegação')),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -79,7 +79,8 @@ class _InstrucaoManobra extends StatelessWidget {
               color: Cores.ouro,
               borderRadius: BorderRadius.circular(Raios.md),
             ),
-            child: const Icon(Icons.arrow_upward, size: 30, color: Cores.roxoEscuro),
+            child: const Icon(Icons.arrow_upward,
+                size: 30, color: Cores.roxoEscuro),
           ),
           const SizedBox(width: Espacos.x4),
           Expanded(
@@ -172,7 +173,7 @@ class _PintorRota extends CustomPainter {
     canvas.drawPath(caminho, via);
     canvas.drawPath(caminho, rota);
 
-    // Posicao atual do operador.
+    // Posição atual do operador.
     canvas.drawCircle(
       Offset(size.width * 0.18, size.height * 0.92),
       10,
@@ -222,7 +223,8 @@ class _ProximasManobras extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: Espacos.x2),
               child: Row(
                 children: <Widget>[
-                  const Icon(Icons.turn_right, size: 18, color: Cores.textoSuave),
+                  const Icon(Icons.turn_right,
+                      size: 18, color: Cores.textoSuave),
                   const SizedBox(width: Espacos.x3),
                   Expanded(
                     child: Text(
@@ -232,7 +234,8 @@ class _ProximasManobras extends StatelessWidget {
                   ),
                   Text(
                     '${m.distanciaM} m',
-                    style: const TextStyle(fontSize: 13, color: Cores.textoSuave),
+                    style:
+                        const TextStyle(fontSize: 13, color: Cores.textoSuave),
                   ),
                 ],
               ),
@@ -282,8 +285,9 @@ class _RodapeRota extends StatelessWidget {
               ),
               Expanded(
                 child: _Metrica(
-                  valor: '${rota.distanciaKm.toStringAsFixed(1).replaceAll('.', ',')} km',
-                  rotulo: 'distancia',
+                  valor:
+                      '${rota.distanciaKm.toStringAsFixed(1).replaceAll('.', ',')} km',
+                  rotulo: 'distância',
                 ),
               ),
             ],

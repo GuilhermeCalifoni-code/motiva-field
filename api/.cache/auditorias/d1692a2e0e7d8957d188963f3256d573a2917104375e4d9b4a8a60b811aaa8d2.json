@@ -1,0 +1,83 @@
+{
+  "arquivo": "foto_2.png",
+  "origem": "gemini",
+  "modelo": "gemini-3.5-flash-lite",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "vegetacao_passeio",
+    "roi_normalizada_0a1000": [
+      230,
+      480,
+      690,
+      760
+    ],
+    "confianca": 0.3,
+    "motivo": "Pequeno remendo de grama em canteiro na calçada, sem altura vertical expressiva e sem referência métrica válida."
+  },
+  "base_topo": {
+    "compativeis": false,
+    "base_visivel": true,
+    "topo_visivel": false,
+    "base_px_normalizado_0a1000": [
+      460,
+      740
+    ],
+    "topo_px_normalizado_0a1000": null,
+    "motivo": "A vegetação está nivelada com o piso ou possui crescimento mínimo, impossibilitando definir um topo vertical claro para medição."
+  },
+  "amostras": [],
+  "referencias": [],
+  "plano_local": "Calçada de concreto plana com vegetação rasteira em canteiro quadrado",
+  "inclinacao_desconhecida": true,
+  "dados": {
+    "observacoes": [
+      "Pequeno remendo de grama inserido em cavidade na calçada de concreto.",
+      "Ausência de régua ou fita métrica legível próxima ao alvo."
+    ],
+    "inferencias": [
+      "A vegetação parece ser grama cortada muito rente ou de porte extremamente baixo."
+    ],
+    "desconhecidos": [
+      "Altura exata da vegetação em relação ao nível do solo.",
+      "Escala física da imagem."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": false,
+    "base_topo_compativeis": false,
+    "referencia_valida": false,
+    "referencia_localizada": false,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": false,
+    "pode_calcular": false
+  },
+  "confianca_componentes": {
+    "alvo": 0.4,
+    "roi": 0.5,
+    "base": 0.6,
+    "topo": 0.1,
+    "base_topo": 0.1,
+    "referencia": 0.0,
+    "relacao_espacial": 0.3,
+    "solo": 0.7,
+    "geometria": 0.1,
+    "global_": 0.2
+  },
+  "objetos_ignorados": [
+    "Meio-fio",
+    "Marcações na rua",
+    "Folhas secas soltas"
+  ],
+  "limitacoes": [
+    "Ausência de referência métrica válida na cena",
+    "Altura da vegetação insuficiente para amostragem vertical confiável"
+  ],
+  "proxima_captura": "Realizar captura com régua métrica padrão posicionada verticalmente ao lado do alvo, caso seja necessária medição."
+}

@@ -1,0 +1,174 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-15 at 09.07.42 (3).jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.6-flash",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": true,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "planta_vaso",
+    "roi_normalizada_0a1000": [
+      150,
+      230,
+      950,
+      750
+    ],
+    "confianca": 0.85,
+    "motivo": "Massa vegetal isolada em recipientes plásticos contra parede pintada."
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": true,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      480,
+      700
+    ],
+    "topo_px_normalizado_0a1000": [
+      180,
+      240
+    ],
+    "motivo": "Base dos caules nos recipientes e pontas dos ramos superiores são delimitáveis."
+  },
+  "amostras": [
+    {
+      "base_px_normalizado_0a1000": [
+        360,
+        650
+      ],
+      "topo_px_normalizado_0a1000": [
+        180,
+        240
+      ],
+      "confianca": 0.8
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        380,
+        650
+      ],
+      "topo_px_normalizado_0a1000": [
+        370,
+        350
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        420,
+        660
+      ],
+      "topo_px_normalizado_0a1000": [
+        410,
+        380
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        480,
+        680
+      ],
+      "topo_px_normalizado_0a1000": [
+        570,
+        260
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        510,
+        680
+      ],
+      "topo_px_normalizado_0a1000": [
+        610,
+        390
+      ],
+      "confianca": 0.8
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        540,
+        670
+      ],
+      "topo_px_normalizado_0a1000": [
+        700,
+        480
+      ],
+      "confianca": 0.8
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        560,
+        670
+      ],
+      "topo_px_normalizado_0a1000": [
+        850,
+        470
+      ],
+      "confianca": 0.75
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        580,
+        670
+      ],
+      "topo_px_normalizado_0a1000": [
+        930,
+        520
+      ],
+      "confianca": 0.7
+    }
+  ],
+  "referencias": [],
+  "plano_local": "Planta localizada em recipientes no piso de concreto junto a uma parede vertical com pintura arte urbana.",
+  "inclinacao_desconhecida": true,
+  "dados": {
+    "observacoes": [
+      "Massa vegetal emergindo de dois galões plásticos cortados no chão.",
+      "Parede pintada ao fundo.",
+      "Piso plano com folhas caídas em torno dos vasos."
+    ],
+    "inferencias": [
+      "O plano do solo é aproximadamente perpendicular à parede de fundo."
+    ],
+    "desconhecidos": [
+      "Escala métrica graduada visível ou calibrador de câmera no mesmo plano."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": true,
+    "referencia_valida": false,
+    "referencia_localizada": false,
+    "relacao_espacial_avaliada": false,
+    "solo_identificado": true,
+    "geometria_suficiente": false,
+    "pode_calcular": false
+  },
+  "confianca_componentes": {
+    "alvo": 0.85,
+    "roi": 0.85,
+    "base": 0.8,
+    "topo": 0.85,
+    "base_topo": 0.8,
+    "referencia": 0.0,
+    "relacao_espacial": 0.2,
+    "solo": 0.85,
+    "geometria": 0.4,
+    "global_": 0.35
+  },
+  "objetos_ignorados": [
+    "pintura na parede",
+    "folhas secas dispersas no chão",
+    "recipientes de plastico"
+  ],
+  "limitacoes": [
+    "Nenhuma régua ou fita métrica padronizada identificada no mesmo plano da vegetação."
+  ],
+  "proxima_captura": "Incluir régua ou escala métrica calibrada e legível no mesmo plano e ao lado do vaso para viabilizar medição."
+}

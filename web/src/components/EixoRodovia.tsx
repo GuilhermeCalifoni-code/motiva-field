@@ -15,9 +15,10 @@ export default function EixoRodovia({ pontos }: EixoRodoviaProps) {
 
   return (
     <>
+      <Polyline positions={tracado} pathOptions={{ color: "#ffffff", weight: 8, opacity: .92, lineCap: "round", lineJoin: "round" }} />
       <Polyline
         positions={tracado}
-        pathOptions={{ color: COR_MARCA.roxo, weight: 9, opacity: 0.85, lineCap: "round", lineJoin: "round" }}
+        pathOptions={{ color: COR_MARCA.roxo, weight: 5, opacity: 0.95, lineCap: "round", lineJoin: "round" }}
       />
       {segmentos.map((segmento, indice) => (
         <Polyline
@@ -25,8 +26,8 @@ export default function EixoRodovia({ pontos }: EixoRodoviaProps) {
           positions={segmento.coordenadas.map((c) => [c.latitude, c.longitude] as [number, number])}
           pathOptions={{
             color: segmento.cor,
-            weight: 4,
-            opacity: 0.95,
+            weight: 3,
+            opacity: 1,
             lineCap: "butt",
           }}
         />

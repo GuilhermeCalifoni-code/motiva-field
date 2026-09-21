@@ -1,0 +1,38 @@
+{
+  "arquivo": "foto.png",
+  "origem": "gemini",
+  "modelo": "gemini-g4os",
+  "decisao": "medir_com_regua",
+  "geometria_candidata": true,
+  "alvo": {
+    "classe": "vegetacao_graminea",
+    "roi_normalizada_0a1000": [50, 145, 850, 830],
+    "confianca": 0.92,
+    "motivo": "Tufo herbáceo com pontos extremos identificáveis no mesmo plano da escala."
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": true,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [715, 760],
+    "topo_px_normalizado_0a1000": [323, 237],
+    "motivo": "Base no ponto de inserção do solo e ápice da folha mais longa pertencem à mesma região local."
+  },
+  "referencias": [{
+    "tipo": "regua_graduada",
+    "bbox_normalizada_0a1000": [680, 0, 960, 600],
+    "ponto_superior_normalizado_0a1000": [753, 134],
+    "ponto_inferior_normalizado_0a1000": [733, 462],
+    "intervalo_observado_cm": 10,
+    "incerteza_cm": 0.1,
+    "confianca": 0.98,
+    "compatibilidade_espacial": 0.95,
+    "utilizavel": true,
+    "incerteza_descricao": "Leitura nítida dos marcos de 10 cm e 20 cm."
+  }],
+  "plano_local": "solo local junto à régua",
+  "inclinacao_desconhecida": false,
+  "objetos_ignorados": ["resíduo no solo", "folhas secas"],
+  "limitacoes": ["Sobreposição de folhas de diferentes indivíduos dificulta a segmentação perfeita."],
+  "proxima_captura": "Fotografar com plano de fundo contrastante e isolar o indivíduo de interesse."
+}

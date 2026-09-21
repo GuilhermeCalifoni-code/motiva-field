@@ -1,0 +1,80 @@
+{
+  "arquivo": "foto_4.png",
+  "origem": "gemini",
+  "modelo": "gemini-3.6-flash",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "bloquear",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": null,
+    "roi_normalizada_0a1000": null,
+    "confianca": 0.0,
+    "motivo": "Captura noturna em talude com inclinação acentuada e vegetação em múltiplas profundidades sem delimitação clara de alvo individual."
+  },
+  "base_topo": {
+    "compativeis": false,
+    "base_visivel": false,
+    "topo_visivel": false,
+    "base_px_normalizado_0a1000": null,
+    "topo_px_normalizado_0a1000": null,
+    "motivo": "Linha de solo indefinida no talude e ausência de envelope vegetal delimitável no plano."
+  },
+  "amostras": [],
+  "referencias": [],
+  "plano_local": "Talude/inclinado com perspectiva oblíqua noturna",
+  "inclinacao_desconhecida": true,
+  "dados": {
+    "observacoes": [
+      "Imagem capturada no período noturno com iluminação artificial",
+      "Massa vegetal localizada em aclive/talude",
+      "Ausência de régua ou escala métrica graduada",
+      "Passeio de concreto presente na lateral direita"
+    ],
+    "inferencias": [
+      "A inclinação do terreno invalida a suposição de plano de solo horizontal"
+    ],
+    "desconhecidos": [
+      "Ângulo exato de inclinação do talude",
+      "Profundidade relativa da vegetação em relação ao observador",
+      "Escala de conversão pixels para centímetros"
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": false,
+    "roi_valida": false,
+    "base_valida": false,
+    "topo_valido": false,
+    "base_topo_compativeis": false,
+    "referencia_valida": false,
+    "referencia_localizada": false,
+    "relacao_espacial_avaliada": false,
+    "solo_identificado": false,
+    "geometria_suficiente": false,
+    "pode_calcular": false
+  },
+  "confianca_componentes": {
+    "alvo": 0.0,
+    "roi": 0.0,
+    "base": 0.0,
+    "topo": 0.0,
+    "base_topo": 0.0,
+    "referencia": 0.0,
+    "relacao_espacial": 0.0,
+    "solo": 0.1,
+    "geometria": 0.0,
+    "global_": 0.0
+  },
+  "objetos_ignorados": [
+    "Calçada de concreto",
+    "Árvores/palmeiras ao fundo",
+    "Detritos na borda do talude"
+  ],
+  "limitacoes": [
+    "Condição de iluminação noturna",
+    "Geometria em talude (aclive)",
+    "Foto oblíqua",
+    "Ausência de escala métrica válida"
+  ],
+  "proxima_captura": "Realizar a foto em iluminação diurna, com visada frontal perpendicular e régua/fita métrica legível posicionada no mesmo plano da vegetação."
+}

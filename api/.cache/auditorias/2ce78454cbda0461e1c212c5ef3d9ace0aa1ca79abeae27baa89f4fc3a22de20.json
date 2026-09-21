@@ -1,0 +1,73 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-15 at 09.07.41.jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.5-flash-lite",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "bloquear",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": null,
+    "roi_normalizada_0a1000": null,
+    "confianca": 0.0,
+    "motivo": "Ausência de alvo vegetal adequado para medição padronizada nesta vista."
+  },
+  "base_topo": {
+    "compativeis": false,
+    "base_visivel": false,
+    "topo_visivel": false,
+    "base_px_normalizado_0a1000": null,
+    "topo_px_normalizado_0a1000": null,
+    "motivo": "Nenhum alvo elegível com base e topo claramente delimitados."
+  },
+  "amostras": [],
+  "referencias": [],
+  "plano_local": "Fachada e piso com desnível (degraus)",
+  "inclinacao_desconhecida": true,
+  "dados": {
+    "observacoes": [
+      "Presença de pequenas touceiras de vegetação esparsas junto ao degrau.",
+      "Ausência de régua ou escala métrica válida."
+    ],
+    "inferencias": [
+      "A vegetação está em fendas e superfícies irregulares."
+    ],
+    "desconhecidos": [
+      "Altura real da vegetação e dimensões dos degraus."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": false,
+    "roi_valida": false,
+    "base_valida": false,
+    "topo_valido": false,
+    "base_topo_compativeis": false,
+    "referencia_valida": false,
+    "referencia_localizada": false,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": false,
+    "pode_calcular": false
+  },
+  "confianca_componentes": {
+    "alvo": 0.0,
+    "roi": 0.0,
+    "base": 0.0,
+    "topo": 0.0,
+    "base_topo": 0.0,
+    "referencia": 0.0,
+    "relacao_espacial": 0.2,
+    "solo": 0.5,
+    "geometria": 0.0,
+    "global_": 0.0
+  },
+  "objetos_ignorados": [
+    "Grade de proteção",
+    "Degraus e fachada"
+  ],
+  "limitacoes": [
+    "Sem referência métrica legível",
+    "Alvos vegetais muito pequenos e fragmentados"
+  ],
+  "proxima_captura": "Realizar captura com enquadramento adequado e régua de calibração padrão caso seja necessária medição."
+}

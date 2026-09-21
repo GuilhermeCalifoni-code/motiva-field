@@ -1,0 +1,88 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-12 at 15.07.55.jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.5-flash-lite",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "vegetacao_baixa_canteiro",
+    "roi_normalizada_0a1000": [
+      0,
+      130,
+      450,
+      1000
+    ],
+    "confianca": 0.35,
+    "motivo": "Vegetação esparsa presente ao longo da borda, mas sem escala métrica física de referência e ângulo oblíquo desfavorável."
+  },
+  "base_topo": {
+    "compativeis": false,
+    "base_visivel": true,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      230,
+      950
+    ],
+    "topo_px_normalizado_0a1000": [
+      190,
+      370
+    ],
+    "motivo": "A base e o topo são visíveis em alguns trechos, porém a inclinação e a ausência de referência métrica impedem validação rigorosa."
+  },
+  "amostras": [],
+  "referencias": [],
+  "plano_local": "superficie irregular com solo exposto, piso de concreto danificado e meio-fio delimitando o canteiro",
+  "inclinacao_desconhecida": true,
+  "dados": {
+    "observacoes": [
+      "Presença de vegetação rasteira e grama ao longo da lateral esquerda.",
+      "Piso de concreto e placas irregulares adjacentes.",
+      "Ausência total de régua ou fita métrica de referência na cena."
+    ],
+    "inferencias": [
+      "O plano do solo apresenta desníveis e rachaduras aparentes."
+    ],
+    "desconhecidos": [
+      "Escala métrica exata da imagem.",
+      "Inclinação real e tridimensional do plano de fundo."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": false,
+    "referencia_valida": false,
+    "referencia_localizada": false,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": false,
+    "pode_calcular": false
+  },
+  "confianca_componentes": {
+    "alvo": 0.4,
+    "roi": 0.5,
+    "base": 0.4,
+    "topo": 0.4,
+    "base_topo": 0.3,
+    "referencia": 0.0,
+    "relacao_espacial": 0.3,
+    "solo": 0.6,
+    "geometria": 0.2,
+    "global_": 0.3
+  },
+  "objetos_ignorados": [
+    "trincas no concreto",
+    "folhas secas soltas",
+    "meio-fio de concreto"
+  ],
+  "limitacoes": [
+    "Ausência de régua ou fita métrica válida na imagem.",
+    "Perspectiva oblíqua acentuada dificultando a geometria correta.",
+    "Vegetação esparsa e descontinuada."
+  ],
+  "proxima_captura": "Realizar nova captura perpendicular ao alvo, incluindo uma régua ou trena calibrada e legível ao lado da vegetação."
+}

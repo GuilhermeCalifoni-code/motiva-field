@@ -76,6 +76,20 @@ Três seções: **Visão geral** (KPIs, gráfico de risco, fila "atuar agora"),
 **Mapa** (Leaflet com o eixo real da SP-270) e **Ordens de serviço** (kanban de
 quatro estágios).
 
+### Inteligência por imagem
+
+A API local em [`api/`](api/) recebe uma foto e retorna os três riscos operacionais: vegetação alta, invasão de pista e placa encoberta. O painel possui a rota **Central de inteligência** para testar o fluxo.
+
+```bash
+cd api
+copy .env.example .env
+# preencha GEMINI_API_KEY em .env
+uv sync
+uv run uvicorn app.main:app --reload --port 8000
+```
+
+A chave Gemini fica apenas em `api/.env`; nunca no web, no mobile ou no Git. Sem chave ou conexão, a API sinaliza explicitamente o modo de contingência local.
+
 ### App mobile
 
 ```bash
@@ -85,7 +99,8 @@ flutter run
 ```
 
 Precisa do Flutter SDK. Quatro telas: login, ordem ativa, navegação guiada e
-comprovação de execução.
+comprovação de execução. No Windows, use `iniciar-mobile.cmd` na raiz; conecte
+um celular ou inicie um emulador antes de abrir o arquivo.
 
 ```bash
 flutter analyze

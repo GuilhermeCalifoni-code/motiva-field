@@ -1,0 +1,221 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-10 at 19.03.33.jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.6-flash",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "gramado",
+    "roi_normalizada_0a1000": [
+      350,
+      120,
+      850,
+      750
+    ],
+    "confianca": 0.92,
+    "motivo": "Faixa de gramado local em torno da trena métrica fixada no solo."
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": false,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      575,
+      650
+    ],
+    "topo_px_normalizado_0a1000": [
+      575,
+      130
+    ],
+    "motivo": "Linha do solo visível na base da trena e topo das folhas emergentes identificado na ROI."
+  },
+  "amostras": [
+    {
+      "base_px_normalizado_0a1000": [
+        480,
+        650
+      ],
+      "topo_px_normalizado_0a1000": [
+        480,
+        380
+      ],
+      "confianca": 0.88
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        510,
+        645
+      ],
+      "topo_px_normalizado_0a1000": [
+        510,
+        320
+      ],
+      "confianca": 0.89
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        540,
+        640
+      ],
+      "topo_px_normalizado_0a1000": [
+        540,
+        280
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        575,
+        635
+      ],
+      "topo_px_normalizado_0a1000": [
+        575,
+        130
+      ],
+      "confianca": 0.93
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        610,
+        640
+      ],
+      "topo_px_normalizado_0a1000": [
+        610,
+        350
+      ],
+      "confianca": 0.87
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        650,
+        645
+      ],
+      "topo_px_normalizado_0a1000": [
+        650,
+        310
+      ],
+      "confianca": 0.88
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        700,
+        650
+      ],
+      "topo_px_normalizado_0a1000": [
+        700,
+        300
+      ],
+      "confianca": 0.86
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        750,
+        655
+      ],
+      "topo_px_normalizado_0a1000": [
+        750,
+        250
+      ],
+      "confianca": 0.89
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        800,
+        660
+      ],
+      "topo_px_normalizado_0a1000": [
+        800,
+        380
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        840,
+        665
+      ],
+      "topo_px_normalizado_0a1000": [
+        840,
+        410
+      ],
+      "confianca": 0.84
+    }
+  ],
+  "referencias": [
+    {
+      "tipo": "regua_fita_metrica",
+      "bbox_normalizada_0a1000": [
+        405,
+        0,
+        465,
+        660
+      ],
+      "ponto_superior_normalizado_0a1000": [
+        445,
+        175
+      ],
+      "ponto_inferior_normalizado_0a1000": [
+        448,
+        540
+      ],
+      "intervalo_observado_cm": 7.0,
+      "incerteza_cm": 0.2,
+      "confianca": 0.95,
+      "compatibilidade_espacial": 0.95,
+      "utilizavel": true,
+      "incerteza_descricao": "Marcações 10 cm e 3 cm nitidamente visíveis e legíveis na trena."
+    }
+  ],
+  "plano_local": "Plano do solo aproximadamente plano, com vegetação de gramado e trena fincada verticalmente.",
+  "inclinacao_desconhecida": false,
+  "dados": {
+    "observacoes": [
+      "Fita métrica amarela fincada verticalmente na camada de solo do gramado.",
+      "Graduação métrica em centímetros legível (marcações 10 cm e 3 cm claramente identificadas).",
+      "Envelope foliar com haste proeminente alcançando o trecho superior próximo a 130px de altura vertical."
+    ],
+    "inferencias": [
+      "O marco zero da trena encontra-se no nível ou ligeiramente abaixo da superfície do solo."
+    ],
+    "desconhecidos": [
+      "Profundidade exata de inserção do corpo da trena abaixo da base visível do solo."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": true,
+    "referencia_valida": true,
+    "referencia_localizada": true,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": true,
+    "pode_calcular": true
+  },
+  "confianca_componentes": {
+    "alvo": 0.92,
+    "roi": 0.91,
+    "base": 0.89,
+    "topo": 0.91,
+    "base_topo": 0.9,
+    "referencia": 0.95,
+    "relacao_espacial": 0.94,
+    "solo": 0.89,
+    "geometria": 0.92,
+    "global_": 0.91
+  },
+  "objetos_ignorados": [
+    "Veículos estacionados ao fundo",
+    "Meio-fio e via pública ao fundo",
+    "Postes e infraestrutura urbana ao fundo"
+  ],
+  "limitacoes": [
+    "Densidade de folhas pode ocultar parcialmente alguns pontos exatos de contato com o solo.",
+    "guarda_deterministica: base/zero da escala declarado como ocluído; medição em centímetros rebaixada para triagem"
+  ],
+  "proxima_captura": "Manter a trena posicionada exatamente no solo e foco na escala métrica."
+}

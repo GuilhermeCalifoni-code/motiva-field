@@ -1,0 +1,221 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-10 at 19.03.34 (3).jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.6-flash",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": "gramado",
+    "roi_normalizada_0a1000": [
+      0,
+      80,
+      1000,
+      1000
+    ],
+    "confianca": 0.92,
+    "motivo": "Massa de gramínea contínua com base visível no solo e envelope de topo local bem definido ao redor da escala métrica."
+  },
+  "base_topo": {
+    "compativeis": true,
+    "base_visivel": false,
+    "topo_visivel": true,
+    "base_px_normalizado_0a1000": [
+      480,
+      660
+    ],
+    "topo_px_normalizado_0a1000": [
+      480,
+      220
+    ],
+    "motivo": "Linha de contato com o solo clara junto à trena e topo correspondente do envelope de folhas."
+  },
+  "amostras": [
+    {
+      "base_px_normalizado_0a1000": [
+        150,
+        650
+      ],
+      "topo_px_normalizado_0a1000": [
+        150,
+        150
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        250,
+        660
+      ],
+      "topo_px_normalizado_0a1000": [
+        250,
+        180
+      ],
+      "confianca": 0.88
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        350,
+        660
+      ],
+      "topo_px_normalizado_0a1000": [
+        350,
+        200
+      ],
+      "confianca": 0.89
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        450,
+        660
+      ],
+      "topo_px_normalizado_0a1000": [
+        450,
+        220
+      ],
+      "confianca": 0.9
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        550,
+        670
+      ],
+      "topo_px_normalizado_0a1000": [
+        550,
+        240
+      ],
+      "confianca": 0.88
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        650,
+        680
+      ],
+      "topo_px_normalizado_0a1000": [
+        650,
+        210
+      ],
+      "confianca": 0.87
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        750,
+        700
+      ],
+      "topo_px_normalizado_0a1000": [
+        750,
+        190
+      ],
+      "confianca": 0.86
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        850,
+        720
+      ],
+      "topo_px_normalizado_0a1000": [
+        850,
+        160
+      ],
+      "confianca": 0.85
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        300,
+        660
+      ],
+      "topo_px_normalizado_0a1000": [
+        300,
+        140
+      ],
+      "confianca": 0.87
+    },
+    {
+      "base_px_normalizado_0a1000": [
+        600,
+        675
+      ],
+      "topo_px_normalizado_0a1000": [
+        600,
+        180
+      ],
+      "confianca": 0.88
+    }
+  ],
+  "referencias": [
+    {
+      "tipo": "fita_metrica",
+      "bbox_normalizada_0a1000": [
+        320,
+        0,
+        520,
+        665
+      ],
+      "ponto_superior_normalizado_0a1000": [
+        395,
+        67
+      ],
+      "ponto_inferior_normalizado_0a1000": [
+        455,
+        528
+      ],
+      "intervalo_observado_cm": 20.0,
+      "incerteza_cm": 0.5,
+      "confianca": 0.95,
+      "compatibilidade_espacial": 0.95,
+      "utilizavel": true,
+      "incerteza_descricao": "Marcações numéricas de 10 cm e 30 cm claramente identificadas e legíveis ao longo do corpo da trena."
+    }
+  ],
+  "plano_local": "Superfície do solo horizontal com vegetação frontal adjacente à trena",
+  "inclinacao_desconhecida": false,
+  "dados": {
+    "observacoes": [
+      "Trena graduada posicionada verticalmente diretamente sobre o solo da touceira.",
+      "Graduações numéricas métricas legíveis de 10 cm, 20 cm e 30 cm.",
+      "Base de contato entre trena e solo visível."
+    ],
+    "inferencias": [
+      "A trena e as folhas de grama ao redor pertencem ao mesmo plano de profundidade focal."
+    ],
+    "desconhecidos": [
+      "Grau exato de penetração da ponta da trena abaixo da camada de folhiço do solo."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": true,
+    "roi_valida": true,
+    "base_valida": true,
+    "topo_valido": true,
+    "base_topo_compativeis": true,
+    "referencia_valida": true,
+    "referencia_localizada": true,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": true,
+    "pode_calcular": true
+  },
+  "confianca_componentes": {
+    "alvo": 0.92,
+    "roi": 0.9,
+    "base": 0.88,
+    "topo": 0.88,
+    "base_topo": 0.89,
+    "referencia": 0.95,
+    "relacao_espacial": 0.93,
+    "solo": 0.88,
+    "geometria": 0.9,
+    "global_": 0.91
+  },
+  "objetos_ignorados": [
+    "Muro com pichação ao fundo",
+    "Árvores distantes ao fundo",
+    "Mão parcialmente visível no canto inferior esquerdo"
+  ],
+  "limitacoes": [
+    "Oclusão parcial de folhas de fundo pela própria massa vegetal em primeiro plano.",
+    "guarda_deterministica: base/zero da escala declarado como ocluído; medição em centímetros rebaixada para triagem"
+  ],
+  "proxima_captura": "Manter trena perfeitamente aprumada e capturar foto perpendicular ao plano da vegetação."
+}

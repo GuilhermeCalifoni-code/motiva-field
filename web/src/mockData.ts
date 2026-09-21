@@ -447,16 +447,18 @@ export const operadores: Operador[] = [
   { id: "op-04", nome: "Juliana Freitas" },
 ];
 
-export type StatusOS = "pendente" | "em_deslocamento" | "no_local" | "concluida";
+export type StatusOS = "pendente" | "programada" | "em_deslocamento" | "no_local" | "validacao" | "concluida";
 export type Prioridade = "baixa" | "media" | "alta";
 
 // Ordem das colunas do kanban — também define o avanço de status.
-export const FLUXO_STATUS: StatusOS[] = ["pendente", "em_deslocamento", "no_local", "concluida"];
+export const FLUXO_STATUS: StatusOS[] = ["pendente", "programada", "em_deslocamento", "no_local", "validacao", "concluida"];
 
 export const STATUS_LABEL: Record<StatusOS, string> = {
-  pendente: "Pendente",
+  pendente: "Triagem",
+  programada: "Programada",
   em_deslocamento: "Em deslocamento",
-  no_local: "No local",
+  no_local: "Em campo",
+  validacao: "Validação",
   concluida: "Concluída",
 };
 

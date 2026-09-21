@@ -50,7 +50,9 @@ class SlotFoto extends StatelessWidget {
             ),
             const SizedBox(height: Espacos.x1),
             Text(
-              capturada ? 'Registrada as ${horario ?? '--:--'}' : 'Tocar para capturar',
+              capturada
+                  ? 'Registrada as ${horario ?? '--:--'}'
+                  : 'Tocar para capturar',
               style: const TextStyle(fontSize: 12, color: Cores.textoSuave),
               textAlign: TextAlign.center,
             ),

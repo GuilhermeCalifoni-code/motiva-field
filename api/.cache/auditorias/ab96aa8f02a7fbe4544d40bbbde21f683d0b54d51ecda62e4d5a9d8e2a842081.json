@@ -1,0 +1,74 @@
+{
+  "arquivo": "WhatsApp Image 2026-09-13 at 19.12.10.jpeg",
+  "origem": "gemini",
+  "modelo": "gemini-3.5-flash-lite",
+  "versao_contrato": "v5-coordenadas-xy-2026-09-14",
+  "decisao": "triagem_sem_medida",
+  "geometria_candidata": false,
+  "metrica_operacional": "p85_envelope_local_com_iqr",
+  "alvo": {
+    "classe": null,
+    "roi_normalizada_0a1000": null,
+    "confianca": 0.1,
+    "motivo": "Vegetação muito rasteira, esparsa e sem altura suficiente para amostragem confiável do envelope."
+  },
+  "base_topo": {
+    "compativeis": false,
+    "base_visivel": false,
+    "topo_visivel": false,
+    "base_px_normalizado_0a1000": null,
+    "topo_px_normalizado_0a1000": null,
+    "motivo": "Impossível definir base e topo consistentes para o alvo vegetal."
+  },
+  "amostras": [],
+  "referencias": [],
+  "plano_local": "Parede vertical de concreto ao fundo e solo horizontal estreito na base com vegetação esparsa.",
+  "inclinacao_desconhecida": true,
+  "dados": {
+    "observacoes": [
+      "Presença de vegetação rasteira na base de uma parede.",
+      "Ausência de régua ou escala métrica legível próxima ao alvo."
+    ],
+    "inferencias": [
+      "O plano do solo parece ortogonal à parede."
+    ],
+    "desconhecidos": [
+      "Escala métrica real da cena.",
+      "Altura exata e distribuição densa da grama."
+    ]
+  },
+  "auditoria": {
+    "alvo_definido": false,
+    "roi_valida": false,
+    "base_valida": false,
+    "topo_valido": false,
+    "base_topo_compativeis": false,
+    "referencia_valida": false,
+    "referencia_localizada": false,
+    "relacao_espacial_avaliada": true,
+    "solo_identificado": true,
+    "geometria_suficiente": false,
+    "pode_calcular": false
+  },
+  "confianca_componentes": {
+    "alvo": 0.1,
+    "roi": 0.1,
+    "base": 0.2,
+    "topo": 0.1,
+    "base_topo": 0.1,
+    "referencia": 0.0,
+    "relacao_espacial": 0.4,
+    "solo": 0.6,
+    "geometria": 0.1,
+    "global_": 0.1
+  },
+  "objetos_ignorados": [
+    "Parede de concreto",
+    "Objeto reflexivo no solo"
+  ],
+  "limitacoes": [
+    "Vegetação esparsa e muito baixa",
+    "Ausência de referência métrica válida"
+  ],
+  "proxima_captura": "Realizar nova captura mais próxima da vegetação e incluir régua de calibração padrão se a medição exata for necessária."
+}

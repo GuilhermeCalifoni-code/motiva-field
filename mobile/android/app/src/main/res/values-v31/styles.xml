@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowSplashScreenBackground">#2E0854</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/launch_image</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">#2E0854</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">#2E0854</item>
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">#F6F4FA</item>
+    </style>
+</resources>

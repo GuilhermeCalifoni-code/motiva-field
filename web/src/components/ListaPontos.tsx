@@ -37,14 +37,9 @@ export default function ListaPontos({ pontos, pontoSelecionadoId, onSelecionar }
         </div>
       </div>
       <div className="lista-pontos__itens">
-        {pontosOrdenados.map((ponto) => (
-          <ItemPonto
-            key={ponto.id}
-            ponto={ponto}
-            selecionado={ponto.id === pontoSelecionadoId}
-            onSelecionar={onSelecionar}
-          />
-        ))}
+        {pontosOrdenados.length ? pontosOrdenados.map((ponto) => (
+          <ItemPonto key={ponto.id} ponto={ponto} selecionado={ponto.id === pontoSelecionadoId} onSelecionar={onSelecionar} />
+        )) : <p className="lista-pontos__vazio">Nenhuma evidência de vegetação foi carregada para esta malha.</p>}
       </div>
     </div>
   );

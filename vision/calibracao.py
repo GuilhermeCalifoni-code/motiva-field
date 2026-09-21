@@ -234,6 +234,128 @@ def _detectar_por_geometria(imagem_bgr: np.ndarray) -> tuple[int, int, int, int]
     return x, y, largura, altura
 
 
+def medir_escala_regua_transparente(
+    imagem_bgr: np.ndarray,
+) -> dict[str, object] | None:
+    """Lê régua transparente por duas bordas e periodicidade dos milímetros.
+
+    A régua acrílica quase não forma uma mancha por cor e por isso escapa das
+    vias tradicionais. Aqui a localização vem de um par de bordas verticais
+    fortes; a escala vem do pico periódico dos traços horizontais dentro delas.
+    A função é deliberadamente conservadora e retorna ``None`` quando o melhor
+    candidato não se destaca dos demais.
+    """
+    if imagem_bgr is None or imagem_bgr.size == 0:
+        return None
+    altura, largura = imagem_bgr.shape[:2]
+    if altura < 160 or largura < 160:
+        return None
+
+    cinza = cv2.cvtColor(imagem_bgr, cv2.COLOR_BGR2GRAY).astype(np.float64)
+    gradiente_x = np.abs(cv2.Sobel(cinza, cv2.CV_64F, 1, 0, ksize=3))
+    limite_y = max(80, int(round(altura * 0.75)))
+    pontuacao_coluna = np.median(gradiente_x[:limite_y], axis=0)
+    corte = float(np.percentile(pontuacao_coluna, 97))
+
+    picos: list[int] = []
+    for x in range(2, largura - 2):
+        if pontuacao_coluna[x] < corte:
+            continue
+        if pontuacao_coluna[x] >= float(np.max(pontuacao_coluna[x - 2 : x + 3])):
+            picos.append(x)
+    picos = sorted(picos, key=lambda x: float(pontuacao_coluna[x]), reverse=True)[:80]
+
+    candidatos: list[dict[str, float | int]] = []
+    separacao_min = max(20, int(round(largura * 0.02)))
+    separacao_max = min(int(round(largura * 0.20)), int(round(altura * 0.30)))
+    y0, y1 = int(round(altura * 0.10)), int(round(altura * 0.40))
+    if y1 - y0 < 80:
+        return None
+
+    for indice, xa in enumerate(picos):
+        for xb in picos[indice + 1 :]:
+            x_esq, x_dir = sorted((xa, xb))
+            separacao = x_dir - x_esq
+            if not separacao_min <= separacao <= separacao_max:
+                continue
+            if (altura * 0.75) / separacao < 3.0:
+                continue
+
+            recorte = imagem_bgr[y0:y1, x_esq : x_dir + 1]
+            recorte_cinza = cv2.cvtColor(recorte, cv2.COLOR_BGR2GRAY)
+            largura_kernel = max(7, int(round(separacao * 0.12)) | 1)
+            blackhat = cv2.morphologyEx(
+                recorte_cinza,
+                cv2.MORPH_BLACKHAT,
+                cv2.getStructuringElement(cv2.MORPH_RECT, (largura_kernel, 3)),
+            )
+            _, marcas = cv2.threshold(blackhat, 15, 255, cv2.THRESH_BINARY)
+            faixa_lateral = max(8, int(round(separacao * 0.35)))
+            perfil = (
+                np.sum(marcas[:, :faixa_lateral] > 0, axis=1)
+                + np.sum(marcas[:, -faixa_lateral:] > 0, axis=1)
+            ).astype(np.float64)
+            perfil -= perfil.mean()
+            if float(perfil.std()) < 1.0:
+                continue
+
+            # Zero-padding melhora a resolução subpixel do pico espectral. O
+            # período físico procurado é o milímetro, tipicamente 3–8 px.
+            n_fft = 2048
+            espectro = np.abs(np.fft.rfft(perfil, n=n_fft)) ** 2
+            frequencias = np.fft.rfftfreq(n_fft)
+            validas = np.where((frequencias >= 1 / 8) & (frequencias <= 1 / 3))[0]
+            if validas.size == 0:
+                continue
+            pico = int(validas[int(np.argmax(espectro[validas]))])
+            if frequencias[pico] <= 0:
+                continue
+            periodo_mm_px = float(1.0 / frequencias[pico])
+            pixels_por_cm = periodo_mm_px * 10.0
+            largura_regua_cm = separacao / pixels_por_cm
+            potencia_relativa = float(espectro[pico] / (np.median(espectro[validas]) + 1e-9))
+            if not 20.0 <= pixels_por_cm <= 80.0:
+                continue
+            if not 2.0 <= largura_regua_cm <= 6.0:
+                continue
+            if potencia_relativa < 10.0:
+                continue
+
+            forca_bordas = float(pontuacao_coluna[x_esq] + pontuacao_coluna[x_dir])
+            score = forca_bordas * (1.0 + min(20.0, potencia_relativa) / 20.0)
+            candidatos.append(
+                {
+                    "score": score,
+                    "x_esq": x_esq,
+                    "x_dir": x_dir,
+                    "pixels_por_cm": pixels_por_cm,
+                    "periodo_mm_px": periodo_mm_px,
+                    "potencia_relativa": potencia_relativa,
+                    "largura_regua_cm": largura_regua_cm,
+                }
+            )
+
+    if not candidatos:
+        return None
+    candidatos.sort(key=lambda item: float(item["score"]), reverse=True)
+    melhor = candidatos[0]
+    if len(candidatos) > 1 and float(melhor["score"]) < 1.30 * float(candidatos[1]["score"]):
+        return None
+
+    x_esq = int(melhor["x_esq"])
+    x_dir = int(melhor["x_dir"])
+    confianca = float(np.clip(float(melhor["potencia_relativa"]) / 20.0, 0.5, 0.95))
+    return {
+        "pixels_por_cm": round(float(melhor["pixels_por_cm"]), 4),
+        "periodo_mm_px": round(float(melhor["periodo_mm_px"]), 3),
+        "confianca": round(confianca, 3),
+        "bbox_horizontal": [x_esq, x_dir],
+        "largura_regua_cm": round(float(melhor["largura_regua_cm"]), 2),
+        "potencia_relativa": round(float(melhor["potencia_relativa"]), 2),
+        "via": "periodicidade_regua_transparente",
+    }
+
+
 def detectar_referencia(
     imagem_bgr: np.ndarray,
 ) -> tuple[str, tuple[int, int, int, int]] | None:

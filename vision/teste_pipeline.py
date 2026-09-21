@@ -92,15 +92,13 @@ def testar_contrato_e_recusa(saida: Path) -> None:
 
 
 def testar_sem_fonte_de_escala(saida: Path) -> None:
-    """Sem calibração e sem referência, o pipeline recusa em vez de estimar."""
+    """Sem referência, a via geométrica devolve bloqueio explícito, nunca cm."""
     cena = gerar_cena(HASTE_PX, VEGETACAO_PX)
-    try:
-        processar_foto(bytes_jpeg(cena), "sem-escala.jpg", diretorio_saida=saida)
-    except FotoInvalida as erro:
-        assert "escala" in str(erro).lower()
-        print("ok — sem fonte de escala o pipeline recusa")
-    else:
-        raise AssertionError("o pipeline mediu sem fonte de escala")
+    resultado = processar_foto(bytes_jpeg(cena), "sem-escala.jpg", diretorio_saida=saida)
+    medida = resultado["medicao_altura"]
+    assert medida["altura_cm"] is None and not medida["valido"]
+    assert "camera_not_calibrated" in resultado["avisos"]
+    print("ok — sem referência/calibração a geometria bloqueia sem estimar cm")
 
 
 def testar_calibracao_salva_bate_com_a_regua(saida: Path) -> None:

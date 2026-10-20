@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../estado_operacao.dart';
 import '../mock_data.dart';
 import '../services/evidencias.dart';
+import '../services/evidencias.dart';
 import '../theme.dart';
 import '../widgets/cartao_secao.dart';
 import '../widgets/slot_foto.dart';

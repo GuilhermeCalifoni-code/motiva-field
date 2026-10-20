@@ -1,17 +1,37 @@
-# motiva_field
+# Motiva Field — Mobile
 
-A new Flutter project.
+Aplicativo Flutter usado pela equipe de campo do Motiva Field.
 
-## Getting Started
+## Fluxo principal
 
-This project is a starting point for a Flutter application.
+Login → visão geral → ordem ativa → deslocamento → chegada → comprovação → validação.
 
-A few resources to get you started if this is your first Flutter project:
+A comprovação exige evidências antes do envio. O aplicativo também possui uma área de inteligência por imagem e tenta sincronizar a operação com o backend quando disponível.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Executar
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter pub get
+flutter run
+```
+
+## Qualidade
+
+```bash
+flutter analyze
+flutter test
+```
+
+## APK
+
+```bash
+flutter build apk --release
+```
+
+Saída:
+
+```text
+build/app/outputs/flutter-apk/app-release.apk
+```
+
+A Sprint 4 também possui build automatizado em `.github/workflows/build-apk.yml`.

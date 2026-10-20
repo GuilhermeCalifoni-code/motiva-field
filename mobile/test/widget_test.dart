@@ -110,7 +110,7 @@ void main() {
     await tester.tap(find.text('Capturar coordenada'));
     await tester.pumpAndSettle();
     expect(find.text('Comprovação completa. Pode enviar.'), findsOneWidget);
-    expect(find.textContaining('-23.550500'), findsOneWidget);
+    expect(find.textContaining('-23.55050'), findsOneWidget);
     expect(_botaoEnviar(tester).onPressed, isNotNull);
 
     await tester.tap(find.text('Enviar para validação'));

@@ -11,8 +11,8 @@ const String _apiBase = String.fromEnvironment(
   defaultValue: 'http://10.0.2.2:8000',
 );
 
-/// Estado da operacao em memoria. Sem persistencia: fechou o app, recomeca.
-/// Quando o backend existir, cada avanco daqui vira uma chamada de API.
+/// Estado da operação em memória. O fluxo funciona localmente e sincroniza a
+/// ordem compartilhada com o backend quando ele está disponível.
 class EstadoOperacao extends ChangeNotifier {
   EstadoOperacao({required Operador operador})
       : _operador = operador,
@@ -25,11 +25,14 @@ class EstadoOperacao extends ChangeNotifier {
   String? _ordemRemotaId;
   String _sincronizacao = 'Conectando ao banco compartilhado...';
 
-  bool _fotoAntes = false;
-  bool _fotoDepois = false;
+  String? _fotoAntesPath;
+  String? _fotoDepoisPath;
   DateTime? _fotoAntesEm;
   DateTime? _fotoDepoisEm;
   DateTime? _gpsCapturadoEm;
+  double? _gpsLatitude;
+  double? _gpsLongitude;
+  double? _gpsPrecisaoM;
 
   Operador get operador => _operador;
   OrdemServico get ordem => _ordem;
@@ -37,18 +40,25 @@ class EstadoOperacao extends ChangeNotifier {
   bool get conectadoAoBanco => _ordemRemotaId != null;
   PontoVegetacao get ponto => pontoPorId(_ordem.pontoId);
 
-  bool get fotoAntes => _fotoAntes;
-  bool get fotoDepois => _fotoDepois;
+  bool get fotoAntes => _fotoAntesPath != null;
+  bool get fotoDepois => _fotoDepoisPath != null;
+  String? get fotoAntesPath => _fotoAntesPath;
+  String? get fotoDepoisPath => _fotoDepoisPath;
   DateTime? get fotoAntesEm => _fotoAntesEm;
   DateTime? get fotoDepoisEm => _fotoDepoisEm;
   DateTime? get gpsCapturadoEm => _gpsCapturadoEm;
-  bool get gpsCapturado => _gpsCapturadoEm != null;
+  double? get gpsLatitude => _gpsLatitude;
+  double? get gpsLongitude => _gpsLongitude;
+  double? get gpsPrecisaoM => _gpsPrecisaoM;
+  bool get gpsCapturado =>
+      _gpsCapturadoEm != null && _gpsLatitude != null && _gpsLongitude != null;
 
-  /// Sem as duas fotos e a coordenada nao ha prova de que o servico foi feito.
-  bool get comprovacaoCompleta => _fotoAntes && _fotoDepois && gpsCapturado;
+  /// Sem as duas fotos reais e a coordenada do aparelho, a evidência permanece
+  /// incompleta e não pode ser enviada para validação.
+  bool get comprovacaoCompleta => fotoAntes && fotoDepois && gpsCapturado;
 
   int get evidenciasReunidas =>
-      (_fotoAntes ? 1 : 0) + (_fotoDepois ? 1 : 0) + (gpsCapturado ? 1 : 0);
+      (fotoAntes ? 1 : 0) + (fotoDepois ? 1 : 0) + (gpsCapturado ? 1 : 0);
 
   void avancarPara(StatusOS novo) {
     _ordem = _ordem.avancarPara(novo, DateTime.now());
@@ -100,19 +110,26 @@ class EstadoOperacao extends ChangeNotifier {
     notifyListeners();
   }
 
-  void registrarFotoAntes() {
-    _fotoAntes = true;
+  void registrarFotoAntes(String caminho) {
+    _fotoAntesPath = caminho;
     _fotoAntesEm = DateTime.now();
     notifyListeners();
   }
 
-  void registrarFotoDepois() {
-    _fotoDepois = true;
+  void registrarFotoDepois(String caminho) {
+    _fotoDepoisPath = caminho;
     _fotoDepoisEm = DateTime.now();
     notifyListeners();
   }
 
-  void capturarGps() {
+  void registrarGps({
+    required double latitude,
+    required double longitude,
+    required double precisaoM,
+  }) {
+    _gpsLatitude = latitude;
+    _gpsLongitude = longitude;
+    _gpsPrecisaoM = precisaoM;
     _gpsCapturadoEm = DateTime.now();
     notifyListeners();
   }

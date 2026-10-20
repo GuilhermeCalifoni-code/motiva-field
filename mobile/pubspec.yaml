@@ -1,7 +1,7 @@
 name: motiva_field
 description: App do operador de campo do MOTIVA-FIELD. Leva o operador ate o ponto e comprova a execucao da rocada.
 publish_to: "none"
-version: 0.1.0
+version: 1.0.0+1
 
 environment:
   sdk: ">=3.0.0 <4.0.0"

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../theme.dart';
 
-/// Slot de evidencia fotografica. Vazio, convida a capturar; preenchido, mostra
-/// que a prova existe. A camera real entra depois — aqui o toque so marca o
-/// slot como capturado.
+/// Slot de evidência fotográfica. O toque abre a câmera; o estado de sucesso só
+/// aparece depois que uma foto foi registrada.
 class SlotFoto extends StatelessWidget {
   const SlotFoto({
     super.key,
@@ -51,8 +50,8 @@ class SlotFoto extends StatelessWidget {
             const SizedBox(height: Espacos.x1),
             Text(
               capturada
-                  ? 'Registrada as ${horario ?? '--:--'}'
-                  : 'Tocar para capturar',
+                  ? 'Registrada às ${horario ?? '--:--'}'
+                  : 'Tocar para abrir a câmera',
               style: const TextStyle(fontSize: 12, color: Cores.textoSuave),
               textAlign: TextAlign.center,
             ),

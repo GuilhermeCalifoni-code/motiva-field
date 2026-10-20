@@ -171,7 +171,7 @@ Os testes automatizados do projeto cobrem login, navegação para o centro opera
 3. Abra `motiva-field-sprint4.apk`.
 4. Confirme **Instalar**.
 5. Abra **Motiva Field**.
-6. Conceda permissão de câmera quando solicitada para demonstrar os fluxos de captura.
+6. Conceda as permissões de câmera e localização quando solicitadas para demonstrar a comprovação de campo.
 
 > O APK da entrega acadêmica é uma distribuição direta para demonstração e avaliação. Publicação em loja exigiria gestão de chave privada de assinatura e processo específico de distribuição.
 

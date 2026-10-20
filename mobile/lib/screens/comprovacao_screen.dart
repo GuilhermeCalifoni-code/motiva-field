@@ -2,21 +2,54 @@ import 'package:flutter/material.dart';
 
 import '../estado_operacao.dart';
 import '../mock_data.dart';
+import '../services/evidencias.dart';
 import '../theme.dart';
 import '../widgets/cartao_secao.dart';
 import '../widgets/slot_foto.dart';
 
-/// Comprovação de execução. Sem foto do antes, foto do depois e coordenada do
-/// momento do registro, nao ha prova de que o servico foi feito — por isso o
-/// botao de concluir so acende quando as tres evidencias existem.
+/// Comprovação de execução. O envio só é liberado depois de duas fotos
+/// capturadas pela câmera e uma posição obtida do aparelho.
 class ComprovacaoScreen extends StatelessWidget {
   const ComprovacaoScreen({super.key, required this.estado});
 
   final EstadoOperacao estado;
 
+  Future<void> _capturarFoto(BuildContext context, {required bool antes}) async {
+    try {
+      final String? caminho = await evidenciasGateway.capturarFoto();
+      if (caminho == null) return;
+      if (antes) {
+        estado.registrarFotoAntes(caminho);
+      } else {
+        estado.registrarFotoDepois(caminho);
+      }
+    } catch (erro) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Não foi possível abrir a câmera: $erro')),
+      );
+    }
+  }
+
+  Future<void> _capturarGps(BuildContext context) async {
+    try {
+      final RegistroLocalizacao registro =
+          await evidenciasGateway.obterLocalizacao();
+      estado.registrarGps(
+        latitude: registro.latitude,
+        longitude: registro.longitude,
+        precisaoM: registro.precisaoM,
+      );
+    } catch (erro) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Não foi possível obter a localização: $erro')),
+      );
+    }
+  }
+
   void _concluir(BuildContext context) {
     estado.avancarPara(StatusOS.validacao);
-    // O operador envia a prova; a conclusão pertence à validação do gestor.
     Navigator.of(context).popUntil((Route<void> rota) => rota.isFirst);
   }
 
@@ -51,7 +84,8 @@ class ComprovacaoScreen extends StatelessWidget {
                                 horario: estado.fotoAntesEm == null
                                     ? null
                                     : formatarHora(estado.fotoAntesEm!),
-                                aoTocar: estado.registrarFotoAntes,
+                                aoTocar: () =>
+                                    _capturarFoto(context, antes: true),
                               ),
                             ),
                             const SizedBox(width: Espacos.x3),
@@ -62,14 +96,15 @@ class ComprovacaoScreen extends StatelessWidget {
                                 horario: estado.fotoDepoisEm == null
                                     ? null
                                     : formatarHora(estado.fotoDepoisEm!),
-                                aoTocar: estado.registrarFotoDepois,
+                                aoTocar: () =>
+                                    _capturarFoto(context, antes: false),
                               ),
                             ),
                           ],
                         ),
                         const SizedBox(height: Espacos.x3),
                         const Text(
-                          'As duas fotos são obrigatórias e ficam anexadas a ordem.',
+                          'As duas fotos são capturadas pela câmera do aparelho.',
                           style:
                               TextStyle(fontSize: 12, color: Cores.textoSuave),
                         ),
@@ -77,7 +112,11 @@ class ComprovacaoScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: Espacos.x4),
-                  _CartaoGps(estado: estado, ponto: ponto),
+                  _CartaoGps(
+                    estado: estado,
+                    ponto: ponto,
+                    aoCapturar: () => _capturarGps(context),
+                  ),
                   const SizedBox(height: Espacos.x4),
                   CartaoSecao(
                     rotulo: 'Detalhamento do serviço',
@@ -94,15 +133,16 @@ class ComprovacaoScreen extends StatelessWidget {
                           valor: detalheServico.equipamento,
                         ),
                         _Linha(
-                            rotulo: 'Ordem',
-                            valor: estado.ordem.id.toUpperCase()),
+                          rotulo: 'Ordem',
+                          valor: estado.ordem.id.toUpperCase(),
+                        ),
                         _Linha(rotulo: 'Operador', valor: estado.operador.nome),
                       ],
                     ),
                   ),
                   const SizedBox(height: Espacos.x4),
                   CartaoSecao(
-                    rotulo: 'Localização',
+                    rotulo: 'Ponto da ordem',
                     filho: Column(
                       children: <Widget>[
                         _Linha(
@@ -129,7 +169,7 @@ class ComprovacaoScreen extends StatelessWidget {
                   const SizedBox(height: Espacos.x3),
                   if (!estado.comprovacaoCompleta)
                     const Text(
-                      'Faltam evidências para enviar a validacao.',
+                      'Faltam evidências para enviar a validação.',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 12, color: Cores.textoSuave),
                     ),
@@ -144,7 +184,6 @@ class ComprovacaoScreen extends StatelessWidget {
   }
 }
 
-/// Mostra ao operador exatamente o que falta — 3 evidencias, nem uma a menos.
 class _Progresso extends StatelessWidget {
   const _Progresso({required this.reunidas});
 
@@ -190,14 +229,22 @@ class _Progresso extends StatelessWidget {
 }
 
 class _CartaoGps extends StatelessWidget {
-  const _CartaoGps({required this.estado, required this.ponto});
+  const _CartaoGps({
+    required this.estado,
+    required this.ponto,
+    required this.aoCapturar,
+  });
 
   final EstadoOperacao estado;
   final PontoVegetacao ponto;
+  final VoidCallback aoCapturar;
 
   @override
   Widget build(BuildContext context) {
     final bool capturado = estado.gpsCapturado;
+    final double latitude = estado.gpsLatitude ?? ponto.latitude;
+    final double longitude = estado.gpsLongitude ?? ponto.longitude;
+    final double precisaoM = estado.gpsPrecisaoM ?? 0;
 
     return CartaoSecao(
       rotulo: 'Coordenada do registro',
@@ -207,12 +254,15 @@ class _CartaoGps extends StatelessWidget {
           if (capturado) ...<Widget>[
             Row(
               children: <Widget>[
-                const Icon(Icons.my_location,
-                    size: 20, color: Cores.riscoTranquilo),
+                const Icon(
+                  Icons.my_location,
+                  size: 20,
+                  color: Cores.riscoTranquilo,
+                ),
                 const SizedBox(width: Espacos.x3),
                 Expanded(
                   child: Text(
-                    formatarCoordenada(ponto.latitude, ponto.longitude),
+                    formatarCoordenada(latitude, longitude),
                     style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
@@ -224,17 +274,17 @@ class _CartaoGps extends StatelessWidget {
             ),
             const SizedBox(height: Espacos.x2),
             Text(
-              'Capturada às ${formatarHora(estado.gpsCapturadoEm!)} · precisão 4 m',
+              'Capturada às ${formatarHora(estado.gpsCapturadoEm!)} · precisão ${precisaoM.toStringAsFixed(0)} m',
               style: const TextStyle(fontSize: 12, color: Cores.textoSuave),
             ),
           ] else ...<Widget>[
             const Text(
-              'A coordenada do momento do registro prova que o operador esteve no ponto.',
+              'A localização do aparelho registra onde a evidência foi coletada.',
               style: TextStyle(fontSize: 13, color: Cores.textoSuave),
             ),
             const SizedBox(height: Espacos.x4),
             OutlinedButton.icon(
-              onPressed: estado.capturarGps,
+              onPressed: aoCapturar,
               icon: const Icon(Icons.my_location, size: 18),
               label: const Text('Capturar coordenada'),
               style: OutlinedButton.styleFrom(

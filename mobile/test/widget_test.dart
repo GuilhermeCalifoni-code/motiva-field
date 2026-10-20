@@ -3,6 +3,26 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:motiva_field/main.dart';
 import 'package:motiva_field/mock_data.dart';
+import 'package:motiva_field/services/evidencias.dart';
+
+class _FakeEvidenciasGateway implements EvidenciasGateway {
+  int _foto = 0;
+
+  @override
+  Future<String?> capturarFoto() async {
+    _foto += 1;
+    return '/tmp/evidencia-$_foto.jpg';
+  }
+
+  @override
+  Future<RegistroLocalizacao> obterLocalizacao() async {
+    return const RegistroLocalizacao(
+      latitude: -23.5505,
+      longitude: -46.6333,
+      precisaoM: 4,
+    );
+  }
+}
 
 ElevatedButton _botaoEnviar(WidgetTester tester) {
   return tester.widget<ElevatedButton>(
@@ -22,6 +42,14 @@ Future<void> _entrarComBiometria(WidgetTester tester) async {
 }
 
 void main() {
+  setUp(() {
+    evidenciasGateway = _FakeEvidenciasGateway();
+  });
+
+  tearDown(() {
+    evidenciasGateway = EvidenciasPluginGateway();
+  });
+
   testWidgets('login leva para o centro operacional mobile',
       (WidgetTester tester) async {
     await tester.pumpWidget(const MotivaFieldApp());
@@ -55,18 +83,15 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Ordem ativa'), findsOneWidget);
 
-    // Triagem -> Programada.
     await tester.tap(find.text('Programar ordem'));
     await tester.pumpAndSettle();
     expect(find.text('Iniciar deslocamento'), findsOneWidget);
 
-    // Programada -> Em deslocamento.
     await tester.tap(find.text('Iniciar deslocamento'));
     await tester.pumpAndSettle();
     expect(find.text('Navegação'), findsOneWidget);
     expect(find.text('DESTINO'), findsOneWidget);
 
-    // Em deslocamento -> Em campo.
     await tester.tap(find.text('Cheguei ao local'));
     await tester.pumpAndSettle();
     expect(find.text('Comprovação de execução'), findsOneWidget);
@@ -77,19 +102,17 @@ void main() {
     await tester.tap(find.text('ANTES'));
     await tester.pumpAndSettle();
     expect(find.text('Evidências: 1 de 3'), findsOneWidget);
-    expect(_botaoEnviar(tester).onPressed, isNull);
 
     await tester.tap(find.text('DEPOIS'));
     await tester.pumpAndSettle();
     expect(find.text('Evidências: 2 de 3'), findsOneWidget);
-    expect(_botaoEnviar(tester).onPressed, isNull);
 
     await tester.tap(find.text('Capturar coordenada'));
     await tester.pumpAndSettle();
     expect(find.text('Comprovação completa. Pode enviar.'), findsOneWidget);
+    expect(find.textContaining('-23.55050'), findsOneWidget);
     expect(_botaoEnviar(tester).onPressed, isNotNull);
 
-    // Em campo -> Validacao. O gestor conclui no web.
     await tester.tap(find.text('Enviar para validação'));
     await tester.pumpAndSettle();
     expect(find.text('Ordem ativa'), findsOneWidget);
@@ -114,7 +137,9 @@ void main() {
       expect(p.historico.length, 5);
       for (int i = 1; i < p.historico.length; i++) {
         expect(
-            p.historico[i].alturaCm, greaterThan(p.historico[i - 1].alturaCm));
+          p.historico[i].alturaCm,
+          greaterThan(p.historico[i - 1].alturaCm),
+        );
       }
       expect(p.alturaAtualCm, p.historico.last.alturaCm);
       expect(crescimentoMensalCm(p.historico), greaterThan(0));

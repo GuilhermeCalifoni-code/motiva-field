@@ -1,16 +1,17 @@
 name: motiva_field
 description: App do operador de campo do MOTIVA-FIELD. Leva o operador ate o ponto e comprova a execucao da rocada.
 publish_to: "none"
-version: 0.1.0
+version: 1.0.0+1
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.10.0"
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.29.0"
 
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
+  geolocator: ^14.1.2
   http: ^1.2.2
   http_parser: ^4.1.2
   image_picker: ^1.1.2

@@ -11,7 +11,7 @@
 
 - **Repositório final:** https://github.com/GuilhermeCalifoni-code/motiva-field
 - **APK Android:** https://github.com/GuilhermeCalifoni-code/motiva-field/releases/download/sprint4-final/motiva-field-sprint4.apk
-- **Vídeo final (YouTube — não listado):** PENDENTE — inserir o link após a gravação
+- **Vídeo final (YouTube — não listado):** https://youtu.be/rvEQD_30GY0
 - **Plano de negócio:** [docs/PLANO-DE-NEGOCIO-SPRINT4.md](docs/PLANO-DE-NEGOCIO-SPRINT4.md)
 - **Roteiro do pitch:** [docs/ROTEIRO-PITCH-SPRINT4.md](docs/ROTEIRO-PITCH-SPRINT4.md)
 
